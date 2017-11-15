@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 const React = require('react');
 const ReactDomServer = require('react-dom/server');
 const ReactHelmet = require('react-helmet');

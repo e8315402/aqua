@@ -2,5 +2,8 @@
     "presets": ["es2015", "react"],
     "ignore": [
       "server/models/*.js"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
     ]
 }

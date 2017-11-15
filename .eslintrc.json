@@ -1,9 +1,23 @@
-{
+{ 
   "extends": [
     "eslint-config-hapi",
     "plugin:react/recommended"
   ],
   "plugins": [
     "react"
-  ]
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env":{
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "hapi/hapi-scope-start": "off"
+  }
 }

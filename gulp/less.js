@@ -1,4 +1,4 @@
-'use strict';
+
 const Gulp = require('gulp');
 const Concat = require('gulp-concat');
 const Less = require('gulp-less');
