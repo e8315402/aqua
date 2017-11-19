@@ -12,7 +12,7 @@ const propTypes = {
 
 class MainPage extends React.Component {
     render() {
-
+        // console.log(this.props.markup)
         return (
             <html>
                 <head>

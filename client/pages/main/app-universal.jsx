@@ -23,22 +23,23 @@ const AppUniversal = function () {
 
     return (
         <div>
-            <Route component={Navbar} />
+            {/* <Route component={Navbar} /> */}
             <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/about" exact component={About} />
-                <Route path="/contact" exact component={Contact} />
-                <Route path="/login" exact component={Login} />
+                <Route path="/" exact component={Login} />
+                {/* <Route path="/about" exact component={About} /> */}
+                {/* <Route path="/contact" exact component={Contact} /> */}
+                {/* <Route path="/login" exact component={Login} /> */}
                 <Route path="/login/forgot" exact component={LoginForgot} />
                 <Route path="/login/reset/:email/:key" component={LoginReset} />
                 <Route path="/login/logout" exact component={LoginLogout} />
-                <Route path="/signup" exact component={Signup} />
+                {/* <Route path="/signup" exact component={Signup} /> */}
 
+                <RouteRedirect from="/login" to="/" />
                 <RouteRedirect from="/moved" to="/" code={301} />
 
                 <Route component={NotFound} />
             </Switch>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

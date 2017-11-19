@@ -1,4 +1,6 @@
 'use strict';
+// import logo from '../../../../assets/img/homework256.png';
+// const logo = require('../../../../assets/img/homework256.png');
 const Actions = require('../actions');
 const Button = require('../../../../components/form/button.jsx');
 const ControlGroup = require('../../../../components/form/control-group.jsx');
@@ -19,7 +21,7 @@ class LoginPage extends React.Component {
 
         super(props);
 
-        Actions.getUserCreds();
+        // Actions.getUserCreds();
 
         this.input = {};
         this.state = Store.getState();
@@ -101,7 +103,7 @@ class LoginPage extends React.Component {
                         Sign in
                         <Spinner space="left" show={this.state.loading} />
                     </Button>
-                    <Link to="/login/forgot" className="btn btn-link">Forgot your password?</Link>
+                    {<Link to="/login/forgot" className="btn btn-link">Forgot your password?</Link>}
                 </ControlGroup>
             </fieldset>;
         }
@@ -119,6 +121,9 @@ class LoginPage extends React.Component {
                                 {alerts}
                                 {formElements}
                             </form>
+                        </div>
+                        <div className="col-sm-6" style={{"textAlign":"center"}}>
+                            <img src="/public/pages/homework256.png" alt="logo_image" height="160px"/> 
                         </div>
                     </div>
                 </div>
