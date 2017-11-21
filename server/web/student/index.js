@@ -12,7 +12,7 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: 'student'
+                scope: 'account'
             }
         },
         handler: function (request, reply) {

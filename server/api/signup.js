@@ -11,6 +11,7 @@ const internals = {};
 internals.applyRoutes = function (server, next) {
 
     const Account = server.plugins['hapi-mongo-models'].Account;
+    const Student = server.plugins['hapi-mongo-models'].Student;
     const Session = server.plugins['hapi-mongo-models'].Session;
     const User = server.plugins['hapi-mongo-models'].User;
 
@@ -97,7 +98,9 @@ internals.applyRoutes = function (server, next) {
 
                     const name = request.payload.name;
 
-                    Account.create(name, done);
+                    
+                    // Account.create(name, done);
+                    Student.create(name,done);
                 }],
                 linkUser: ['account', function (results, done) {
 
@@ -111,7 +114,8 @@ internals.applyRoutes = function (server, next) {
                         }
                     };
 
-                    Account.findByIdAndUpdate(id, update, done);
+                    Student.findByIdAndUpdate(id, update, done);
+                    // Account.findByIdAndUpdate(id,update,done);
                 }],
                 linkAccount: ['account', function (results, done) {
 
@@ -119,7 +123,11 @@ internals.applyRoutes = function (server, next) {
                     const update = {
                         $set: {
                             roles: {
-                                account: {
+                                // account: {
+                                //     id: results.account._id.toString(),
+                                //     name: results.account.name.first + ' ' + results.account.name.last
+                                // }
+                                student: {
                                     id: results.account._id.toString(),
                                     name: results.account.name.first + ' ' + results.account.name.last
                                 }

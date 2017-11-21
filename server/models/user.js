@@ -190,6 +190,10 @@ User.schema = Joi.object().keys({
         account: Joi.object().keys({
             id: Joi.string().required(),
             name: Joi.string().required()
+        }),
+        student: Joi.object().keys({
+            id: Joi.string().required(),
+            name: Joi.string().required()
         })
     }),
     resetPassword: Joi.object().keys({

@@ -75,7 +75,8 @@ const manifest = {
                         AuthAttempt: './server/models/auth-attempt',
                         Session: './server/models/session',
                         Status: './server/models/status',
-                        User: './server/models/user'
+                        User: './server/models/user',
+                        Student: './server/models/student'
                     },
                     autoIndex: Config.get('/hapiMongoModels/autoIndex')
                 }
@@ -179,12 +180,13 @@ const store = new Confidence.Store(manifest);
 
 
 exports.get = function (key) {
-
+    console.log('key = ' + key)
     return store.get(key, criteria);
 };
 
 
 exports.meta = function (key) {
-
+    console.log('key = '+ key)
+    
     return store.meta(key, criteria);
 };

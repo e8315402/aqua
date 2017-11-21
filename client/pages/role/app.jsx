@@ -18,8 +18,10 @@ const App = (
         <div>
             <Route component={Navbar} />
             <Switch>
-                <Route path="/account" exact component={Home} />
-                <Route path="/account/settings" exact component={Settings} />
+                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={Settings} />
+                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={Settings} />
 
                 <Route component={NotFound} />
             </Switch>

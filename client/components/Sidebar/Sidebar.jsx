@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from 'assets/img/sidebar-3.jpg';
+// import imagine from 'assets/img/sidebar-3.jpg';
 // import logo from 'assets/img/reactlogo.png';
 // import logo from 'assets/img/homework256.png';
 
@@ -35,10 +35,10 @@ class Sidebar extends Component{
     }
     render(){
         const sidebarBackground = {
-            backgroundImage: 'url(' + imagine + ')'
+            backgroundImage: 'url(public/pages/sidebar-3.jpg)'
         };
         return (
-            <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
+            <div id="sidebar" className="sidebar" data-color="black" data-image={'public/pages/sidebar-3.jpg'}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
                 <div className="logo">
                     <a href="#/dashboard" className="simple-text logo-mini">

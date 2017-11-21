@@ -101,7 +101,7 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: ['admin', 'account']
+                scope: ['admin', 'account','student']
             }
         },
         handler: function (request, reply) {
@@ -305,7 +305,7 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: ['admin', 'account']
+                scope: ['admin', 'account','student']
             },
             validate: {
                 payload: {
@@ -448,7 +448,7 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: ['admin', 'account']
+                scope: ['admin', 'account','student']
             },
             validate: {
                 payload: {

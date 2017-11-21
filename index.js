@@ -14,5 +14,4 @@ const composeOptions = {
     }
 };
 
-
 module.exports = Glue.compose.bind(Glue, Manifest.get('/'), composeOptions);
