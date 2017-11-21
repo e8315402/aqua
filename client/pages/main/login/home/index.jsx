@@ -1,4 +1,4 @@
-'use strict';
+
 // import logo from '../../../../assets/img/homework256.png';
 // const logo = require('../../../../assets/img/homework256.png');
 const Actions = require('../actions');
@@ -103,8 +103,10 @@ class LoginPage extends React.Component {
                         Sign in
                         <Spinner space="left" show={this.state.loading} />
                     </Button>
+                    {/* <a href="/signup">Sign up</a> */}
                     {<Link to="/login/forgot" className="btn btn-link">Forgot your password?</Link>}
                 </ControlGroup>
+                <Link to="/signup" className="btn btn-link">Sign up</Link>
             </fieldset>;
         }
 
@@ -122,8 +124,8 @@ class LoginPage extends React.Component {
                                 {formElements}
                             </form>
                         </div>
-                        <div className="col-sm-6" style={{"textAlign":"center"}}>
-                            <img src="/public/pages/homework256.png" alt="logo_image" height="160px"/> 
+                        <div className="col-sm-6" style={{ 'textAlign':'center' }}>
+                            <img src="/public/pages/homework256.png" alt="logo_image" height="160px"/>
                         </div>
                     </div>
                 </div>

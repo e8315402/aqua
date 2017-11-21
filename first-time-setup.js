@@ -1,4 +1,3 @@
-'use strict';
 const Async = require('async');
 const MongoModels = require('mongo-models');
 const Mongodb = require('mongodb');
@@ -158,6 +157,44 @@ Async.auto({
 
             done(null, true);
         });
+    }],
+    setupCourse: ['setupRootUser', (results, done) => {
+        const Course = require('./server/models/course');
+
+        Async.auto({
+            connect: function (done) {
+                MongoModels.connect(results.mongodbUri, {}, done);
+            },
+            clean: ['connect', (dbResults, done) => {
+                Async.parallel([
+                    Course.deleteMany.bind(Course, {})
+                ], done);
+            }],
+            course: ['clean', function (dbResults, done) {
+                const document = {
+                    coursename: 'Software Engineering',
+                    instructor: {
+                        id: '123456789',
+                        name: 'Professor Liu'
+                    },
+                    classroom: '宏裕科技大樓 1322',
+                    coursetime: '星期二-第六節, 星期三-第八, 九節',
+                    timeCreated: new Date()
+                };
+                Course.insertOne(document, (err, docs) => {
+                    done(err, docs && docs[0]);
+                });
+            }]
+        },(err, dbResults) => {
+
+            if (err) {
+                console.error('Failed to setup the default course.');
+                return done(err);
+            }
+
+            done(null, true);
+        });
+
     }]
 }, (err, results) => {
 

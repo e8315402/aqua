@@ -1,4 +1,4 @@
-'use strict';
+
 
 
 const internals = {};
@@ -8,16 +8,16 @@ internals.applyRoutes = function (server, next) {
 
     server.route({
         method: 'GET',
-        path: '/account/{glob*}',
+        path: '/student/{glob*}',
         config: {
             auth: {
                 strategy: 'session',
-                scope: 'account'
+                scope: 'student'
             }
         },
         handler: function (request, reply) {
 
-            reply.view('account/index');
+            reply.view('student/index');
         }
     });
 
@@ -35,5 +35,5 @@ exports.register = function (server, options, next) {
 
 
 exports.register.attributes = {
-    name: 'web/account'
+    name: 'web/student'
 };

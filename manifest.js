@@ -1,4 +1,4 @@
-'use strict';
+
 const Confidence = require('confidence');
 const Config = require('./config.js');
 
@@ -69,7 +69,7 @@ const manifest = {
                 options: {
                     mongodb: Config.get('/hapiMongoModels/mongodb'),
                     models: {
-                        Account: './server/models/account',
+                        // Account: './server/models/account',
                         AdminGroup: './server/models/admin-group',
                         Admin: './server/models/admin',
                         AuthAttempt: './server/models/auth-attempt',
@@ -161,7 +161,7 @@ const manifest = {
             }
         },
         {
-            plugin: './server/web/account'
+            plugin: './server/web/student'
         },
         {
             plugin: './server/web/admin'
@@ -180,13 +180,13 @@ const store = new Confidence.Store(manifest);
 
 
 exports.get = function (key) {
-    console.log('key = ' + key)
+    console.log('key = ' + key);
     return store.get(key, criteria);
 };
 
 
 exports.meta = function (key) {
-    console.log('key = '+ key)
-    
+    console.log('key = ' + key);
+
     return store.meta(key, criteria);
 };

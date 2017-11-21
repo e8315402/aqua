@@ -17,7 +17,7 @@ class AdminPage extends React.Component {
                 <body>
                     <div id="app-mount"></div>
                     <script src="/public/core.min.js"></script>
-                    <script src="/public/pages/admin.min.js"></script>
+                    <script src="/public/pages/student.min.js"></script>
                 </body>
             </html>
         );

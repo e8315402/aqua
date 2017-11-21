@@ -37,7 +37,7 @@ Gulp.task('webpack', (callback) => {
     const config = {
         watch: global.isWatching,
         entry: {
-            account: './client/pages/account/index',
+            student: './client/pages/student/index',
             admin: './client/pages/admin/index',
             main: './client/pages/main/index'
         },

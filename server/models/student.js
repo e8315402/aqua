@@ -1,4 +1,4 @@
-'use strict';
+
 const Joi = require('joi');
 const MongoModels = require('mongo-models');
 const NoteEntry = require('./note-entry');
@@ -24,8 +24,6 @@ class Student extends MongoModels {
             if (err) {
                 return callback(err);
             }
-            console.log('****')
-            console.log(JSON.stringify(docs))
             callback(null, docs[0]);
         });
     }

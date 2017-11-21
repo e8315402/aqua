@@ -1,5 +1,5 @@
 /* global window */
-'use strict';
+
 const ApiActions = require('../../../actions/api');
 const Constants = require('./constants');
 const ForgotStore = require('./forgot/store');
@@ -75,7 +75,7 @@ class Actions {
                             window.location.href = '/admin';
                         }
                         else {
-                            window.location.href = '/account';
+                            window.location.href = '/student';
                         }
                     }
                 }
