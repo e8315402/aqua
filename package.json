@@ -8,7 +8,7 @@
     "first-time-setup": "node first-time-setup.js",
     "test": "lab -t 99 -S -T ./test/lab/transform -L --lint-options '{\"extensions\":[\".js\",\".jsx\"]}' ./test/lab/client-before.js ./test/client/ ./test/lab/client-after.js ./test/server/ ./test/lab/server-after.js ./test/misc/",
     "test-client": "lab -v -t 99 -S -T ./test/lab/transform ./test/lab/client-before.js $TEST_TARGET ./test/lab/client-after.js",
-    "test-server": "lab -v -t 99 -S -T ./test/lab/transform $TEST_TARGET ./test/lab/server-after.js",
+    "test-server": "lab -v -t 99 -S -T ./test/lab/transform ./test/server/api/course.js ./test/lab/server-after.js",
     "postinstall": "gulp build"
   },
   "author": "Reza Akhavan <jedireza@gmail.com> (http://reza.akhavan.me/)",
@@ -49,6 +49,7 @@
     "visionary": "6.x.x"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.6",
     "babel-core": "6.x.x",
     "babel-loader": "7.x.x",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -79,6 +80,8 @@
     "merge-stream": "1.x.x",
     "moment": "2.18.x",
     "nodemon": "1.x.x",
+    "postcss-flexbugs-fixes": "^3.2.0",
+    "postcss-loader": "^2.0.8",
     "promptly": "2.x.x",
     "prop-types": "15.x.x",
     "proxyquire": "1.x.x",
