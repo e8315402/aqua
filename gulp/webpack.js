@@ -66,21 +66,45 @@ Gulp.task('webpack', (callback) => {
                 },
                 {
                     test: /\.css$/,
-                    loader: 'style-loader!css-loader'
-                },
-                {
-                    test: /\.(woff|woff2|eot|ttf|svg)$/,
-                    loader: 'url-loader?limit=100000' },
-                {
-                    test: /\.(png|jpg|gif)$/,
                     use: [
+                        'style-loader',
                         {
-                            loader: 'file-loader',
+                            loader:'css-loader',
                             options: {
-                                name: '[name].[ext]'
+                                importLoaders: 1
+                            }
+                        },
+                        {
+                            loader:'postcss-loader',
+                            options: {
+                                ident: 'postcss',
+                                plugins: () => [
+                                    require('postcss-flexbugs-fixes'),
+                                    require('autoprefixer')({
+                                        browsers: [
+                                            '>1%',
+                                            'last 4 versions',
+                                            'Firefox ESR',
+                                            'not ie < 9'
+                                        ],
+                                        flexbox: 'no-2009'
+                                    })
+                                ]
                             }
                         }
                     ]
+                },
+                {
+                    test: /\.(woff|woff2|eot|ttf|svg)$/,
+                    loader: 'url-loader?limit=100000'
+                },
+                {
+                    test: [/\.bmp$/, /\.gif$/, /\.jpg$/, /\.png$/],
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10000,
+                        name: 'media/[name].[hash:8].[ext]'
+                    }
                 }
             ]
         },
