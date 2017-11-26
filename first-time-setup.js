@@ -174,7 +174,7 @@ Async.auto({
                 const document = {
                     coursename: 'Software Engineering',
                     instructor: {
-                        id: '123456789',
+                        _id: '123456789',
                         name: 'Professor Liu'
                     },
                     classroom: '宏裕科技大樓 1322',

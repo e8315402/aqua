@@ -8,14 +8,14 @@ const MongoModels = require('mongo-models');
 
 
 class Course extends MongoModels {
-    static create(courseName, instructor, classRoom, courseTime, callback) {
-
+    static create(courseName, instructor, students, classRoom, courseTime, callback) {
         const document = {
             coursename: courseName,
             instructor: {
-                _id: instructor.id,
+                _id: instructor._id,
                 name: instructor.name
             },
+            student: students.map((student) => ({ _id: student._id })),
             classroom: classRoom,
             coursetime: courseTime,
             timeCreated: new Date()
@@ -28,6 +28,16 @@ class Course extends MongoModels {
             }
             callback(null, docs[0]);
         });
+
+    }
+
+    static findByStudentId(studentId, callback) {
+
+        const filter =  {
+            'student._id': studentId
+        };
+
+        this.find(filter, callback);
     }
 
 }
@@ -44,8 +54,7 @@ Course.schema = Joi.object().keys({
         name: Joi.string().required()
     }),
     student: Joi.object().keys({
-        id: Joi.string().required(),
-        name: Joi.string().required()
+        _id: Joi.string().required()
     }),
     assignment: Joi.object().keys({
         id: Joi.string().required(),
