@@ -5,7 +5,7 @@ const NoteEntry = require('./note-entry');
 const StatusEntry = require('./status-entry');
 
 
-class Student extends MongoModels {
+class Instructor extends MongoModels {
     static create(_id, callback) {
 
         const document = {
@@ -22,19 +22,19 @@ class Student extends MongoModels {
         });
     }
 
-    static findById(studentId, callback) {
+    static findById(instructorId, callback) {
 
-        const query = { 'id': studentId };
+        const query = { 'id': instructorId };
 
         this.findOne(query, callback);
     }
 }
 
 
-Student.collection = 'students';
+Instructor.collection = 'students';
 
 
-Student.schema = Joi.object().keys({
+Instructor.schema = Joi.object().keys({
     _id: Joi.object(),
     user: Joi.object().keys({
         id: Joi.string().required(),
@@ -48,10 +48,10 @@ Student.schema = Joi.object().keys({
     timeCreated: Joi.date()
 });
 
-Student.indexes = [
+Instructor.indexes = [
     { key: { 'user.id': 1 } },
     { key: { 'user.name': 1 } }
 ];
 
 
-module.exports = Student;
+module.exports = Instructor;
