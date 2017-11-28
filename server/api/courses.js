@@ -15,23 +15,22 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: 'student'
+                scope: ['student', 'instructor']
             },
             validate: {
                 query: {
-                    studentId: Joi.string().length(9).required()
+                    id: Joi.string().length(9).required(),
+                    type:Joi.string().regex(/(student|instructor)$/).required()
                 }
             }
         },
         handler: function (request, reply) {
-
-            Course.findByStudentId(request.query.studentId, (err, results) => {
-                if (err) {
-                    return reply(err);
-                }
-
-                reply(results);
-            });
+            const filter = request.query.type === 'student' ? {
+                'student._id': request.query.id
+            } : {
+                'instructor.id': request.query.id
+            };
+            Course.find(filter, reply);
         }
     });
 

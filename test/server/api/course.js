@@ -86,7 +86,7 @@ lab.experiment('Courses Plugin Result List', () => {
 
             callback(Error('find failed'));
         };
-        request.url += '?studentId=105598067';
+        request.url += '?type=student&id=105598067';
         server.inject(request, (response) => {
             Code.expect(response.statusCode).to.equal(500);
             done();
@@ -97,7 +97,7 @@ lab.experiment('Courses Plugin Result List', () => {
 
         const realFindByStudentId = stub.Course.findByStudentId;
 
-        stub.Course.findByStudentId = function () {
+        stub.Course.find = function () {
 
             const args = Array.prototype.slice.call(arguments);
             const callback = args.pop();
@@ -105,7 +105,7 @@ lab.experiment('Courses Plugin Result List', () => {
             callback(null, { data: [{}, {}, {}] });
         };
 
-        request.url += '?studentId=105598047';
+        request.url += '?type=student&id=105598067';
 
         server.inject(request, (response) => {
 
@@ -128,11 +128,47 @@ lab.experiment('Courses Plugin Result List', () => {
         });
     });
 
-    lab.test('it returns fail when the query is invalid', (done) => {
-        request.url += '?studentId=10559806';
+    lab.test('it returns fail when the id is invalid', (done) => {
+        request.url += '?type=student&id=10559806';
 
         server.inject(request, (response) => {
             Code.expect(response.statusCode).to.equal(400);
+            done();
+        });
+    });
+
+    lab.test('it returns fail when the type is invalid', (done) => {
+        request.url += '?type=studentt&id=105598064';
+
+        server.inject(request, (response) => {
+            Code.expect(response.statusCode).to.equal(400);
+            done();
+        });
+    });
+
+    lab.test('it returns an array of course of the instructor', (done) => {
+        const realFindByStudentId = stub.Course.findByStudentId;
+
+        stub.Course.find = function () {
+
+            const args = Array.prototype.slice.call(arguments);
+            const callback = args.pop();
+
+            callback(null, { data: [{}, {}, {}] });
+        };
+
+        request.url += '?type=instructor&id=105598067';
+
+        server.inject(request, (response) => {
+
+            Code.expect(response.statusCode).to.equal(200);
+            Code.expect(response.result.data).to.be.an.array();
+            Code.expect(response.result.data[0]).to.be.an.object();
+            Code.expect(response.result.data[1]).to.be.an.object();
+            Code.expect(response.result.data[2]).to.be.an.object();
+
+            stub.Course.findByStudentId = realFindByStudentId;
+
             done();
         });
     });

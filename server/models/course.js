@@ -31,14 +31,14 @@ class Course extends MongoModels {
 
     }
 
-    static findByStudentId(studentId, callback) {
+    // static findByStudentId(studentId, callback) {
 
-        const filter =  {
-            'student._id': studentId
-        };
+    //     const filter =  {
+    //         'student._id': studentId
+    //     };
 
-        this.find(filter, callback);
-    }
+    //     this.find(filter, callback);
+    // }
 
 }
 
@@ -50,7 +50,7 @@ Course.schema = Joi.object().keys({
     _id: Joi.object(),
     coursename: Joi.string().required(),
     instructor: Joi.object().keys({
-        id: Joi.string().required(),
+        _id: Joi.string().required(),
         name: Joi.string().required()
     }),
     student: Joi.object().keys({
