@@ -1,4 +1,4 @@
-'use strict';
+
 const Account = require('./account');
 const Admin = require('./admin');
 const Async = require('async');
@@ -192,8 +192,7 @@ User.schema = Joi.object().keys({
             name: Joi.string().required()
         }),
         student: Joi.object().keys({
-            id: Joi.string().required(),
-            name: Joi.string().required()
+            id: Joi.string().required()
         })
     }),
     resetPassword: Joi.object().keys({

@@ -1,5 +1,5 @@
 const EscapeRegExp = require('escape-string-regexp');
-// const Joi = require('joi');
+const Joi = require('joi');
 
 
 const internals = {};
@@ -15,20 +15,21 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: 'admin'
+                scope: 'student'
+            },
+            validate: {
+                query: {
+                    studentId: Joi.string().length(9).required()
+                }
             }
         },
         handler: function (request, reply) {
 
-            const filter = {
-                coursename: 'Software Engineering'
-            };
-
-            Course.find(filter, (err, results) => {
+            Course.findByStudentId(request.query.studentId, (err, results) => {
                 if (err) {
                     return reply(err);
                 }
-                console.log(`\x1b[34m${JSON.stringify(results, null ,2)}\x1b[0m`);
+
                 reply(results);
             });
         }

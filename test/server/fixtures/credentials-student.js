@@ -4,21 +4,15 @@ const User = require('../../../server/models/user');
 
 
 const user = new User({
-    username: 'stimpy',
+    username: 'James',
     roles: {
-        account: {
-            id: '5250W35',
-            name: 'Stimpson J Cat'
+        student: {
+            id: '105598047'
         }
     },
     _roles: {
         student: new Student({
-            _id: '5250W35',
-            name: {
-                first: 'Stimpson',
-                middle: 'J',
-                last: 'Cat'
-            }
+            _id: '105598047'
         })
     }
 });

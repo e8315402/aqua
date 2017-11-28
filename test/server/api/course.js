@@ -1,8 +1,7 @@
 
 const CoursePlugin = require('../../../server/api/courses');
 const AuthPlugin = require('../../../server/auth');
-// const AuthenticatedStudent = require('../fixtures/credentials-student');
-const AuthenticatedAdmin = require('../fixtures/credentials-admin');
+const AuthenticatedStudent = require('../fixtures/credentials-student');
 const Code = require('code');
 const Config = require('../../../config');
 const Hapi = require('hapi');
@@ -73,7 +72,7 @@ lab.experiment('Courses Plugin Result List', () => {
         request = {
             method: 'GET',
             url: '/courses',
-            credentials: AuthenticatedAdmin
+            credentials: AuthenticatedStudent
         };
         done();
     });
@@ -87,52 +86,54 @@ lab.experiment('Courses Plugin Result List', () => {
 
             callback(Error('find failed'));
         };
-
+        request.url += '?studentId=105598067';
         server.inject(request, (response) => {
             Code.expect(response.statusCode).to.equal(500);
             done();
         });
     });
 
-    // lab.test('it returns an array of documents successfully', (done) => {
+    lab.test('it returns an array of courses of the student', (done) => {
 
-    //     stub.Account.pagedFind = function () {
+        const realFindByStudentId = stub.Course.findByStudentId;
 
-    //         const args = Array.prototype.slice.call(arguments);
-    //         const callback = args.pop();
+        stub.Course.findByStudentId = function () {
 
-    //         callback(null, { data: [{}, {}, {}] });
-    //     };
+            const args = Array.prototype.slice.call(arguments);
+            const callback = args.pop();
 
-    //     server.inject(request, (response) => {
+            callback(null, { data: [{}, {}, {}] });
+        };
 
-    //         Code.expect(response.statusCode).to.equal(200);
-    //         Code.expect(response.result.data).to.be.an.array();
-    //         Code.expect(response.result.data[0]).to.be.an.object();
+        request.url += '?studentId=105598047';
 
-    //         done();
-    //     });
-    // });
+        server.inject(request, (response) => {
 
-    // lab.test('it returns an array of documents successfully (using filters)', (done) => {
+            Code.expect(response.statusCode).to.equal(200);
+            Code.expect(response.result.data).to.be.an.array();
+            Code.expect(response.result.data[0]).to.be.an.object();
+            Code.expect(response.result.data[1]).to.be.an.object();
+            Code.expect(response.result.data[2]).to.be.an.object();
 
-    //     stub.Account.pagedFind = function () {
+            stub.Course.findByStudentId = realFindByStudentId;
 
-    //         const args = Array.prototype.slice.call(arguments);
-    //         const callback = args.pop();
+            done();
+        });
+    });
 
-    //         callback(null, { data: [{}, {}, {}] });
-    //     };
+    lab.test('it returns fail when the query is not exist', (done) => {
+        server.inject(request, (response) => {
+            Code.expect(response.statusCode).to.equal(400);
+            done();
+        });
+    });
 
-    //     request.url += '?username=ren';
+    lab.test('it returns fail when the query is invalid', (done) => {
+        request.url += '?studentId=10559806';
 
-    //     server.inject(request, (response) => {
-
-    //         Code.expect(response.statusCode).to.equal(200);
-    //         Code.expect(response.result.data).to.be.an.array();
-    //         Code.expect(response.result.data[0]).to.be.an.object();
-
-    //         done();
-    //     });
-    // });
+        server.inject(request, (response) => {
+            Code.expect(response.statusCode).to.equal(400);
+            done();
+        });
+    });
 });
