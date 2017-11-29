@@ -1,8 +1,4 @@
 
-const Account = require('./account');
-const Admin = require('./admin');
-const Async = require('async');
-const Bcrypt = require('bcrypt');
 const Joi = require('joi');
 const MongoModels = require('mongo-models');
 
@@ -30,15 +26,6 @@ class Course extends MongoModels {
         });
 
     }
-
-    // static findByStudentId(studentId, callback) {
-
-    //     const filter =  {
-    //         'student._id': studentId
-    //     };
-
-    //     this.find(filter, callback);
-    // }
 
 }
 
