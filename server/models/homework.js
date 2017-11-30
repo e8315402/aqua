@@ -9,10 +9,11 @@ const MongoModels = require('mongo-models');
 class Homework extends MongoModels {
     static create(filePath, studentId, courseName, assignmentName, callback) {
         const document = {
-            filepath:filePath,
-            studentid:studentId,
-            coursename:courseName,
-            assignmentname:assignmentName
+            filePath,
+            studentId,
+            courseName,
+            assignmentName,
+            timeCreated: new Date()
         };
 
         this.insertOne(document, (err, docs) => {
@@ -23,12 +24,7 @@ class Homework extends MongoModels {
         });
 
     }
-    // static expire(id, callback){
-    //     this.updateOne({ _id:id }, { $set:{ isExpired: true } });
-    // }
-    // static grade(score, callback){
 
-    // }
 }
 
 
@@ -38,12 +34,12 @@ Homework.collection = 'homeworks';
 Homework.schema = Joi.object().keys({
     _id: Joi.object(),
     timeCreated: Joi.date(),
-    filepath: Joi.string().required(),
-    studentid: Joi.string().length(9).required(),
+    filePath: Joi.string().required(),
+    studentId: Joi.string().length(9).required(),
     score: Joi.number(),
     isExpired: Joi.boolean().default(false),
-    coursename: Joi.string().required(),
-    assignmentname: Joi.string().required()
+    courseName: Joi.string().required(),
+    assignmentName: Joi.string().required()
 });
 
 

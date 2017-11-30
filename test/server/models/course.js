@@ -102,7 +102,9 @@ lab.experiment('Course Class Methods', () => {
                 return done(err);
             }
 
-            Course.findByStudentId(studentId, (err, courses) => {
+            const filter = { 'student._id': studentId };
+
+            Course.find(filter, (err, courses) => {
 
                 Code.expect(err).to.not.exist();
                 Code.expect(courses).to.be.an.array();
@@ -116,9 +118,9 @@ lab.experiment('Course Class Methods', () => {
 
 
 const compareCourse = function (courseObj, courseDateObj) {
-    Code.expect(courseObj.coursename).to.equal(courseDateObj.courseName);
-    Code.expect(courseObj.classroom).to.equal(courseDateObj.classRoom);
-    Code.expect(courseObj.coursetime).to.equal(courseDateObj.courseTime);
+    Code.expect(courseObj.courseName).to.equal(courseDateObj.courseName);
+    Code.expect(courseObj.classRoom).to.equal(courseDateObj.classRoom);
+    Code.expect(courseObj.courseTime).to.equal(courseDateObj.courseTime);
     Code.expect(courseObj.instructor._id).to.equal(courseDateObj.instructor._id);
     Code.expect(courseObj.instructor.name).to.equal(courseDateObj.instructor.name);
 };

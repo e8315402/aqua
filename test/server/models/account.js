@@ -1,4 +1,4 @@
-'use strict';
+
 const Account = require('../../../server/models/account');
 const Async = require('async');
 const Code = require('code');
@@ -11,7 +11,7 @@ const mongoUri = Config.get('/hapiMongoModels/mongodb/uri');
 const mongoOptions = Config.get('/hapiMongoModels/mongodb/options');
 
 
-lab.experiment('Account Class Methods', () => {
+lab.experiment.skip('Account Class Methods', () => {
 
     lab.before((done) => {
 

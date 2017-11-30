@@ -9,7 +9,7 @@ class Student extends MongoModels {
     static create(studentId, callback) {
 
         const document = {
-            id:studentId,
+            id: studentId,
             timeCreated: new Date()
         };
 

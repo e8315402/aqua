@@ -6,14 +6,14 @@ const MongoModels = require('mongo-models');
 class Course extends MongoModels {
     static create(courseName, instructor, students, classRoom, courseTime, callback) {
         const document = {
-            coursename: courseName,
+            courseName,
             instructor: {
                 _id: instructor._id,
                 name: instructor.name
             },
             student: students.map((student) => ({ _id: student._id })),
-            classroom: classRoom,
-            coursetime: courseTime,
+            classRoom,
+            courseTime,
             timeCreated: new Date()
         };
 
@@ -35,7 +35,7 @@ Course.collection = 'courses';
 
 Course.schema = Joi.object().keys({
     _id: Joi.object(),
-    coursename: Joi.string().required(),
+    courseName: Joi.string().required(),
     instructor: Joi.object().keys({
         _id: Joi.string().required(),
         name: Joi.string().required()
@@ -47,14 +47,14 @@ Course.schema = Joi.object().keys({
         id: Joi.string().required(),
         name: Joi.string().required()
     }),
-    classroom: Joi.string().required(),
-    coursetime: Joi.string().required(),
+    classRoom: Joi.string().required(),
+    courseTime: Joi.string().required(),
     timeCreated: Joi.date()
 });
 
 
 Course.indexes = [
-    { key: { coursename: 1, unique: 1 } }
+    { key: { courseName: 1, unique: 1 } }
 ];
 
 

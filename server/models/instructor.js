@@ -6,10 +6,10 @@ const StatusEntry = require('./status-entry');
 
 
 class Instructor extends MongoModels {
-    static create(_id, callback) {
+    static create(id, callback) {
 
         const document = {
-            id:_id,
+            id,
             timeCreated: new Date()
         };
 

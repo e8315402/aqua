@@ -73,9 +73,9 @@ lab.experiment('Homework Class Methods', () => {
                 return done(err);
             }
             const query = {
-                studentid: Variables.homeworks[0].studentId,
-                coursename: Variables.homeworks[0].courseName,
-                assignmentname: Variables.homeworks[0].assignmentName
+                studentId: Variables.homeworks[0].studentId,
+                courseName: Variables.homeworks[0].courseName,
+                assignmentName: Variables.homeworks[0].assignmentName
             };
             Homework.find(query, (err, homework) => {
                 Code.expect(err).to.not.exist();
@@ -90,9 +90,9 @@ lab.experiment('Homework Class Methods', () => {
 });
 
 const compareHomework = function (homeworkObj, homeworkDateObj) {
-    Code.expect(homeworkObj.filepath).to.equal(homeworkDateObj.filePath);
-    Code.expect(homeworkObj.studentid).to.equal(homeworkDateObj.studentId);
-    Code.expect(homeworkObj.coursename).to.equal(homeworkDateObj.courseName);
-    Code.expect(homeworkObj.assignmentname).to.equal(homeworkDateObj.assignmentName);
+    Code.expect(homeworkObj.filePath).to.equal(homeworkDateObj.filePath);
+    Code.expect(homeworkObj.studentId).to.equal(homeworkDateObj.studentId);
+    Code.expect(homeworkObj.courseName).to.equal(homeworkDateObj.courseName);
+    Code.expect(homeworkObj.assignmentName).to.equal(homeworkDateObj.assignmentName);
 
 };
