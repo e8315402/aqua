@@ -64,7 +64,7 @@ module.exports.homeworks = [
     {
         filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598067.txt',
         studentId : '105598067',
-        courseName : 'SoftwareEngineering',
+        courseName : 'Software Engineering',
         assignmentName : 'assignment1'
     }
 ];
