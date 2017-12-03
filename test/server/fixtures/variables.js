@@ -60,6 +60,24 @@ module.exports.courses = [
     }
 ];
 
+module.exports.assignments = [
+    {
+        assignmentName: 'Assignment 1',
+        description: 'This is assignment, this time you need to ...',
+        deadline: new Date()
+    },
+    {
+        assignmentName: 'Assignment 2',
+        description: 'This is assignment, this time you need to ...',
+        deadline: new Date()
+    },
+    {
+        assignmentName: 'Assignment 3',
+        description: 'This is assignment, this time you need to ...',
+        deadline: new Date()
+    }
+];
+
 module.exports.homeworks = [
     {
         filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598067.txt',

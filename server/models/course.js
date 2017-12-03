@@ -1,7 +1,5 @@
-
 const Joi = require('joi');
 const MongoModels = require('mongo-models');
-
 
 class Course extends MongoModels {
     static create(courseName, instructor, students, classRoom, courseTime, callback) {
@@ -17,14 +15,30 @@ class Course extends MongoModels {
             timeCreated: new Date()
         };
 
-        this.insertOne(document, (err, docs) => {
-
+        Course.validate(document, (err, value) => {
             if (err) {
                 return callback(err);
             }
-            callback(null, docs[0]);
+            this.insertOne(document, (err, docs) => {
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, docs[0]);
+            });
         });
+    }
 
+    static findAssignmentsByCourseName(courseName, callback) {
+        const filter = {
+            courseName
+        };
+
+        this.find(filter, (err, docs) => {
+            if (err) {
+                return callback(err);
+            }
+            callback(null, docs[0].assignment);
+        });
     }
 
 }
@@ -40,13 +54,17 @@ Course.schema = Joi.object().keys({
         _id: Joi.string().required(),
         name: Joi.string().required()
     }),
-    student: Joi.object().keys({
-        _id: Joi.string().required()
-    }),
-    assignment: Joi.object().keys({
-        id: Joi.string().required(),
-        name: Joi.string().required()
-    }),
+    student: Joi.array().items(
+        Joi.object().keys({
+            _id: Joi.string().required()
+        })
+    ),
+    assignment: Joi.array().items(
+        Joi.object().keys({
+            _id: Joi.string().required(),
+            assignmentName: Joi.string().required()
+        })
+    ),
     classRoom: Joi.string().required(),
     courseTime: Joi.string().required(),
     timeCreated: Joi.date()

@@ -1,8 +1,4 @@
 const Course = require('../../../server/models/course');
-const Student = require('../../../server/models/student');
-const Instructor = require('../../../server/models/instructor');
-const User = require('../../../server/models/user');
-
 
 const Async = require('async');
 const Code = require('code');
