@@ -1,4 +1,4 @@
-'use strict';
+
 const Async = require('async');
 const Boom = require('boom');
 const Config = require('../../config');
@@ -98,7 +98,7 @@ internals.applyRoutes = function (server, next) {
 
                     const name = request.payload.name;
 
-                    
+
                     // Account.create(name, done);
                     Student.create(name,done);
                 }],
@@ -128,8 +128,8 @@ internals.applyRoutes = function (server, next) {
                                 //     name: results.account.name.first + ' ' + results.account.name.last
                                 // }
                                 student: {
-                                    id: results.account._id.toString(),
-                                    name: results.account.name.first + ' ' + results.account.name.last
+                                    id: results.account._id.toString()
+                                    // name: results.account.name.first + ' ' + results.account.name.last
                                 }
                             }
                         }

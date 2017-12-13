@@ -5,6 +5,8 @@ const Code = require('code');
 const Config = require('../../../config');
 const Lab = require('lab');
 const homeworks = require('../fixtures/variables').homeworks;
+const assignments = require('../fixtures/variables').assignments;
+const courses = require('../fixtures/variables').courses;
 const lab = exports.lab = Lab.script();
 const mongoUri = Config.get('/hapiMongoModels/mongodb/uri');
 const mongoOptions = Config.get('/hapiMongoModels/mongodb/options');
@@ -18,7 +20,7 @@ lab.experiment('Homework Class Methods', () => {
 
     });
 
-    lab.afterEach((done) => {
+    lab.beforeEach((done) => {
         Homework.deleteMany({}, (err, count) => {
             done(err);
         });
@@ -71,12 +73,34 @@ lab.experiment('Homework Class Methods', () => {
                 Code.expect(err).to.not.exist();
                 Code.expect(homework[0]).to.be.an.instanceOf(Homework);
                 compareHomework(homework[0],homeworks[0]);
-
                 done(err);
             });
         });
     });
 
+    lab.test('it returns homeworks through the specific assignment', (done) => {
+        Async.auto({
+            homeworks: function (cb) {
+                Async.concat(homeworks, (homework, _cb) => {
+                    Homework.create(homework.courseName, homework.assignmentName, homework.filePath, homework.studentId, _cb);
+                }, cb);
+            }
+        }, (err, results) => {
+            if (err) {
+                return done(err);
+            }
+            const filter = {
+                courseName: courses[1].courseName,
+                assignmentName: assignments[0].assignmentName
+            };
+            Homework.find(filter, (err, resHomeworks) => {
+                Code.expect(err).to.not.exist();
+                Code.expect(resHomeworks).to.be.an.array();
+                compareHomework(resHomeworks[0], homeworks[0]);
+                done();
+            });
+        });
+    });
 });
 
 const compareHomework = function (homeworkObj, homeworkDateObj) {
