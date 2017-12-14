@@ -32,9 +32,10 @@ lab.experiment('Homework Class Methods', () => {
     });
 
     lab.test('it returns a new instance when create succeeds', (done) => {
-        Homework.create(homeworks[0].filePath, homeworks[0].studentId, homeworks[0].courseName, homeworks[0].assignmentName, (err, result) => {
+        Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].filePath, (err, result) => {
             Code.expect(err).to.not.exist();
             Code.expect(result).to.be.an.instanceOf(Homework);
+            compareHomework(result, homeworks[0]);
             done();
         });
     });
@@ -58,7 +59,7 @@ lab.experiment('Homework Class Methods', () => {
     lab.test('it returns a result when finding by studentId, courseName and assignmentName', (done) => {
         Async.auto({
             homework: function (cb) {
-                Homework.create(homeworks[0].filePath, homeworks[0].studentId, homeworks[0].courseName, homeworks[0].assignmentName, cb);
+                Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].filePath, cb);
             }
         }, (err, results) => {
             if (err) {
@@ -82,7 +83,7 @@ lab.experiment('Homework Class Methods', () => {
         Async.auto({
             homeworks: function (cb) {
                 Async.concat(homeworks, (homework, _cb) => {
-                    Homework.create(homework.courseName, homework.assignmentName, homework.filePath, homework.studentId, _cb);
+                    Homework.create(homework.courseName, homework.assignmentName, homework.studentId, homework.filePath, _cb);
                 }, cb);
             }
         }, (err, results) => {
@@ -101,6 +102,33 @@ lab.experiment('Homework Class Methods', () => {
             });
         });
     });
+
+    lab.test('it should have score after marking it', (done) => {
+        Async.auto({
+            homework: function (cb) {
+                Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].filePath, cb);
+            },
+            marks: ['homework', function (results, cb) {
+                Homework.marks(results.homework.courseName, results.homework.assignmentName, results.homework.studentId, homeworks[0].score, cb);
+            }]
+        }, (err, results) => {
+            if (err) {
+                return done(err);
+            }
+            const filter = {
+                courseName: homeworks[0].courseName,
+                assignmentName: homeworks[0].assignmentName,
+                studentId: homeworks[0].studentId
+            };
+            Homework.find(filter, (err, resHomeworks) => {
+                Code.expect(err).to.not.exist();
+                Code.expect(resHomeworks).to.be.an.array();
+                compareHomework(resHomeworks[0], homeworks[0]);
+                done();
+            });
+        });
+    });
+
 });
 
 const compareHomework = function (homeworkObj, homeworkDateObj) {
@@ -108,4 +136,7 @@ const compareHomework = function (homeworkObj, homeworkDateObj) {
     Code.expect(homeworkObj.studentId).to.equal(homeworkDateObj.studentId);
     Code.expect(homeworkObj.courseName).to.equal(homeworkDateObj.courseName);
     Code.expect(homeworkObj.assignmentName).to.equal(homeworkDateObj.assignmentName);
+    if (homeworkObj.score) {
+        Code.expect(homeworkObj.score).to.equal(homeworkDateObj.score);
+    }
 };

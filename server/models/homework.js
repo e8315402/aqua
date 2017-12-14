@@ -4,7 +4,7 @@ const MongoModels = require('mongo-models');
 
 
 class Homework extends MongoModels {
-    static create(courseName, assignmentName, filePath, studentId, callback) {
+    static create(courseName, assignmentName, studentId, filePath, callback) {
         const document = {
             courseName,
             assignmentName,
@@ -21,6 +21,20 @@ class Homework extends MongoModels {
         });
 
     }
+
+    static marks(courseName, assignmentName, studentId, score, cb) {
+        const filter = {
+            courseName,
+            assignmentName,
+            studentId
+        };
+        const update = {
+            $set: {
+                score
+            }
+        };
+        Homework.findOneAndUpdate(filter, update, cb);
+    }
 }
 
 
@@ -34,8 +48,7 @@ Homework.schema = Joi.object().keys({
     timeCreated: Joi.date(),
     filePath: Joi.string().required(),
     studentId: Joi.string().length(9).required(),
-    score: Joi.number(),
-    isExpired: Joi.boolean().default(false)
+    score: Joi.number().min(0).max(100)
 });
 
 
