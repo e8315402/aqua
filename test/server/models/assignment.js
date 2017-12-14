@@ -54,9 +54,10 @@ lab.experiment('Assignment Class Methods', () => {
     });
 
     lab.test('it returns a new instance when create succeeds', (done) => {
-        Assignment.create(assignments[0].assignmentName, assignments[0].description, assignments[0].deadline, (err, result) => {
+        Assignment.create(assignments[0].courseName, assignments[0].assignmentName, assignments[0].description, assignments[0].deadline, (err, result) => {
             Code.expect(err).to.not.exist();
             Code.expect(result).to.be.an.instanceOf(Assignment);
+            compareAssignment(result, assignments[0]);
             done();
         });
     });
@@ -68,8 +69,7 @@ lab.experiment('Assignment Class Methods', () => {
             const callback = args.pop();
             callback(Error('insert failed'));
         };
-
-        Assignment.create(assignments[0].assignmentName, assignments[0].description, assignments[0].deadline, (err, result) => {
+        Assignment.create(assignments[0].courseName, assignments[0].assignmentName, assignments[0].description, assignments[0].deadline, (err, result) => {
             Code.expect(err).to.be.an.object();
             Code.expect(result).to.not.exist();
             Assignment.insertOne = realInsertOne;
@@ -79,40 +79,17 @@ lab.experiment('Assignment Class Methods', () => {
 
     lab.test('it returns results through the specific course', (done) => {
         Async.auto({
-            courses: function (cb) {
-                Async.concat(courses, (course, _cb) => {
-                    Course.create(course.courseName, course.instructor, course.students, course.classRoom, course.courseTime, _cb);
-                }, cb);
-            },
-            assignments: ['courses', function (results, cb) {
-                Async.concat(assignments, (assignment, _cb) => {
-                    Assignment.create(assignment.assignmentName, assignment.description, assignment.deadline, _cb);
-                }, cb);
-            }],
-            addAssignmentToCourse: ['courses', 'assignments', function (results, cb) {
-                const _courses = results.courses;
-                const _assignments = results.assignments;
-                const update = {
-                    $set: {
-                        assignment: _assignments.map((each) => (
-                            {
-                                _id: each._id,
-                                assignmentName: each.assignmentName
-                            }
-                        ))
-                    }
-                };
-
-                Async.concat(_courses, (course, _cb) => {
-                    Course.findByIdAndUpdate(course._id, update, _cb);
-                }, cb);
-            }]
+            assignment: function (cb) {
+                Assignment.create(assignments[0].courseName, assignments[0].assignmentName, assignments[0].description, assignments[0].deadline, cb);
+            }
         }, (err, results) => {
             if (err) {
                 return done(err);
             }
-
-            Course.findAssignmentsByCourseName(courses[0].courseName, (err, resAssignments) => {
+            const filter = {
+                courseName: assignments[0].courseName
+            };
+            Assignment.find(filter, (err, resAssignments) => {
                 Code.expect(err).to.not.exist();
                 Code.expect(resAssignments).to.be.an.array();
                 compareAssignment(resAssignments[0], assignments[0]);
@@ -121,8 +98,37 @@ lab.experiment('Assignment Class Methods', () => {
         });
     });
 
+    lab.test('it should be expired after deadline', (done) => {
+        Async.auto({
+            assignment: function (cb) {
+                Assignment.create(assignments[0].courseName, assignments[0].assignmentName, assignments[0].description, assignments[0].deadline, cb);
+            }
+        }, (err, results) => {
+            if (err) {
+                return done(err);
+            }
+            const filter = {
+                courseName: assignments[0].courseName
+            };
+            const update = {
+                $set: {
+                    isExpired: true
+                }
+            };
+            Assignment.findOneAndUpdate(filter, update, (err, resAssignments) => {
+                Code.expect(err).to.not.exist();
+                Code.expect(resAssignments).to.be.an.object();
+                Code.expect(resAssignments.isExpired).to.equal(true);
+                done(err);
+            });
+        });
+    });
+
 });
 
 const compareAssignment = function (assignmentObj, assignmentDateObj) {
+    Code.expect(assignmentObj.courseName).to.equal(assignmentDateObj.courseName);
     Code.expect(assignmentObj.assignmentName).to.equal(assignmentDateObj.assignmentName);
+    Code.expect(assignmentObj.description).to.equal(assignmentDateObj.description);
+    Code.expect(assignmentObj.deadline).to.equal(assignmentDateObj.deadline);
 };

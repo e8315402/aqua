@@ -62,17 +62,38 @@ module.exports.courses = [
 
 module.exports.assignments = [
     {
+        courseName: 'Software Engineering',
         assignmentName: 'Assignment 1',
         description: 'This is assignment, this time you need to ...',
         deadline: new Date()
     },
     {
+        courseName: 'Software Engineering',
         assignmentName: 'Assignment 2',
         description: 'This is assignment, this time you need to ...',
         deadline: new Date()
     },
     {
+        courseName: 'Software Engineering',
         assignmentName: 'Assignment 3',
+        description: 'This is assignment, this time you need to ...',
+        deadline: new Date()
+    },
+    {
+        courseName: 'Object-Oriented Analysis and Design',
+        assignmentName: 'Assignment 1',
+        description: 'This is assignment, this time you need to ...',
+        deadline: new Date()
+    },
+    {
+        courseName: 'Object-Oriented Analysis and Design',
+        assignmentName: 'Assignment 2',
+        description: 'This is assignment, this time you need to ...',
+        deadline: new Date()
+    },
+    {
+        courseName: 'Pattern-Oriented Software Design',
+        assignmentName: 'Assignment 1',
         description: 'This is assignment, this time you need to ...',
         deadline: new Date()
     }
@@ -83,19 +104,22 @@ module.exports.homeworks = [
         filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598067.txt',
         studentId : '105598067',
         courseName : 'Software Engineering',
-        assignmentName : 'Assignment 1'
+        assignmentName : 'Assignment 1',
+        score: 86
     },
     {
         filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598077.txt',
         studentId : '105598077',
         courseName : 'Software Engineering',
-        assignmentName : 'Assignment 1'
+        assignmentName : 'Assignment 1',
+        score: 65
     },
     {
         filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598088.txt',
         studentId : '105598088',
         courseName : 'Software Engineering',
-        assignmentName : 'Assignment 1'
+        assignmentName : 'Assignment 1',
+        score: 94
     }
 ];
 

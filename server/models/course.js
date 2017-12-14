@@ -28,19 +28,6 @@ class Course extends MongoModels {
         });
     }
 
-    static findAssignmentsByCourseName(courseName, callback) {
-        const filter = {
-            courseName
-        };
-
-        this.find(filter, (err, docs) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, docs[0].assignment);
-        });
-    }
-
 }
 
 
@@ -57,12 +44,6 @@ Course.schema = Joi.object().keys({
     student: Joi.array().items(
         Joi.object().keys({
             _id: Joi.string().required()
-        })
-    ),
-    assignment: Joi.array().items(
-        Joi.object().keys({
-            _id: Joi.string().required(),
-            assignmentName: Joi.string().required()
         })
     ),
     classRoom: Joi.string().required(),

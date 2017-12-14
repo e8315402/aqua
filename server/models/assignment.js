@@ -4,8 +4,9 @@ const MongoModels = require('mongo-models');
 
 
 class Assignment extends MongoModels {
-    static create(assignmentName, description, deadline, callback) {
+    static create(courseName, assignmentName, description, deadline, callback) {
         const document = {
+            courseName,
             assignmentName,
             description,
             deadline,
@@ -30,12 +31,10 @@ Assignment.collection = 'assignments';
 Assignment.schema = Joi.object().keys({
     _id: Joi.object(),
     timeCreated: Joi.date(),
+    courseName: Joi.string().required(),
     assignmentName: Joi.string().required(),
     description: Joi.string().required(),
     deadline: Joi.date().required(),
-    homework: Joi.object().keys({
-        studentId: Joi.string().length(9).required()
-    }),
     isExpired: Joi.boolean().default(false)
 });
 
