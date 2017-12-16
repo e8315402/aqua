@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
     Route,
@@ -11,9 +10,7 @@ import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 
-// const Dashboard = require('./views/Dashboard/Dashboard');
-
-import Dashboard from './views/Dashboard/Dashboard';
+import MyCourse from './views/MyCourse/MyCourse';
 
 class App extends Component {
     render() {
@@ -24,9 +21,8 @@ class App extends Component {
                     <Header {...this.props}/>
 
                     <Switch>
-                        <Route path="/student" component={Dashboard}/>
-                        {/* <Route path="/student/settings" component={Dashboard}/> */}
-                        {/* <Redirect from="/" to="/dashboard"/> */}
+                        <Route path="/course" component={MyCourse}/>
+                        <Redirect from="/" to="/course"/>
                     </Switch>
 
                     <Footer />
@@ -36,4 +32,4 @@ class App extends Component {
     }
 }
 
-module.exports = App;
+export default App;

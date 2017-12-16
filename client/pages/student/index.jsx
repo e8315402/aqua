@@ -27,7 +27,7 @@ const Page = {
                     </Switch>
                 </HashRouter>
             ),
-            window.document.getElementById('app-mount')
+            window.document.getElementById('root')
         );
     }
 };

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import cx from 'classnames';
-import PropTypes from 'prop-types';
+const React = require('react');
+const Button = require('react-bootstrap').Button;
+const ClassNames = require('classnames');
+const PropTypes = require('prop-types');
 
-class CustomButton extends Component {
+class CustomButton extends React.Component {
     render() {
         const { fill, simple, pullRight, block, ...rest } = this.props;
 
-        const btnClasses = cx({
+        const btnClasses = ClassNames({
             'btn-fill': fill,
             'btn-simple': simple,
             'pull-right': pullRight,
@@ -20,7 +20,7 @@ class CustomButton extends Component {
                 {...rest}
             />
         );
-  }
+    }
 }
 
 CustomButton.propTypes = {
@@ -28,6 +28,6 @@ CustomButton.propTypes = {
     simple: PropTypes.bool,
     pullRight: PropTypes.bool,
     block: PropTypes.bool
-}
+};
 
-export default CustomButton;
+module.exports = CustomButton;

@@ -9,13 +9,9 @@ class AdminPage extends React.Component {
             <html>
                 <head>
                     <title>Student</title>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    {/* <link rel="stylesheet" href="/public/core.min.css" />
-                    <link rel="stylesheet" href="/public/pages/admin.min.css" />
-                    <link rel="shortcut icon" href="/public/media/favicon.ico" /> */}
                 </head>
                 <body>
-                    <div id="app-mount"></div>
+                    <div id="root"></div>
                     <script src="/public/core.min.js"></script>
                     <script src="/public/pages/student.min.js"></script>
                 </body>
