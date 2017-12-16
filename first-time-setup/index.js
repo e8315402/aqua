@@ -5,6 +5,7 @@ const Promptly = require('promptly');
 const Courses = require('./variables').courses;
 const Assignments = require('./variables').assignments;
 const Students = require('./variables').students;
+const Homeworks = require('./variables').homeworks;
 
 
 Async.auto({
@@ -14,9 +15,9 @@ Async.auto({
             default: 'mongodb://localhost:27017/aqua'
         };
 
-        // done(null, 'mongodb://localhost:27017/aqua');
+        done(null, 'mongodb://localhost:27017/aqua');
 
-        Promptly.prompt(`MongoDB URI: (${options.default})`, options, done);
+        // Promptly.prompt(`MongoDB URI: (${options.default})`, options, done);
     },
     testMongo: ['mongodbUri', (results, done) => {
 
@@ -32,12 +33,12 @@ Async.auto({
         });
     }],
     rootEmail: ['testMongo', (results, done) => {
-        // done(null, 'admin');
-        Promptly.prompt('Root user email:', done);
+        done(null, 'admin');
+        // Promptly.prompt('Root user email:', done);
     }],
     rootPassword: ['rootEmail', (results, done) => {
-        // done(null, 'admin');
-        Promptly.password('Root user password:', done);
+        done(null, 'admin');
+        // Promptly.password('Root user password:', done);
     }],
     setupRootUser: ['rootPassword', (results, done) => {
 
@@ -49,6 +50,10 @@ Async.auto({
         const Status = require('../server/models/status');
         const User = require('../server/models/user');
         const Student = require('../server/models/Student');
+        const Course = require('../server/models/course');
+        const Homework = require('../server/models/homework');
+        const Assignment = require('../server/models/assignment');
+
         Async.auto({
             connect: function (done) {
 
@@ -64,8 +69,10 @@ Async.auto({
                     Session.deleteMany.bind(Session, {}),
                     Status.deleteMany.bind(Status, {}),
                     User.deleteMany.bind(User, {}),
-                    Student.deleteMany.bind(Student, {})
-
+                    Student.deleteMany.bind(Student, {}),
+                    Course.deleteMany.bind(Course, {}),
+                    Homework.deleteMany.bind(Homework, {}),
+                    Assignment.deleteMany.bind(Assignment, {})
                 ], done);
             }],
             adminGroup: ['clean', function (dbResults, done) {
@@ -172,12 +179,7 @@ Async.auto({
             connect: function (done) {
                 MongoModels.connect(results.mongodbUri, {}, done);
             },
-            clean: ['connect', (dbResults, done) => {
-                Async.parallel([
-                    Course.deleteMany.bind(Course, {})
-                ], done);
-            }],
-            course: ['clean', function (dbResults, done) {
+            course: ['connect', function (dbResults, done) {
                 Async.each(Courses, (course, _cb) => {
                     Course.create(course.courseName, course.instructor, course.students, course.classRoom, course.courseTime, course.courseWebsite, _cb);
                 }, done);
@@ -199,12 +201,7 @@ Async.auto({
             connect: function (done) {
                 MongoModels.connect(results.mongodbUri, {}, done);
             },
-            clean: ['connect', (dbResults, done) => {
-                Async.parallel([
-                    Assignment.deleteMany.bind(Assignment, {})
-                ], done);
-            }],
-            course: ['clean', function (dbResults, done) {
+            course: ['connect', function (dbResults, done) {
                 Async.each(Assignments, (assignment, _cb) => {
                     Assignment.create(assignment.courseName, assignment.assignmentName, assignment.description, assignment.deadline, _cb);
                 }, done);
@@ -219,7 +216,7 @@ Async.auto({
             done(null, true);
         });
     }],
-    setupStudent:['setupRootUser',(results,done) => {
+    setupStudent:['setupRootUser', (results, done) => {
 
         const User = require('../server/models/user');
         const Student = require('../server/models/student');
@@ -273,6 +270,29 @@ Async.auto({
             done(null, true);
         });
 
+    }],
+    setupHomework: ['setupRootUser', (results, done) => {
+
+        const Homework = require('../server/models/homework');
+
+        Async.auto({
+            connect: function (done) {
+                MongoModels.connect(results.mongodbUri, {}, done);
+            },
+            course: ['connect', function (dbResults, done) {
+                Async.each(Homeworks, (homework, _cb) => {
+                    Homework.create(homework.courseName, homework.assignmentName, homework.studentId, homework.filePath, _cb);
+                }, done);
+            }]
+        },(err, dbResults) => {
+
+            if (err) {
+                console.error('Failed to setup the default course.');
+                return done(err);
+            }
+
+            done(null, true);
+        });
     }]
 }, (err, results) => {
 

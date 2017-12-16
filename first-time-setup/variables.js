@@ -99,25 +99,47 @@ module.exports.assignments = [
 
 module.exports.homeworks = [
     {
-        filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598067.txt',
-        studentId : '105598067',
+        filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598047.txt',
+        studentId : '105598047',
         courseName : 'Software Engineering',
         assignmentName : 'Assignment 1',
         score: 86
     },
     {
-        filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598077.txt',
-        studentId : '105598077',
+        filePath : 'C:/PASS/SoftwareEngineering/assignment2/105598047.txt',
+        studentId : '105598047',
         courseName : 'Software Engineering',
-        assignmentName : 'Assignment 1',
+        assignmentName : 'Assignment 2',
         score: 65
     },
     {
-        filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598088.txt',
-        studentId : '105598088',
+        filePath : 'C:/PASS/SoftwareEngineering/assignment3/105598047.txt',
+        studentId : '105598047',
+        courseName : 'Software Engineering',
+        assignmentName : 'Assignment 3',
+        score: 94
+    },
+
+    {
+        filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598055.txt',
+        studentId : '105598055',
         courseName : 'Software Engineering',
         assignmentName : 'Assignment 1',
-        score: 94
+        score: 99
+    },
+    {
+        filePath : 'C:/PASS/SoftwareEngineering/assignment2/105598055.txt',
+        studentId : '105598055',
+        courseName : 'Software Engineering',
+        assignmentName : 'Assignment 2',
+        score: 56
+    },
+    {
+        filePath : 'C:/PASS/SoftwareEngineering/assignment3/105598055.txt',
+        studentId : '105598055',
+        courseName : 'Software Engineering',
+        assignmentName : 'Assignment 3',
+        score: 87
     }
 ];
 
