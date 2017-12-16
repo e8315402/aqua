@@ -3,7 +3,7 @@ const Actions = require('./actions');
 const Store = require('./store');
 const Results = require('./results.jsx');
 
-class MyCourse extends React.Component {
+class Course extends React.Component {
     constructor(props) {
         super(props);
         Actions.getResults();
@@ -22,7 +22,6 @@ class MyCourse extends React.Component {
     }
 
     render() {
-        console.log(`Render: ${JSON.stringify(this.state.results)}`);
         return (
             <div className="content">
                 <div className="container-fluid">
@@ -35,4 +34,4 @@ class MyCourse extends React.Component {
     }
 }
 
-module.exports = MyCourse;
+module.exports = Course;

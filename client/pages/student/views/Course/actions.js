@@ -1,7 +1,6 @@
 import ApiActions from 'actions/api';
 import Constants from './constants';
 import Store from './store';
-// import Qs from 'qs';
 
 class Actions {
     static getResults() {

@@ -10,7 +10,7 @@ import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 
-import MyCourse from './views/MyCourse/MyCourse';
+import Course from './views/Course/Course';
 
 class App extends Component {
     render() {
@@ -21,8 +21,8 @@ class App extends Component {
                     <Header {...this.props}/>
 
                     <Switch>
-                        <Route path="/course" component={MyCourse}/>
-                        <Redirect from="/" to="/course"/>
+                        <Route path="/courses" component={Course}/>
+                        <Redirect from="/" to="/courses"/>
                     </Switch>
 
                     <Footer />

@@ -33,7 +33,7 @@ class Results extends React.Component {
                         return (
                             <div key={key} className="col-sm-6 col-md-4 col-lg-3">
                                 <CourseCard
-                                    courseLink={key === 0 ? '#/assignments' : '#/table'}
+                                    courseLink='#/assignments'
                                     bgImage={Image}
                                     courseName={eachCourse.courseName}
                                     description={
@@ -44,7 +44,7 @@ class Results extends React.Component {
                                         </span>
                                     }
                                     socials={
-                                        <Button simple href='/' target="_blank"><i className="pe-7s-home"></i> Course home</Button>
+                                        <Button simple href={eachCourse.courseWebsite} target="_blank"><i className="pe-7s-home"></i> Course home</Button>
                                     }
                                 />
                             </div>
