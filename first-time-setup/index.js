@@ -235,12 +235,7 @@ Async.auto({
             }],
             users: ['connect', function (dbResults, done) {
                 Async.map(Students, (student, _cb) => {
-                    User.generatePasswordHash(student.studentId, (err, passResult) => {
-                        if (err){
-                            _cb(err);
-                        }
-                        User.create(student.user.name, passResult.hash, 'default@gmail.com', _cb);
-                    });
+                    User.create(student.user.name, student.studentId, 'default@gmail.com', _cb);
                 }, done);
             }],
             linkUser: ['students', 'users', function (dbResults, done) {
