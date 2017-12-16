@@ -9,7 +9,7 @@ class Student extends MongoModels {
     static create(studentId, callback) {
 
         const document = {
-            id: studentId,
+            studentId,
             timeCreated: new Date()
         };
 
@@ -24,7 +24,7 @@ class Student extends MongoModels {
 
     static findById(studentId, callback) {
 
-        const query = { 'id': studentId };
+        const query = { studentId };
 
         this.findOne(query, callback);
     }
@@ -36,6 +36,7 @@ Student.collection = 'students';
 
 Student.schema = Joi.object().keys({
     _id: Joi.object(),
+    studentId: Joi.string().required(),
     user: Joi.object().keys({
         id: Joi.string().required(),
         name: Joi.string().lowercase().required()

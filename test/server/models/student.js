@@ -1,5 +1,5 @@
 
-const Student = require('../../../server/models/Student');
+const Student = require('../../../server/models/student');
 const Async = require('async');
 const Code = require('code');
 const Config = require('../../../config');

@@ -192,7 +192,7 @@ User.schema = Joi.object().keys({
             name: Joi.string().required()
         }),
         student: Joi.object().keys({
-            id: Joi.string().required()
+            studentId: Joi.string().required()
         })
     }),
     resetPassword: Joi.object().keys({

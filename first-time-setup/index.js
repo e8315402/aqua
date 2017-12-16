@@ -3,6 +3,9 @@ const MongoModels = require('mongo-models');
 const Mongodb = require('mongodb');
 const Promptly = require('promptly');
 const Courses = require('./variables').courses;
+const Assignments = require('./variables').assignments;
+const Students = require('./variables').students;
+
 
 Async.auto({
     mongodbUri: (done) => {
@@ -10,6 +13,8 @@ Async.auto({
         const options = {
             default: 'mongodb://localhost:27017/aqua'
         };
+
+        // done(null, 'mongodb://localhost:27017/aqua');
 
         Promptly.prompt(`MongoDB URI: (${options.default})`, options, done);
     },
@@ -27,11 +32,11 @@ Async.auto({
         });
     }],
     rootEmail: ['testMongo', (results, done) => {
-
+        // done(null, 'admin');
         Promptly.prompt('Root user email:', done);
     }],
     rootPassword: ['rootEmail', (results, done) => {
-
+        // done(null, 'admin');
         Promptly.password('Root user password:', done);
     }],
     setupRootUser: ['rootPassword', (results, done) => {
@@ -43,7 +48,7 @@ Async.auto({
         const Session = require('../server/models/session');
         const Status = require('../server/models/status');
         const User = require('../server/models/user');
-
+        const Student = require('../server/models/Student');
         Async.auto({
             connect: function (done) {
 
@@ -58,7 +63,9 @@ Async.auto({
                     AuthAttempt.deleteMany.bind(AuthAttempt, {}),
                     Session.deleteMany.bind(Session, {}),
                     Status.deleteMany.bind(Status, {}),
-                    User.deleteMany.bind(User, {})
+                    User.deleteMany.bind(User, {}),
+                    Student.deleteMany.bind(Student, {})
+
                 ], done);
             }],
             adminGroup: ['clean', function (dbResults, done) {
@@ -179,6 +186,92 @@ Async.auto({
 
             if (err) {
                 console.error('Failed to setup the default course.');
+                return done(err);
+            }
+
+            done(null, true);
+        });
+    }],
+    setupAssignment: ['setupRootUser', (results, done) => {
+        const Assignment = require('../server/models/assignment');
+
+        Async.auto({
+            connect: function (done) {
+                MongoModels.connect(results.mongodbUri, {}, done);
+            },
+            clean: ['connect', (dbResults, done) => {
+                Async.parallel([
+                    Assignment.deleteMany.bind(Assignment, {})
+                ], done);
+            }],
+            course: ['clean', function (dbResults, done) {
+                Async.each(Assignments, (assignment, _cb) => {
+                    Assignment.create(assignment.courseName, assignment.assignmentName, assignment.description, assignment.deadline, _cb);
+                }, done);
+            }]
+        },(err, dbResults) => {
+
+            if (err) {
+                console.error('Failed to setup the default assignment.');
+                return done(err);
+            }
+
+            done(null, true);
+        });
+    }],
+    setupStudent:['setupRootUser',(results,done) => {
+
+        const User = require('../server/models/user');
+        const Student = require('../server/models/student');
+
+        Async.auto({
+            connect: function (done) {
+                MongoModels.connect(results.mongodbUri, {}, done);
+            },
+            students: ['connect',function (dbResults, done) {
+                Async.map(Students, (student, _cb) => {
+                    Student.create(student.studentId, _cb);
+                }, done);
+            }],
+            users: ['connect', function (dbResults, done) {
+                Async.map(Students, (student, _cb) => {
+                    User.generatePasswordHash(student.studentId, (err, passResult) => {
+                        if (err){
+                            _cb(err);
+                        }
+                        User.create(student.user.name, passResult.hash, 'default@gmail.com', _cb);
+                    });
+                }, done);
+            }],
+            linkUser: ['students', 'users', function (dbResults, done) {
+                Async.eachOf(dbResults.students, (student, index, _cb) => {
+                    const update = {
+                        $set: {
+                            'roles.student': {
+                                studentId: student.studentId
+                            }
+                        }
+                    };
+                    User.findByIdAndUpdate(dbResults.users[index]._id, update, _cb);
+                }, done);
+            }],
+            linkStudent: ['students', 'users', function (dbResults, done) {
+                Async.eachOf(dbResults.users, (user, index, _cb) => {
+                    const update = {
+                        $set: {
+                            'roles.user': {
+                                id: user._id.toString(),
+                                name: user.username
+                            }
+                        }
+                    };
+                    const filter = { studentId: dbResults.students[index].studentId };
+                    Student.findOneAndUpdate(filter, update, _cb);
+                }, done);
+            }]
+        }, (err, dbResults) => {
+            if (err) {
+                console.error('Failed to setup students.');
                 return done(err);
             }
 

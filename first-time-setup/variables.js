@@ -121,3 +121,20 @@ module.exports.homeworks = [
     }
 ];
 
+module.exports.students = [
+    {
+        studentId: '105598047',
+        user: {
+            id: '000000000000000000000001',
+            name: 'james'
+        }
+    },
+    {
+        studentId: '105598055',
+        user: {
+            id: '000000000000000000000002',
+            name: 'joe'
+        }
+    }
+];
+
