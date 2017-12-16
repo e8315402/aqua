@@ -34,29 +34,27 @@ const _studentsB = [
 module.exports.courses = [
     {
         courseName: 'Pattern-Oriented Software Design',
+        instructor: { _id: '205598120', name : 'YC Chang' },
         students: _studentsA,
         classRoom: '宏裕科技大樓 1322',
-        instructor: { _id: '205598120', name : 'YC Chang' },
-
-        // courseWebsite: 'http://www.cc.ntut.edu.tw/~yccheng/',
-        courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00'
+        courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
+        courseWebsite: 'http://www.cc.ntut.edu.tw/~yccheng/'
     },
     {
         courseName: 'Software Engineering',
         students: _studentsB,
-        classRoom: '宏裕科技大樓 1322',
         instructor: { _id: '505598121', name : 'CH Liu' },
-        // courseWebsite: 'http://www.cc.ntut.edu.tw/~yccheng/',
-        courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00'
+        classRoom: '宏裕科技大樓 1322',
+        courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
+        courseWebsite: 'http://www.cc.ntut.edu.tw/~cliu/courses/se/se.htm'
     },
     {
         courseName: 'Object-Oriented Analysis and Design',
+        instructor: { _id: '805598122', name : 'WK Chen' },
         students: _studentsA,
         classRoom: '宏裕科技大樓 1322',
-        instructor: { _id: '805598122', name : 'WK Chen' },
-
-        // courseWebsite: 'http://www.cc.ntut.edu.tw/~yccheng/',
-        courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00'
+        courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
+        courseWebsite: 'http://www.cc.ntut.edu.tw/~wkchen/'
     }
 ];
 

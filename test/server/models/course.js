@@ -4,7 +4,7 @@ const Async = require('async');
 const Code = require('code');
 const Config = require('../../../config');
 const Lab = require('lab');
-const Variables = require('../fixtures/variables');
+const Courses = require('../fixtures/variables').courses;
 
 const lab = exports.lab = Lab.script();
 const mongoUri = Config.get('/hapiMongoModels/mongodb/uri');
@@ -31,22 +31,10 @@ lab.experiment('Course Class Methods', () => {
     });
 
     lab.test('it returns a new instance when create succeeds', (done) => {
-        const instructor = { id: '123456789', name: 'Professor Liu' };
-        const students = [
-            {
-                _id: '105598047'
-            },
-            {
-                _id: '105598055'
-            }
-        ];
-
-        Course.create('Software Engineering', instructor, students, '宏裕科技大樓 1322', '星期二-第六節, 星期三-第八, 九節', (err, result) => {
-
+        Course.create(...Object.keys(Courses[0]).map((each) => Courses[0][each]), (err, result) => {
             Code.expect(err).to.not.exist();
             Code.expect(result).to.be.an.instanceOf(Course);
-
-
+            compareCourse(result, Courses[0]);
             done();
         });
     });
@@ -63,17 +51,7 @@ lab.experiment('Course Class Methods', () => {
             callback(Error('insert failed'));
         };
 
-        const instructor = { id: '123456789', name: 'Professor Liu' };
-        const students = [
-            {
-                _id: '105598047'
-            },
-            {
-                _id: '105598055'
-            }
-        ];
-
-        Course.create('Software Engineering', instructor, students, '宏裕科技大樓 1322', '星期二-第六節, 星期三-第八, 九節', (err, result) => {
+        Course.create(...Object.keys(Courses[0]).map((each) => Courses[0][each]), (err, result) => {
 
             Code.expect(err).to.be.an.object();
             Code.expect(result).to.not.exist();
@@ -88,9 +66,9 @@ lab.experiment('Course Class Methods', () => {
     lab.test('it returns a result when finding by student', (done) => {
         const studentId = '105598047';
 
-        Async.forEachOf(Variables.courses,(course, key, callback) => {
+        Async.forEachOf(Courses,(course, key, callback) => {
 
-            Course.create(course.courseName, course.instructor, course.students, course.classRoom, course.courseTime, callback);
+            Course.create(course.courseName, course.instructor, course.students, course.classRoom, course.courseTime, course.courseWebsite, callback);
 
         }, (err, results) => {
 
@@ -104,8 +82,8 @@ lab.experiment('Course Class Methods', () => {
 
                 Code.expect(err).to.not.exist();
                 Code.expect(courses).to.be.an.array();
-                compareCourse(courses[0], Variables.courses[0]);
-                compareCourse(courses[1], Variables.courses[2]);
+                compareCourse(courses[0], Courses[0]);
+                compareCourse(courses[1], Courses[2]);
                 done();
             });
         });
@@ -117,6 +95,7 @@ const compareCourse = function (courseObj, courseDateObj) {
     Code.expect(courseObj.courseName).to.equal(courseDateObj.courseName);
     Code.expect(courseObj.classRoom).to.equal(courseDateObj.classRoom);
     Code.expect(courseObj.courseTime).to.equal(courseDateObj.courseTime);
+    Code.expect(courseObj.courseWebsite).to.equal(courseDateObj.courseWebsite);
     Code.expect(courseObj.instructor._id).to.equal(courseDateObj.instructor._id);
     Code.expect(courseObj.instructor.name).to.equal(courseDateObj.instructor.name);
 };

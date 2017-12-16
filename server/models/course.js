@@ -2,7 +2,7 @@ const Joi = require('joi');
 const MongoModels = require('mongo-models');
 
 class Course extends MongoModels {
-    static create(courseName, instructor, students, classRoom, courseTime, callback) {
+    static create(courseName, instructor, students, classRoom, courseTime, courseWebsite, callback) {
         const document = {
             courseName,
             instructor: {
@@ -12,6 +12,7 @@ class Course extends MongoModels {
             student: students.map((student) => ({ _id: student._id })),
             classRoom,
             courseTime,
+            courseWebsite,
             timeCreated: new Date()
         };
 
@@ -48,6 +49,7 @@ Course.schema = Joi.object().keys({
     ),
     classRoom: Joi.string().required(),
     courseTime: Joi.string().required(),
+    courseWebsite: Joi.string().required(),
     timeCreated: Joi.date()
 });
 
