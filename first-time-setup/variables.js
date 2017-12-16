@@ -1,32 +1,53 @@
-const _studentsA = [
+// const _studentsA = [
+//     {
+//         _id: '105598047',
+//         user: {
+//             id: '95EP150D35',
+//             name: 'james'
+//         }
+//     },
+//     {
+//         _id: '105598055',
+//         user: {
+//             id: '95EP13523D',
+//             name: 'joe'
+//         }
+//     }
+// ];
+// const _studentsB = [
+//     {
+//         _id: '105598001',
+//         user: {
+//             id: '65EP150AH5',
+//             name: 'andy'
+//         }
+//     },
+//     {
+//         _id: '105598002',
+//         user: {
+//             id: '32EP135DSD',
+//             name: 'claire'
+//         }
+//     }
+// ];
+
+module.exports.students = [
     {
-        _id: '105598047',
+        studentId: '105598047',
         user: {
-            id: '95EP150D35',
             name: 'james'
         }
     },
     {
-        _id: '105598055',
+        studentId: '105598055',
         user: {
-            id: '95EP13523D',
             name: 'joe'
-        }
-    }
-];
-const _studentsB = [
-    {
-        _id: '105598001',
-        user: {
-            id: '65EP150AH5',
-            name: 'andy'
         }
     },
     {
-        _id: '105598002',
+        studentId: '106598054',
         user: {
-            id: '32EP135DSD',
-            name: 'claire'
+            name: 'andy'
         }
     }
 ];
@@ -35,14 +56,28 @@ module.exports.courses = [
     {
         courseName: 'Pattern-Oriented Software Design',
         instructor: { _id: '205598120', name : 'YC Chang' },
-        students: _studentsA,
+        students: [
+            {
+                studentId: '105598047'
+            }, {
+                studentId: '105598055'
+            }
+        ],
         classRoom: '宏裕科技大樓 1322',
         courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
         courseWebsite: 'http://www.cc.ntut.edu.tw/~yccheng/'
     },
     {
         courseName: 'Software Engineering',
-        students: _studentsB,
+        students: [
+            {
+                studentId: '105598047'
+            }, {
+                studentId: '105598055'
+            }, {
+                studentId: '106598054'
+            }
+        ],
         instructor: { _id: '505598121', name : 'CH Liu' },
         classRoom: '宏裕科技大樓 1322',
         courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
@@ -51,7 +86,13 @@ module.exports.courses = [
     {
         courseName: 'Object-Oriented Analysis and Design',
         instructor: { _id: '805598122', name : 'WK Chen' },
-        students: _studentsA,
+        students: [
+            {
+                studentId: '105598047'
+            }, {
+                studentId: '105598055'
+            }
+        ],
         classRoom: '宏裕科技大樓 1322',
         courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
         courseWebsite: 'http://www.cc.ntut.edu.tw/~wkchen/'
@@ -140,23 +181,6 @@ module.exports.homeworks = [
         courseName : 'Software Engineering',
         assignmentName : 'Assignment 3',
         score: 87
-    }
-];
-
-module.exports.students = [
-    {
-        studentId: '105598047',
-        user: {
-            id: '000000000000000000000001',
-            name: 'james'
-        }
-    },
-    {
-        studentId: '105598055',
-        user: {
-            id: '000000000000000000000002',
-            name: 'joe'
-        }
     }
 ];
 

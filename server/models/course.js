@@ -9,7 +9,7 @@ class Course extends MongoModels {
                 _id: instructor._id,
                 name: instructor.name
             },
-            student: students.map((student) => ({ _id: student._id })),
+            student: students.map((student) => ({ studentId: student.studentId })),
             classRoom,
             courseTime,
             courseWebsite,
@@ -44,7 +44,7 @@ Course.schema = Joi.object().keys({
     }),
     student: Joi.array().items(
         Joi.object().keys({
-            _id: Joi.string().required()
+            studentId: Joi.string().required()
         })
     ),
     classRoom: Joi.string().required(),
