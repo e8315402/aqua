@@ -2,7 +2,7 @@ const Async = require('async');
 const MongoModels = require('mongo-models');
 const Mongodb = require('mongodb');
 const Promptly = require('promptly');
-
+const Courses = require('./variables').courses;
 
 Async.auto({
     mongodbUri: (done) => {
@@ -36,13 +36,13 @@ Async.auto({
     }],
     setupRootUser: ['rootPassword', (results, done) => {
 
-        const Account = require('./server/models/account');
-        const AdminGroup = require('./server/models/admin-group');
-        const Admin = require('./server/models/admin');
-        const AuthAttempt = require('./server/models/auth-attempt');
-        const Session = require('./server/models/session');
-        const Status = require('./server/models/status');
-        const User = require('./server/models/user');
+        const Account = require('../server/models/account');
+        const AdminGroup = require('../server/models/admin-group');
+        const Admin = require('../server/models/admin');
+        const AuthAttempt = require('../server/models/auth-attempt');
+        const Session = require('../server/models/session');
+        const Status = require('../server/models/status');
+        const User = require('../server/models/user');
 
         Async.auto({
             connect: function (done) {
@@ -159,7 +159,7 @@ Async.auto({
         });
     }],
     setupCourse: ['setupRootUser', (results, done) => {
-        const Course = require('./server/models/course');
+        const Course = require('../server/models/course');
 
         Async.auto({
             connect: function (done) {
@@ -171,19 +171,9 @@ Async.auto({
                 ], done);
             }],
             course: ['clean', function (dbResults, done) {
-                const document = {
-                    coursename: 'Software Engineering',
-                    instructor: {
-                        _id: '123456789',
-                        name: 'Professor Liu'
-                    },
-                    classroom: '宏裕科技大樓 1322',
-                    coursetime: '星期二-第六節, 星期三-第八, 九節',
-                    timeCreated: new Date()
-                };
-                Course.insertOne(document, (err, docs) => {
-                    done(err, docs && docs[0]);
-                });
+                Async.each(Courses, (course, _cb) => {
+                    Course.create(course.courseName, course.instructor, course.students, course.classRoom, course.courseTime, course.courseWebsite, _cb);
+                }, done);
             }]
         },(err, dbResults) => {
 
