@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import {
-    Route,
-    Switch,
-    Redirect
+  Route,
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 
@@ -25,23 +25,23 @@ const Dashboard = require('./views/Dashboard/Dashboard');
 // const Redirect = ReactRouter.Redirect;
 
 class App extends Component {
-    render() {
-        return (
-            <div className="wrapper">
-                <Sidebar {...this.props} />
-                <div id="main-panel" className="main-panel">
-                    <Header {...this.props}/>
+  render() {
+    return (
+      <div className="wrapper">
+        <Sidebar {...this.props} />
+        <div id="main-panel" className="main-panel">
+          <Header {...this.props}/>
 
-                    <Switch>
-                        <Route path="/admin" component={Dashboard}/>
-                        {/* <Redirect from="/" to="/dashboard"/> */}
-                    </Switch>
+          <Switch>
+            <Route path="/admin" component={Dashboard}/>
+            {/* <Redirect from="/" to="/dashboard"/> */}
+          </Switch>
 
-                    <Footer />
-                </div>
-            </div>
-        );
-    }
+          <Footer />
+        </div>
+      </div>
+    );
+  }
 }
 
 // const AccountDetails = require('./accounts/details/index.jsx');

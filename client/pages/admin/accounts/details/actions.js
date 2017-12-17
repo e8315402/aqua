@@ -1,155 +1,155 @@
 /* global window */
-'use strict';
+
 const ApiActions = require('../../../../actions/api');
 const Constants = require('./constants');
 const Store = require('./store');
 
 
 class Actions {
-    static getDetails(id) {
+  static getDetails(id) {
 
-        ApiActions.get(
-            `/api/accounts/${id}`,
-            undefined,
-            Store,
-            Constants.GET_DETAILS,
-            Constants.GET_DETAILS_RESPONSE
-        );
-    }
+    ApiActions.get(
+      `/api/accounts/${id}`,
+      undefined,
+      Store,
+      Constants.GET_DETAILS,
+      Constants.GET_DETAILS_RESPONSE
+    );
+  }
 
-    static getStatusOptions() {
+  static getStatusOptions() {
 
-        const query = {
-            pivot: 'Account',
-            limit: 99
-        };
+    const query = {
+      pivot: 'Account',
+      limit: 99
+    };
 
-        ApiActions.get(
-            '/api/statuses',
-            query,
-            Store,
-            Constants.GET_STATUS_OPTIONS,
-            Constants.GET_STATUS_OPTIONS_RESPONSE
-        );
-    }
+    ApiActions.get(
+      '/api/statuses',
+      query,
+      Store,
+      Constants.GET_STATUS_OPTIONS,
+      Constants.GET_STATUS_OPTIONS_RESPONSE
+    );
+  }
 
-    static saveDetails(id, data) {
+  static saveDetails(id, data) {
 
-        ApiActions.put(
-            `/api/accounts/${id}`,
-            data,
-            Store,
-            Constants.SAVE_DETAILS,
-            Constants.SAVE_DETAILS_RESPONSE
-        );
-    }
+    ApiActions.put(
+      `/api/accounts/${id}`,
+      data,
+      Store,
+      Constants.SAVE_DETAILS,
+      Constants.SAVE_DETAILS_RESPONSE
+    );
+  }
 
-    static hideDetailsSaveSuccess() {
+  static hideDetailsSaveSuccess() {
 
-        Store.dispatch({
-            type: Constants.HIDE_DETAILS_SAVE_SUCCESS
-        });
-    }
+    Store.dispatch({
+      type: Constants.HIDE_DETAILS_SAVE_SUCCESS
+    });
+  }
 
-    static linkUser(id, data) {
+  static linkUser(id, data) {
 
-        ApiActions.put(
-            `/api/accounts/${id}/user`,
-            data,
-            Store,
-            Constants.LINK_USER,
-            Constants.LINK_USER_RESPONSE
-        );
-    }
+    ApiActions.put(
+      `/api/accounts/${id}/user`,
+      data,
+      Store,
+      Constants.LINK_USER,
+      Constants.LINK_USER_RESPONSE
+    );
+  }
 
-    static unlinkUser(id) {
+  static unlinkUser(id) {
 
-        ApiActions.delete(
-            `/api/accounts/${id}/user`,
-            undefined,
-            Store,
-            Constants.UNLINK_USER,
-            Constants.UNLINK_USER_RESPONSE
-        );
-    }
+    ApiActions.delete(
+      `/api/accounts/${id}/user`,
+      undefined,
+      Store,
+      Constants.UNLINK_USER,
+      Constants.UNLINK_USER_RESPONSE
+    );
+  }
 
-    static hideUserSaveSuccess() {
+  static hideUserSaveSuccess() {
 
-        Store.dispatch({
-            type: Constants.HIDE_USER_SAVE_SUCCESS
-        });
-    }
+    Store.dispatch({
+      type: Constants.HIDE_USER_SAVE_SUCCESS
+    });
+  }
 
-    static newStatus(id, data) {
+  static newStatus(id, data) {
 
-        if (data.status === data.current.id) {
-            return Store.dispatch({
-                type: Constants.NEW_STATUS_RESPONSE,
-                err: new Error('same status'),
-                response: {
-                    message: 'That is the current status.'
-                }
-            });
+    if (data.status === data.current.id) {
+      return Store.dispatch({
+        type: Constants.NEW_STATUS_RESPONSE,
+        err: new Error('same status'),
+        response: {
+          message: 'That is the current status.'
         }
-
-        delete data.current;
-
-        ApiActions.post(
-            `/api/accounts/${id}/status`,
-            data,
-            Store,
-            Constants.NEW_STATUS,
-            Constants.NEW_STATUS_RESPONSE
-        );
+      });
     }
 
-    static hideStatusSaveSuccess() {
+    delete data.current;
 
-        Store.dispatch({
-            type: Constants.HIDE_STATUS_SAVE_SUCCESS
-        });
-    }
+    ApiActions.post(
+      `/api/accounts/${id}/status`,
+      data,
+      Store,
+      Constants.NEW_STATUS,
+      Constants.NEW_STATUS_RESPONSE
+    );
+  }
 
-    static newNote(id, newNote) {
+  static hideStatusSaveSuccess() {
 
-        const data = {
-            data: newNote
-        };
+    Store.dispatch({
+      type: Constants.HIDE_STATUS_SAVE_SUCCESS
+    });
+  }
 
-        ApiActions.post(
-            `/api/accounts/${id}/notes`,
-            data,
-            Store,
-            Constants.NEW_NOTE,
-            Constants.NEW_NOTE_RESPONSE
-        );
-    }
+  static newNote(id, newNote) {
 
-    static hideNoteSaveSuccess() {
+    const data = {
+      data: newNote
+    };
 
-        Store.dispatch({
-            type: Constants.HIDE_NOTE_SAVE_SUCCESS
-        });
-    }
+    ApiActions.post(
+      `/api/accounts/${id}/notes`,
+      data,
+      Store,
+      Constants.NEW_NOTE,
+      Constants.NEW_NOTE_RESPONSE
+    );
+  }
 
-    static delete(id, history) {
+  static hideNoteSaveSuccess() {
 
-        ApiActions.delete(
-            `/api/accounts/${id}`,
-            undefined,
-            Store,
-            Constants.DELETE,
-            Constants.DELETE_RESPONSE,
-            (err, response) => {
+    Store.dispatch({
+      type: Constants.HIDE_NOTE_SAVE_SUCCESS
+    });
+  }
 
-                if (!err) {
-                    history.push('/admin/accounts');
+  static delete(id, history) {
 
-                    window.scrollTo(0, 0);
-                }
-            }
-        );
-    }
+    ApiActions.delete(
+      `/api/accounts/${id}`,
+      undefined,
+      Store,
+      Constants.DELETE,
+      Constants.DELETE_RESPONSE,
+      (err, response) => {
+
+        if (!err) {
+          history.push('/admin/accounts');
+
+          window.scrollTo(0, 0);
+        }
+      }
+    );
+  }
 }
 
 

@@ -1,4 +1,4 @@
-'use strict';
+
 const Actions = require('../actions');
 const Button = require('../../../../components/form/button.jsx');
 const ControlGroup = require('../../../../components/form/control-group.jsx');
@@ -15,107 +15,107 @@ const Link = ReactRouter.Link;
 
 
 class ForgotPage extends React.Component {
-    constructor(props) {
+  constructor(props) {
 
-        super(props);
+    super(props);
 
-        this.input = {};
-        this.state = Store.getState();
+    this.input = {};
+    this.state = Store.getState();
+  }
+
+  componentDidMount() {
+
+    this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+
+    if (this.input.email) {
+      this.input.email.focus();
     }
+  }
 
-    componentDidMount() {
+  componentWillUnmount() {
 
-        this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+    this.unsubscribeStore();
+  }
 
-        if (this.input.email) {
-            this.input.email.focus();
-        }
-    }
+  onStoreChange() {
 
-    componentWillUnmount() {
+    this.setState(Store.getState());
+  }
 
-        this.unsubscribeStore();
-    }
+  handleSubmit(event) {
 
-    onStoreChange() {
+    event.preventDefault();
+    event.stopPropagation();
 
-        this.setState(Store.getState());
-    }
+    Actions.forgot({
+      email: this.input.email.value()
+    });
+  }
 
-    handleSubmit(event) {
+  render() {
 
-        event.preventDefault();
-        event.stopPropagation();
+    const alerts = [];
 
-        Actions.forgot({
-            email: this.input.email.value()
-        });
-    }
-
-    render() {
-
-        const alerts = [];
-
-        if (this.state.success) {
-            alerts.push(<div key="success">
-                <div className="alert alert-success">
+    if (this.state.success) {
+      alerts.push(<div key="success">
+        <div className="alert alert-success">
                     If an account matched that address, an email will be sent with instructions.
-                </div>
-                <Link to="/login" className="btn btn-link">Back to login</Link>
-            </div>);
-        }
+        </div>
+        <Link to="/login" className="btn btn-link">Back to login</Link>
+      </div>);
+    }
 
-        if (this.state.error) {
-            alerts.push(<div key="danger" className="alert alert-danger">
-                {this.state.error}
-            </div>);
-        }
+    if (this.state.error) {
+      alerts.push(<div key="danger" className="alert alert-danger">
+        {this.state.error}
+      </div>);
+    }
 
-        let formElements;
+    let formElements;
 
-        if (!this.state.success) {
-            formElements = <fieldset>
-                <TextControl
-                    ref={(c) => (this.input.email = c)}
-                    name="email"
-                    label="What's your email?"
-                    hasError={this.state.hasError.email}
-                    help={this.state.help.email}
-                    disabled={this.state.loading}
-                />
-                <ControlGroup hideLabel={true} hideHelp={true}>
-                    <Button
-                        type="submit"
-                        inputClasses={{ 'btn-primary': true }}
-                        disabled={this.state.loading}>
+    if (!this.state.success) {
+      formElements = <fieldset>
+        <TextControl
+          ref={(c) => (this.input.email = c)}
+          name="email"
+          label="What's your email?"
+          hasError={this.state.hasError.email}
+          help={this.state.help.email}
+          disabled={this.state.loading}
+        />
+        <ControlGroup hideLabel={true} hideHelp={true}>
+          <Button
+            type="submit"
+            inputClasses={{ 'btn-primary': true }}
+            disabled={this.state.loading}>
 
                         Send reset
-                        <Spinner space="left" show={this.state.loading} />
-                    </Button>
-                    <Link to="/login" className="btn btn-link">Back to login</Link>
-                </ControlGroup>
-            </fieldset>;
-        }
-
-        return (
-            <section className="container">
-                <Helmet>
-                    <title>Forgot password</title>
-                </Helmet>
-                <div className="container">
-                    <h1 className="page-header">Forgot your password?</h1>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <form onSubmit={this.handleSubmit.bind(this)}>
-                                {alerts}
-                                {formElements}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        );
+            <Spinner space="left" show={this.state.loading} />
+          </Button>
+          <Link to="/login" className="btn btn-link">Back to login</Link>
+        </ControlGroup>
+      </fieldset>;
     }
+
+    return (
+      <section className="container">
+        <Helmet>
+          <title>Forgot password</title>
+        </Helmet>
+        <div className="container">
+          <h1 className="page-header">Forgot your password?</h1>
+          <div className="row">
+            <div className="col-sm-6">
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                {alerts}
+                {formElements}
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 }
 
 

@@ -1,4 +1,4 @@
-'use strict';
+
 const Actions = require('../actions');
 const React = require('react');
 const ReactHelmet = require('react-helmet');
@@ -11,65 +11,65 @@ const Link = ReactRouter.Link;
 
 
 class LogoutPage extends React.Component {
-    constructor(props) {
+  constructor(props) {
 
-        super(props);
+    super(props);
 
-        this.input = {};
-        this.state = Store.getState();
-    }
+    this.input = {};
+    this.state = Store.getState();
+  }
 
-    componentDidMount() {
+  componentDidMount() {
 
-        this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+    this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
 
-        Actions.logout();
-    }
+    Actions.logout();
+  }
 
-    componentWillUnmount() {
+  componentWillUnmount() {
 
-        this.unsubscribeStore();
-    }
+    this.unsubscribeStore();
+  }
 
-    onStoreChange() {
+  onStoreChange() {
 
-        this.setState(Store.getState());
-    }
+    this.setState(Store.getState());
+  }
 
-    render() {
+  render() {
 
-        const alerts = [];
+    const alerts = [];
 
-        if (this.state.success) {
-            alerts.push(<div key="success" className="alert alert-success">
+    if (this.state.success) {
+      alerts.push(<div key="success" className="alert alert-success">
                 Logout successful.
-            </div>);
-        }
-        else if (this.state.error) {
-            alerts.push(<div key="danger" className="alert alert-warning">
-                {this.state.error}
-            </div>);
-        }
-
-        return (
-            <section className="container">
-                <Helmet>
-                    <title>Sign out</title>
-                </Helmet>
-                <div className="container">
-                    <h1 className="page-header">Sign out</h1>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            {alerts}
-                            <Link to="/login" className="btn btn-link">
-                                Sign in again
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        );
+      </div>);
     }
+    else if (this.state.error) {
+      alerts.push(<div key="danger" className="alert alert-warning">
+        {this.state.error}
+      </div>);
+    }
+
+    return (
+      <section className="container">
+        <Helmet>
+          <title>Sign out</title>
+        </Helmet>
+        <div className="container">
+          <h1 className="page-header">Sign out</h1>
+          <div className="row">
+            <div className="col-sm-6">
+              {alerts}
+              <Link to="/login" className="btn btn-link">
+                                Sign in again
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 }
 
 

@@ -1,4 +1,4 @@
-'use strict';
+
 const React = require('react');
 const ReactRouter = require('react-router-dom');
 
@@ -9,20 +9,20 @@ const Route = ReactRouter.Route;
 
 const RouteRedirect = function (outerProps) {
 
-    const inline = function (innerProps) {
+  const inline = function (innerProps) {
 
-        if (innerProps.staticContext) {
-            innerProps.staticContext.code = outerProps.code;
-        }
-
-        return (
-            <Redirect from={outerProps.from} to={outerProps.to}/>
-        );
-    };
+    if (innerProps.staticContext) {
+      innerProps.staticContext.code = outerProps.code;
+    }
 
     return (
-        <Route render={inline}/>
+      <Redirect from={outerProps.from} to={outerProps.to}/>
     );
+  };
+
+  return (
+    <Route render={inline}/>
+  );
 };
 
 

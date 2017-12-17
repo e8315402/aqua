@@ -1,73 +1,73 @@
-'use strict';
+
 const PropTypes = require('prop-types');
 const React = require('react');
 
 
 const propTypes = {
-    items: PropTypes.object,
-    onChange: PropTypes.func,
-    pages: PropTypes.object
+  items: PropTypes.object,
+  onChange: PropTypes.func,
+  pages: PropTypes.object
 };
 
 
 class Paging extends React.Component {
-    constructor(props) {
+  constructor(props) {
 
-        super(props);
+    super(props);
 
-        this.els = {};
-    }
+    this.els = {};
+  }
 
-    onPrevPage() {
+  onPrevPage() {
 
-        this.props.onChange(this.props.pages.prev);
-    }
+    this.props.onChange(this.props.pages.prev);
+  }
 
-    onNextPage() {
+  onNextPage() {
 
-        this.props.onChange(this.props.pages.next);
-    }
+    this.props.onChange(this.props.pages.next);
+  }
 
-    render() {
+  render() {
 
-        return (
-            <div className="well">
-                <div className="btn-group pull-left">
-                    <button
-                        className="btn btn-default"
-                        disabled={true}>
+    return (
+      <div className="well">
+        <div className="btn-group pull-left">
+          <button
+            className="btn btn-default"
+            disabled={true}>
 
                         Page {this.props.pages.current} of {this.props.pages.total}
-                    </button>
-                    <button
-                        className="btn btn-default"
-                        disabled={true}>
+          </button>
+          <button
+            className="btn btn-default"
+            disabled={true}>
 
                         Rows {this.props.items.begin} - {this.props.items.end} of {this.props.items.total}
-                    </button>
-                </div>
-                <div className="btn-group pull-right">
-                    <button
-                        ref={(c) => (this.els.prev = c)}
-                        className="btn btn-default"
-                        disabled={!this.props.pages.hasPrev}
-                        onClick={this.onPrevPage.bind(this)}>
+          </button>
+        </div>
+        <div className="btn-group pull-right">
+          <button
+            ref={(c) => (this.els.prev = c)}
+            className="btn btn-default"
+            disabled={!this.props.pages.hasPrev}
+            onClick={this.onPrevPage.bind(this)}>
 
                         Prev
-                    </button>
-                    <button
-                        ref={(c) => (this.els.next = c)}
-                        className="btn btn-default"
-                        disabled={!this.props.pages.hasNext}
-                        onClick={this.onNextPage.bind(this)}>
+          </button>
+          <button
+            ref={(c) => (this.els.next = c)}
+            className="btn btn-default"
+            disabled={!this.props.pages.hasNext}
+            onClick={this.onNextPage.bind(this)}>
 
                         Next
-                    </button>
-                </div>
-                <div className="clearfix"></div>
-            </div>
-        );
-    }
+          </button>
+        </div>
+        <div className="clearfix"></div>
+      </div>
+    );
+  }
 }
 
 Paging.propTypes = propTypes;

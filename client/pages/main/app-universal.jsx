@@ -1,4 +1,4 @@
-'use strict';
+
 const About = require('./about/index.jsx');
 const Contact = require('./contact/index.jsx');
 const Footer = require('./footer.jsx');
@@ -21,27 +21,27 @@ const Switch = ReactRouter.Switch;
 
 const AppUniversal = function () {
 
-    return (
-        <div>
-            {/* <Route component={Navbar} /> */}
-            <Switch>
-                <Route path="/" exact component={Login} />
-                {/* <Route path="/about" exact component={About} /> */}
-                {/* <Route path="/contact" exact component={Contact} /> */}
-                {/* <Route path="/login" exact component={Login} /> */}
-                <Route path="/login/forgot" exact component={LoginForgot} />
-                <Route path="/login/reset/:email/:key" component={LoginReset} />
-                <Route path="/login/logout" exact component={LoginLogout} />
-                {<Route path="/signup" exact component={Signup} />}
+  return (
+    <div>
+      {/* <Route component={Navbar} /> */}
+      <Switch>
+        <Route path="/" exact component={Login} />
+        {/* <Route path="/about" exact component={About} /> */}
+        {/* <Route path="/contact" exact component={Contact} /> */}
+        {/* <Route path="/login" exact component={Login} /> */}
+        <Route path="/login/forgot" exact component={LoginForgot} />
+        <Route path="/login/reset/:email/:key" component={LoginReset} />
+        <Route path="/login/logout" exact component={LoginLogout} />
+        {<Route path="/signup" exact component={Signup} />}
 
-                <RouteRedirect from="/login" to="/" />
-                <RouteRedirect from="/moved" to="/" code={301} />
+        <RouteRedirect from="/login" to="/" />
+        <RouteRedirect from="/moved" to="/" code={301} />
 
-                <Route component={NotFound} />
-            </Switch>
-            {/* <Footer /> */}
-        </div>
-    );
+        <Route component={NotFound} />
+      </Switch>
+      {/* <Footer /> */}
+    </div>
+  );
 };
 
 

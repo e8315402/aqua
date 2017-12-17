@@ -1,4 +1,4 @@
-'use strict';
+
 const DetailsForm = require('./details-form.jsx');
 const Actions = require('./actions');
 const PasswordForm = require('./password-form.jsx');
@@ -8,46 +8,46 @@ const UserForm = require('./user-form.jsx');
 
 
 class SettingsPage extends React.Component {
-    constructor(props) {
+  constructor(props) {
 
-        super(props);
+    super(props);
 
-        Actions.getDetails();
-        Actions.getUser();
+    Actions.getDetails();
+    Actions.getUser();
 
-        this.state = Store.getState();
-    }
+    this.state = Store.getState();
+  }
 
-    componentDidMount() {
+  componentDidMount() {
 
-        this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
-    }
+    this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+  }
 
-    componentWillUnmount() {
+  componentWillUnmount() {
 
-        this.unsubscribeStore();
-    }
+    this.unsubscribeStore();
+  }
 
-    onStoreChange() {
+  onStoreChange() {
 
-        this.setState(Store.getState());
-    }
+    this.setState(Store.getState());
+  }
 
-    render() {
+  render() {
 
-        return (
-            <section className="container">
-                <h1 className="page-header">Account settings</h1>
-                <div className="row">
-                    <div className="col-sm-6">
-                        <DetailsForm {...this.state.details} />
-                        <UserForm {...this.state.user} />
-                        <PasswordForm {...this.state.password} />
-                    </div>
-                </div>
-            </section>
-        );
-    }
+    return (
+      <section className="container">
+        <h1 className="page-header">Account settings</h1>
+        <div className="row">
+          <div className="col-sm-6">
+            <DetailsForm {...this.state.details} />
+            <UserForm {...this.state.user} />
+            <PasswordForm {...this.state.password} />
+          </div>
+        </div>
+      </section>
+    );
+  }
 }
 
 

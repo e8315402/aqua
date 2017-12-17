@@ -1,4 +1,4 @@
-'use strict';
+
 const Actions = require('../actions');
 const Button = require('../../../../components/form/button.jsx');
 const ControlGroup = require('../../../../components/form/control-group.jsx');
@@ -14,131 +14,131 @@ const TextControl = require('../../../../components/form/text-control.jsx');
 const Helmet = ReactHelmet.Helmet;
 const Link = ReactRouter.Link;
 const propTypes = {
-    match: PropTypes.object
+  match: PropTypes.object
 };
 
 
 class ResetPage extends React.Component {
-    constructor(props) {
+  constructor(props) {
 
-        super(props);
+    super(props);
 
-        this.input = {};
-        this.state = Store.getState();
+    this.input = {};
+    this.state = Store.getState();
+  }
+
+  componentDidMount() {
+
+    this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+
+    if (this.input.password) {
+      this.input.password.focus();
     }
+  }
 
-    componentDidMount() {
+  componentWillUnmount() {
 
-        this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+    this.unsubscribeStore();
+  }
 
-        if (this.input.password) {
-            this.input.password.focus();
-        }
-    }
+  onStoreChange() {
 
-    componentWillUnmount() {
+    this.setState(Store.getState());
+  }
 
-        this.unsubscribeStore();
-    }
+  handleSubmit(event) {
 
-    onStoreChange() {
+    event.preventDefault();
+    event.stopPropagation();
 
-        this.setState(Store.getState());
-    }
+    Actions.reset({
+      email: this.props.match.params.email,
+      key: this.props.match.params.key,
+      password: this.input.password.value()
+    });
+  }
 
-    handleSubmit(event) {
+  render() {
 
-        event.preventDefault();
-        event.stopPropagation();
+    const alerts = [];
 
-        Actions.reset({
-            email: this.props.match.params.email,
-            key: this.props.match.params.key,
-            password: this.input.password.value()
-        });
-    }
-
-    render() {
-
-        const alerts = [];
-
-        if (this.state.success) {
-            alerts.push(<div key="success">
-                <div className="alert alert-success">
+    if (this.state.success) {
+      alerts.push(<div key="success">
+        <div className="alert alert-success">
                     Your password has been reset. Please login to confirm.
-                </div>
-                <Link to="/login" className="btn btn-link">Back to login</Link>
-            </div>);
-        }
+        </div>
+        <Link to="/login" className="btn btn-link">Back to login</Link>
+      </div>);
+    }
 
-        if (this.state.error) {
-            alerts.push(<div key="danger" className="alert alert-danger">
-                {this.state.error}
-            </div>);
-        }
+    if (this.state.error) {
+      alerts.push(<div key="danger" className="alert alert-danger">
+        {this.state.error}
+      </div>);
+    }
 
-        let formElements;
+    let formElements;
 
-        if (!this.state.success) {
-            formElements = <fieldset>
-                <TextControl
-                    ref={(c) => (this.input.password = c)}
-                    name="password"
-                    label="New password"
-                    type="password"
-                    hasError={this.state.hasError.password}
-                    help={this.state.help.password}
-                    disabled={this.state.loading}
-                />
-                <TextControl
-                    name="_key"
-                    label="Key"
-                    hasError={this.state.hasError.key}
-                    value={this.props.match.params.key}
-                    help={this.state.help.key}
-                    disabled={true}
-                />
-                <TextControl
-                    name="_email"
-                    label="Email"
-                    hasError={this.state.hasError.email}
-                    value={this.props.match.params.email}
-                    help={this.state.help.email}
-                    disabled={true}
-                />
-                <ControlGroup hideLabel={true} hideHelp={true}>
-                    <Button
-                        type="submit"
-                        inputClasses={{ 'btn-primary': true }}
-                        disabled={this.state.loading}>
+    if (!this.state.success) {
+      formElements = <fieldset>
+        <TextControl
+          ref={(c) => (this.input.password = c)}
+          name="password"
+          label="New password"
+          type="password"
+          hasError={this.state.hasError.password}
+          help={this.state.help.password}
+          disabled={this.state.loading}
+        />
+        <TextControl
+          name="_key"
+          label="Key"
+          hasError={this.state.hasError.key}
+          value={this.props.match.params.key}
+          help={this.state.help.key}
+          disabled={true}
+        />
+        <TextControl
+          name="_email"
+          label="Email"
+          hasError={this.state.hasError.email}
+          value={this.props.match.params.email}
+          help={this.state.help.email}
+          disabled={true}
+        />
+        <ControlGroup hideLabel={true} hideHelp={true}>
+          <Button
+            type="submit"
+            inputClasses={{ 'btn-primary': true }}
+            disabled={this.state.loading}>
 
                         Set password
-                        <Spinner space="left" show={this.state.loading} />
-                    </Button>
-                    <Link to="/login" className="btn btn-link">Back to login</Link>
-                </ControlGroup>
-            </fieldset>;
-        }
-
-        return (
-            <section className="container">
-                <Helmet>
-                    <title>Reset password</title>
-                </Helmet>
-                <div className="container">
-                    <h1 className="page-header">Reset your password</h1>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <form onSubmit={this.handleSubmit.bind(this)}>
-                                {alerts}
-                                {formElements}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        );
+            <Spinner space="left" show={this.state.loading} />
+          </Button>
+          <Link to="/login" className="btn btn-link">Back to login</Link>
+        </ControlGroup>
+      </fieldset>;
     }
+
+    return (
+      <section className="container">
+        <Helmet>
+          <title>Reset password</title>
+        </Helmet>
+        <div className="container">
+          <h1 className="page-header">Reset your password</h1>
+          <div className="row">
+            <div className="col-sm-6">
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                {alerts}
+                {formElements}
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 }
 
 ResetPage.propTypes = propTypes;

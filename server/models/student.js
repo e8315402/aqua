@@ -6,28 +6,28 @@ const StatusEntry = require('./status-entry');
 
 
 class Student extends MongoModels {
-    static create(studentId, callback) {
+  static create(studentId, callback) {
 
-        const document = {
-            studentId,
-            timeCreated: new Date()
-        };
+    const document = {
+      studentId,
+      timeCreated: new Date()
+    };
 
-        this.insertOne(document, (err, docs) => {
+    this.insertOne(document, (err, docs) => {
 
-            if (err) {
-                return callback(err);
-            }
-            callback(null, docs[0]);
-        });
-    }
+      if (err) {
+        return callback(err);
+      }
+      callback(null, docs[0]);
+    });
+  }
 
-    static findById(studentId, callback) {
+  static findById(studentId, callback) {
 
-        const query = { studentId };
+    const query = { studentId };
 
-        this.findOne(query, callback);
-    }
+    this.findOne(query, callback);
+  }
 }
 
 
@@ -35,23 +35,23 @@ Student.collection = 'students';
 
 
 Student.schema = Joi.object().keys({
-    _id: Joi.object(),
-    studentId: Joi.string().required(),
-    user: Joi.object().keys({
-        id: Joi.string().required(),
-        name: Joi.string().lowercase().required()
-    }),
-    status: Joi.object().keys({
-        current: StatusEntry.schema,
-        log: Joi.array().items(StatusEntry.schema)
-    }),
-    notes: Joi.array().items(NoteEntry.schema),
-    timeCreated: Joi.date()
+  _id: Joi.object(),
+  studentId: Joi.string().required(),
+  user: Joi.object().keys({
+    id: Joi.string().required(),
+    name: Joi.string().lowercase().required()
+  }),
+  status: Joi.object().keys({
+    current: StatusEntry.schema,
+    log: Joi.array().items(StatusEntry.schema)
+  }),
+  notes: Joi.array().items(NoteEntry.schema),
+  timeCreated: Joi.date()
 });
 
 Student.indexes = [
-    { key: { 'user.id': 1 } },
-    { key: { 'user.name': 1 } }
+  { key: { 'user.id': 1 } },
+  { key: { 'user.name': 1 } }
 ];
 
 

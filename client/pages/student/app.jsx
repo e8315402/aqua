@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
-    Route,
-    Switch,
-    Redirect
+  Route,
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 
@@ -15,24 +15,24 @@ import Homework from './views/Homework/Homework';
 
 
 class App extends Component {
-    render() {
-        return (
-            <div className="wrapper">
-                <Sidebar {...this.props} />
-                <div id="main-panel" className="main-panel">
-                    <Header {...this.props}/>
+  render() {
+    return (
+      <div className="wrapper">
+        <Sidebar {...this.props} />
+        <div id="main-panel" className="main-panel">
+          <Header {...this.props}/>
 
-                    <Switch>
-                        <Route path="/courses" component={Course}/>
-                        <Route path="/homeworks" component={Homework}/>
-                        <Redirect from="/" to="/courses"/>
-                    </Switch>
+          <Switch>
+            <Route path="/courses" component={Course}/>
+            <Route path="/homeworks" component={Homework}/>
+            <Redirect from="/" to="/courses"/>
+          </Switch>
 
-                    <Footer />
-                </div>
-            </div>
-        );
-    }
+          <Footer />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -8,9 +8,9 @@ const BrowserRouter = ReactRouter.BrowserRouter;
 
 
 const App = (
-    <BrowserRouter>
-        <AppUniversal />
-    </BrowserRouter>
+  <BrowserRouter>
+    <AppUniversal />
+  </BrowserRouter>
 );
 
 

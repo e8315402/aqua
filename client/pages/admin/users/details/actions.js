@@ -1,88 +1,88 @@
 /* global window */
-'use strict';
+
 const ApiActions = require('../../../../actions/api');
 const Constants = require('./constants');
 const Store = require('./store');
 
 
 class Actions {
-    static getDetails(id) {
+  static getDetails(id) {
 
-        ApiActions.get(
-            `/api/users/${id}`,
-            undefined,
-            Store,
-            Constants.GET_DETAILS,
-            Constants.GET_DETAILS_RESPONSE
-        );
-    }
+    ApiActions.get(
+      `/api/users/${id}`,
+      undefined,
+      Store,
+      Constants.GET_DETAILS,
+      Constants.GET_DETAILS_RESPONSE
+    );
+  }
 
-    static saveDetails(id, data) {
+  static saveDetails(id, data) {
 
-        ApiActions.put(
-            `/api/users/${id}`,
-            data,
-            Store,
-            Constants.SAVE_DETAILS,
-            Constants.SAVE_DETAILS_RESPONSE
-        );
-    }
+    ApiActions.put(
+      `/api/users/${id}`,
+      data,
+      Store,
+      Constants.SAVE_DETAILS,
+      Constants.SAVE_DETAILS_RESPONSE
+    );
+  }
 
-    static hideDetailsSaveSuccess() {
+  static hideDetailsSaveSuccess() {
 
-        Store.dispatch({
-            type: Constants.HIDE_DETAILS_SAVE_SUCCESS
-        });
-    }
+    Store.dispatch({
+      type: Constants.HIDE_DETAILS_SAVE_SUCCESS
+    });
+  }
 
-    static savePassword(id, data) {
+  static savePassword(id, data) {
 
-        if (data.password !== data.passwordConfirm) {
-            return Store.dispatch({
-                type: Constants.SAVE_PASSWORD_RESPONSE,
-                err: new Error('password mismatch'),
-                response: {
-                    message: 'Passwords do not match.'
-                }
-            });
+    if (data.password !== data.passwordConfirm) {
+      return Store.dispatch({
+        type: Constants.SAVE_PASSWORD_RESPONSE,
+        err: new Error('password mismatch'),
+        response: {
+          message: 'Passwords do not match.'
         }
-
-        delete data.passwordConfirm;
-
-        ApiActions.put(
-            `/api/users/${id}/password`,
-            data,
-            Store,
-            Constants.SAVE_PASSWORD,
-            Constants.SAVE_PASSWORD_RESPONSE
-        );
+      });
     }
 
-    static hidePasswordSaveSuccess() {
+    delete data.passwordConfirm;
 
-        Store.dispatch({
-            type: Constants.HIDE_PASSWORD_SAVE_SUCCESS
-        });
-    }
+    ApiActions.put(
+      `/api/users/${id}/password`,
+      data,
+      Store,
+      Constants.SAVE_PASSWORD,
+      Constants.SAVE_PASSWORD_RESPONSE
+    );
+  }
 
-    static delete(id, history) {
+  static hidePasswordSaveSuccess() {
 
-        ApiActions.delete(
-            `/api/users/${id}`,
-            undefined,
-            Store,
-            Constants.DELETE,
-            Constants.DELETE_RESPONSE,
-            (err, response) => {
+    Store.dispatch({
+      type: Constants.HIDE_PASSWORD_SAVE_SUCCESS
+    });
+  }
 
-                if (!err) {
-                    history.push('/admin/users');
+  static delete(id, history) {
 
-                    window.scrollTo(0, 0);
-                }
-            }
-        );
-    }
+    ApiActions.delete(
+      `/api/users/${id}`,
+      undefined,
+      Store,
+      Constants.DELETE,
+      Constants.DELETE_RESPONSE,
+      (err, response) => {
+
+        if (!err) {
+          history.push('/admin/users');
+
+          window.scrollTo(0, 0);
+        }
+      }
+    );
+  }
 }
 
 

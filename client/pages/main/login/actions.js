@@ -10,100 +10,100 @@ const ResetStore = require('./reset/store');
 
 
 class Actions {
-    static forgot(data) {
+  static forgot(data) {
 
-        ApiActions.post(
-            '/api/login/forgot',
-            data,
-            ForgotStore,
-            Constants.FORGOT,
-            Constants.FORGOT_RESPONSE
-        );
+    ApiActions.post(
+      '/api/login/forgot',
+      data,
+      ForgotStore,
+      Constants.FORGOT,
+      Constants.FORGOT_RESPONSE
+    );
+  }
+
+  static getUserCreds() {
+
+    if (!global.window) {
+      return;
     }
 
-    static getUserCreds() {
+    ApiActions.get(
+      '/api/users/my',
+      undefined,
+      LoginStore,
+      Constants.GET_USER_CREDS,
+      Constants.GET_USER_CREDS_RESPONSE,
+      (err, response) => {
 
-        if (!global.window) {
-            return;
+        if (!err) {
+          const query = Qs.parse(window.location.search.substring(1));
+
+          if (query.returnUrl) {
+            window.location.href = query.returnUrl;
+          }
+          else if (response && response.roles) {
+            if (response.roles.admin) {
+              window.location.href = '/admin';
+            }
+            else {
+              window.location.href = '/account';
+            }
+          }
         }
+      }
+    );
+  }
 
-        ApiActions.get(
-            '/api/users/my',
-            undefined,
-            LoginStore,
-            Constants.GET_USER_CREDS,
-            Constants.GET_USER_CREDS_RESPONSE,
-            (err, response) => {
+  static login(data) {
 
-                if (!err) {
-                    const query = Qs.parse(window.location.search.substring(1));
+    ApiActions.post(
+      '/api/login',
+      data,
+      LoginStore,
+      Constants.LOGIN,
+      Constants.LOGIN_RESPONSE,
+      (err, response) => {
 
-                    if (query.returnUrl) {
-                        window.location.href = query.returnUrl;
-                    }
-                    else if (response && response.roles) {
-                        if (response.roles.admin) {
-                            window.location.href = '/admin';
-                        }
-                        else {
-                            window.location.href = '/account';
-                        }
-                    }
-                }
+        if (!err) {
+          const query = Qs.parse(window.location.search.substring(1));
+
+          if (query.returnUrl) {
+            window.location.href = query.returnUrl;
+          }
+          else if (response && response.user) {
+            if (response.user.roles.admin) {
+              window.location.href = '/admin';
             }
-        );
-    }
-
-    static login(data) {
-
-        ApiActions.post(
-            '/api/login',
-            data,
-            LoginStore,
-            Constants.LOGIN,
-            Constants.LOGIN_RESPONSE,
-            (err, response) => {
-
-                if (!err) {
-                    const query = Qs.parse(window.location.search.substring(1));
-
-                    if (query.returnUrl) {
-                        window.location.href = query.returnUrl;
-                    }
-                    else if (response && response.user) {
-                        if (response.user.roles.admin) {
-                            window.location.href = '/admin';
-                        }
-                        else {
-                            window.location.href = '/student';
-                        }
-                    }
-                }
+            else {
+              window.location.href = '/student';
             }
-        );
-    }
+          }
+        }
+      }
+    );
+  }
 
-    static logout() {
+  static logout() {
 
-        ApiActions.delete(
-            '/api/logout',
-            undefined,
-            LogoutStore,
-            Constants.LOGOUT,
-            Constants.LOGOUT_RESPONSE
-        );
-    }
+    ApiActions.delete(
+      '/api/logout',
+      undefined,
+      LogoutStore,
+      Constants.LOGOUT,
+      Constants.LOGOUT_RESPONSE
+    );
+  }
 
-    static reset(data) {
+  static reset(data) {
 
-        ApiActions.post(
-            '/api/login/reset',
-            data,
-            ResetStore,
-            Constants.RESET,
-            Constants.RESET_RESPONSE
-        );
-    }
+    ApiActions.post(
+      '/api/login/reset',
+      data,
+      ResetStore,
+      Constants.RESET,
+      Constants.RESET_RESPONSE
+    );
+  }
 }
 
 

@@ -1,4 +1,4 @@
-'use strict';
+
 const ClassNames = require('classnames');
 const ObjectAssign = require('object-assign');
 const PropTypes = require('prop-types');
@@ -6,42 +6,42 @@ const React = require('react');
 
 
 const propTypes = {
-    children: PropTypes.node,
-    disabled: PropTypes.bool,
-    inputClasses: PropTypes.object,
-    name: PropTypes.string,
-    onClick: PropTypes.func,
-    type: PropTypes.string,
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ])
+  children: PropTypes.node,
+  disabled: PropTypes.bool,
+  inputClasses: PropTypes.object,
+  name: PropTypes.string,
+  onClick: PropTypes.func,
+  type: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 const defaultProps = {
-    type: 'button'
+  type: 'button'
 };
 
 
 class Button extends React.Component {
-    render() {
+  render() {
 
-        const inputClasses = ClassNames(ObjectAssign({
-            'btn': true
-        }, this.props.inputClasses));
+    const inputClasses = ClassNames(ObjectAssign({
+      'btn': true
+    }, this.props.inputClasses));
 
-        return (
-            <button
-                type={this.props.type}
-                className={inputClasses}
-                name={this.props.name}
-                value={this.props.value}
-                disabled={this.props.disabled}
-                onClick={this.props.onClick}>
+    return (
+      <button
+        type={this.props.type}
+        className={inputClasses}
+        name={this.props.name}
+        value={this.props.value}
+        disabled={this.props.disabled}
+        onClick={this.props.onClick}>
 
-                {this.props.children}
-            </button>
-        );
-    }
+        {this.props.children}
+      </button>
+    );
+  }
 }
 
 Button.propTypes = propTypes;
