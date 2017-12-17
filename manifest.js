@@ -77,7 +77,9 @@ const manifest = {
                         Status: './server/models/status',
                         User: './server/models/user',
                         Student: './server/models/student',
-                        Course: './server/models/course'
+                        Course: './server/models/course',
+                        Assignment: './server/models/assignment',
+                        Homework: './server/models/homework'
                     },
                     autoIndex: Config.get('/hapiMongoModels/autoIndex')
                 }
@@ -97,6 +99,18 @@ const manifest = {
         },
         {
             plugin: './server/api/courses',
+            options: {
+                routes: { prefix: '/api' }
+            }
+        },
+        {
+            plugin: './server/api/assignments',
+            options: {
+                routes: { prefix: '/api' }
+            }
+        },
+        {
+            plugin: './server/api/homeworks',
             options: {
                 routes: { prefix: '/api' }
             }

@@ -18,6 +18,7 @@
     "browser": true
   },
   "rules": {
-    "hapi/hapi-scope-start": "off"
+    "hapi/hapi-scope-start": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }]
   }
 }
