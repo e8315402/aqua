@@ -284,11 +284,11 @@ Async.auto({
             }],
             addScoreToHomeworks: ['homeworks', (dbResults, done) => {
                 const mapping = {};
-                Homeworks.forEach((each) => (mapping[each.assignmentName] = each));
+                Homeworks.forEach((each) => (mapping[`${each.courseName}${each.assignmentName}${each.studentId}`] = each));
                 Async.each(dbResults.homeworks, (homework, _cb) => {
                     const update = {
                         $set:{
-                            score: mapping[homework.assignmentName].score
+                            score: mapping[`${homework.courseName}${homework.assignmentName}${homework.studentId}`].score
                         }
                     };
                     Homework.findByIdAndUpdate(homework._id, update, _cb);
