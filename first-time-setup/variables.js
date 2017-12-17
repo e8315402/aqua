@@ -104,85 +104,85 @@ module.exports.assignments = [
         courseName: 'Software Engineering',
         assignmentName: 'Assignment 1',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-10-11')
+        deadline: '2017-10-11'
     },
     {
         courseName: 'Software Engineering',
         assignmentName: 'Assignment 2',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-11-07')
+        deadline: '2017-11-07'
     },
     {
         courseName: 'Software Engineering',
         assignmentName: 'Assignment 3',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-12-05')
+        deadline: '2017-12-05'
     },
     {
         courseName: 'Software Engineering',
         assignmentName: 'Assignment 4',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2018-01-09')
+        deadline: '2018-01-09'
     },
     {
         courseName: 'Object-Oriented Analysis and Design',
         assignmentName: 'Assignment 1',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-02-29')
+        deadline: '2017-02-29'
     },
     {
         courseName: 'Object-Oriented Analysis and Design',
         assignmentName: 'Assignment 2',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-03-19')
+        deadline: '2017-03-19'
     },
     {
         courseName: 'Object-Oriented Analysis and Design',
         assignmentName: 'Assignment 3',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-04-01')
+        deadline: '2017-04-01'
     },
     {
         courseName: 'Object-Oriented Analysis and Design',
         assignmentName: 'Assignment 4',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-04-22')
+        deadline: '2017-04-22'
     },
     {
         courseName: 'Pattern-Oriented Software Design',
         assignmentName: 'Assignment 1',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-9-21')
+        deadline: '2017-09-21'
     },
     {
         courseName: 'Pattern-Oriented Software Design',
         assignmentName: 'Assignment 2',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-10-06')
+        deadline: '2017-10-06'
     },
     {
         courseName: 'Pattern-Oriented Software Design',
         assignmentName: 'Assignment 3',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-10-19')
+        deadline: '2017-10-19'
     },
     {
         courseName: 'Pattern-Oriented Software Design',
         assignmentName: 'Assignment 4',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-10-27')
+        deadline: '2017-10-27'
     },
     {
         courseName: 'Pattern-Oriented Software Design',
         assignmentName: 'Assignment 5',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-11-09')
+        deadline: '2017-11-09'
     },
     {
         courseName: 'Pattern-Oriented Software Design',
         assignmentName: 'Assignment 6',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-11-29')
+        deadline: '2017-11-29'
     }
 ];
 
