@@ -272,16 +272,26 @@ Async.auto({
 
     }],
     setupHomework: ['setupRootUser', (results, done) => {
-
         const Homework = require('../server/models/homework');
-
         Async.auto({
             connect: function (done) {
                 MongoModels.connect(results.mongodbUri, {}, done);
             },
-            course: ['connect', function (dbResults, done) {
-                Async.each(Homeworks, (homework, _cb) => {
+            homeworks: ['connect', function (dbResults, done) {
+                Async.map(Homeworks, (homework, _cb) => {
                     Homework.create(homework.courseName, homework.assignmentName, homework.studentId, homework.filePath, _cb);
+                }, done);
+            }],
+            addScoreToHomeworks: ['homeworks', (dbResults, done) => {
+                const mapping = {};
+                Homeworks.forEach((each) => (mapping[each.assignmentName] = each));
+                Async.each(dbResults.homeworks, (homework, _cb) => {
+                    const update = {
+                        $set:{
+                            score: mapping[homework.assignmentName].score
+                        }
+                    };
+                    Homework.findByIdAndUpdate(homework._id, update, _cb);
                 }, done);
             }]
         },(err, dbResults) => {
