@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-// import { } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
-
-// import imagine from 'assets/img/sidebar-3.jpg';
-// import logo from 'assets/img/reactlogo.png';
-// import logo from 'assets/img/homework256.png';
+import sidebarBg from 'assets/img/sidebar.jpg';
+import logo from 'assets/img/homework256.png';
 
 class Sidebar extends Component{
     constructor(props){
@@ -35,26 +32,26 @@ class Sidebar extends Component{
     }
     render(){
         const sidebarBackground = {
-            backgroundImage: 'url(public/pages/sidebar-3.jpg)'
+            backgroundImage: `url(${sidebarBg})`
         };
         return (
             <div id="sidebar" className="sidebar" data-color="black" data-image={'public/pages/sidebar-3.jpg'}>
                 <div className="sidebar-background" style={sidebarBackground}></div>
                 <div className="logo">
-                    <a href="#/dashboard" className="simple-text logo-mini">
+                    <a href="#/courses" className="simple-text logo-mini">
                         <div className="logo-img">
-                            <img src="/public/pages/homework256.png" alt="logo_image"/>
+                            <img src={logo} alt="logo_image"/>
                         </div>
                     </a>
-                    <a href="#/dashboard" className="simple-text logo-normal">
-                            Assignmnet Submission
+                    <a href="#/courses" className="simple-text logo-normal">
+                            Assignment Submission
                     </a>
                 </div>
                 <div className="sidebar-wrapper">
                     <ul className="nav">
                         { this.state.width <= 991 ? (<HeaderLinks />) : null }
-                        <li className={this.activeRoutes(['/dashboard', '/table'])}>
-                            <NavLink to={'/dashboard'} className="nav-link" activeClassName="active">
+                        <li className={this.activeRoutes(['/courses'])}>
+                            <NavLink to={'/courses'} className="nav-link" activeClassName="active">
                                 <i className="pe-7s-notebook"></i>
                                 <p>My Course</p>
                             </NavLink>
@@ -83,12 +80,6 @@ class Sidebar extends Component{
                                 <p>Icons</p>
                             </NavLink>
                         </li>
-                        {/* <li className={this.activeRoute("/maps")}>
-                            <NavLink to={'/maps'} className="nav-link" activeClassName="active">
-                                <i className="pe-7s-map-marker"></i>
-                                <p>Maps</p>
-                            </NavLink>
-                        </li> */}
                         <li className={this.activeRoute('/notifications')}>
                             <NavLink to={'/notifications'} className="nav-link" activeClassName="active">
                                 <i className="pe-7s-bell"></i>

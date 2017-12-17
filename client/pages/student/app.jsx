@@ -11,6 +11,8 @@ import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 
 import Course from './views/Course/Course';
+import Homework from './views/Homework/Homework';
+
 
 class App extends Component {
     render() {
@@ -22,6 +24,7 @@ class App extends Component {
 
                     <Switch>
                         <Route path="/courses" component={Course}/>
+                        <Route path="/homeworks" component={Homework}/>
                         <Redirect from="/" to="/courses"/>
                     </Switch>
 

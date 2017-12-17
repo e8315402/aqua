@@ -8,7 +8,7 @@
     "first-time-setup": "node ./first-time-setup",
     "test": "lab -t 99 -S -T ./test/lab/transform -L --lint-options '{\"extensions\":[\".js\",\".jsx\"]}' ./test/lab/client-before.js ./test/client/ ./test/lab/client-after.js ./test/server/ ./test/lab/server-after.js ./test/misc/",
     "test-client": "lab -v -t 99 -S -T ./test/lab/transform ./test/lab/client-before.js $TEST_TARGET ./test/lab/client-after.js",
-    "test-server": "lab -v -t 99 -S -T ./test/lab/transform ./test/server/models/course.js ./test/lab/server-after.js",
+    "test-server": "lab -v -t 99 -S -T ./test/lab/transform ./test/server/models/student.js ./test/lab/server-after.js",
     "postinstall": "gulp build"
   },
   "author": "Reza Akhavan <jedireza@gmail.com> (http://reza.akhavan.me/)",
@@ -44,6 +44,7 @@
     "react-bootstrap": "^0.31.5",
     "react-helmet": "5.x.x",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "slug": "0.9.x",
     "uuid": "3.x.x",
     "vision": "4.x.x",

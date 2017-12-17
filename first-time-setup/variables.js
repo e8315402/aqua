@@ -122,7 +122,7 @@ module.exports.assignments = [
         courseName: 'Software Engineering',
         assignmentName: 'Assignment 4',
         description: 'This is assignment, this time you need to ...',
-        deadline: new Date('2017-01-09')
+        deadline: new Date('2018-01-09')
     },
     {
         courseName: 'Object-Oriented Analysis and Design',

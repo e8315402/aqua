@@ -33,7 +33,7 @@ class Results extends React.Component {
                         return (
                             <div key={key} className="col-sm-6 col-md-4 col-lg-3">
                                 <CourseCard
-                                    courseLink={`#/homeworks?courseName=${eachCourse.courseName}`}
+                                    courseLink='#/assignments'
                                     bgImage={Image}
                                     courseName={eachCourse.courseName}
                                     description={
