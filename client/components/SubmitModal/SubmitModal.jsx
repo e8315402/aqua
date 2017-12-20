@@ -1,20 +1,59 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-// import {Popover, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+const FileUpload = require('react-fileupload');
+const Cookie = require('cookie');
 
-export class SubmitModal extends Component{
+const propTypes = {
+  show: PropTypes.bool,
+  onHide: PropTypes.func,
+  title: PropTypes.string,
+  body: PropTypes.string,
+  dueDate: PropTypes.string
+};
+
+class SubmitModal extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      chooseFile: undefined
+    };
+    this.chooseFile = this.chooseFile.bind(this);
+    this.closeModel = this.closeModel.bind(this);
+  }
+  chooseFile(files) {
+    console.log('you choose',typeof files === 'string' ? files : files[0].name);
+    this.setState({ chooseFile: `You choose ${files[0].name}` });
+  }
+  closeModel(e) {
+    this.setState({ chooseFile: undefined });
+    this.props.onHide(e);
+  }
   render() {
-    // const popover = (
-    //   <Popover id="modal-popover" title="popover">
-    //     very popover. such engagement
-    //   </Popover>
-    // );
-    // const tooltip = (
-    //   <Tooltip id="modal-tooltip">
-    //     wow.
-    //   </Tooltip>
-    // );
-
+    const options = {
+      wrapperDisplay: 'initial',
+      baseUrl: '/api/homeworks',
+      requestHeaders: {
+        'X-CSRF-Token': Cookie.parse(document.cookie).crumb
+      },
+      chooseFile : this.chooseFile,
+      doUpload : function (files, mill){
+        console.log('you just uploaded', typeof files === 'string' ? files : files[0].name);
+      },
+      uploading : function (progress){
+        console.log(progress);
+        console.log('loading...', progress.loaded / progress.total + '%');
+      },
+      uploadSuccess : function (resp){
+        console.log('upload success..!');
+      },
+      uploadError : function (err){
+        alert(err.message);
+      },
+      uploadFail : function (resp){
+        alert(resp);
+      }
+    };
     return (
       <Modal show={this.props.show} onHide={this.props.onHide}>
         <Modal.Header closeButton>
@@ -25,17 +64,14 @@ export class SubmitModal extends Component{
         </Modal.Header>
         <Modal.Body>
           <p><b>Project Objective:</b></p>
-          <p style={{ textAlign: 'justify' }}>This project requires students to work on a software project in order to exercise the software engineering methodologies learned and to gain project experiences. The major focus of the project will be <font color="#0000FF"><b>teamwork</b></font>, <font color="#0000FF"><b>project planning</b></font>, <font color="#0000FF"><b>system analysis and design</b></font>, <font color="#0000FF"><b>the uses of CASE tools</b></font>, and <font color="#0000FF"><b>documentations</b></font> (including project plan, system requirement specification, software design document,&nbsp;and software test document).</p>
-          <p>... ...</p>
+          {this.props.body}
         </Modal.Body>
         <Modal.Footer>
-          {/* <div className="row"> */}
-          <div className="upload-btn-wrapper" style={{ marginRight: '5px' }}>
-            <Button ><span><input type="file" name="myfile" /></span> Upload a file</Button>
-
-          </div>
-          <Button >Close</Button>
-          {/* </div> */}
+          <FileUpload options={options}>
+            <Button ref="chooseBtn"  {...this.state.chooseFile ? { bsStyle: 'success' } : {}} >{this.state.chooseFile ? this.state.chooseFile : 'Choose File'}</Button>&nbsp;
+            <Button ref="uploadBtn">Upload</Button>&nbsp;
+            <Button onClick={this.closeModel}>Close</Button>
+          </FileUpload>
         </Modal.Footer>
       </Modal>
     );
@@ -43,4 +79,6 @@ export class SubmitModal extends Component{
 
 }
 
-export default SubmitModal;
+SubmitModal.propTypes = propTypes;
+
+module.exports = SubmitModal;

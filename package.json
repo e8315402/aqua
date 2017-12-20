@@ -6,6 +6,7 @@
   "scripts": {
     "start": "gulp",
     "first-time-setup": "node ./first-time-setup",
+    "build-css": "node-sass-chokidar --include-path ./client --include-path ./node_modules client/ -o client/",
     "test": "lab -t 99 -S -T ./test/lab/transform -L --lint-options '{\"extensions\":[\".js\",\".jsx\"]}' ./test/lab/client-before.js ./test/client/ ./test/lab/client-after.js ./test/server/ ./test/lab/server-after.js ./test/misc/",
     "test-client": "lab -v -t 99 -S -T ./test/lab/transform ./test/lab/client-before.js $TEST_TARGET ./test/lab/client-after.js",
     "test-server": "lab -v -t 99 -S -T ./test/lab/transform ./test/server/models/student.js ./test/lab/server-after.js",
@@ -42,6 +43,7 @@
     "prop-types": "^15.6.0",
     "react": "15.x.x",
     "react-bootstrap": "^0.31.5",
+    "react-fileupload": "^2.4.0",
     "react-helmet": "5.x.x",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
@@ -81,6 +83,7 @@
     "lodash": "4.x.x",
     "merge-stream": "1.x.x",
     "moment": "2.18.x",
+    "node-sass-chokidar": "0.0.3",
     "nodemon": "1.x.x",
     "postcss-flexbugs-fixes": "^3.2.0",
     "postcss-loader": "^2.0.8",
