@@ -2,18 +2,18 @@
 const React = require('react');
 
 
-class StudentPage extends React.Component {
+class InstructorPage extends React.Component {
     render() {
 
         return (
             <html>
                 <head>
-                    <title>Student</title>
+                    <title>Instructor</title>
                 </head>
                 <body>
                     <div id="root"></div>
                     <script src="/public/core.min.js"></script>
-                    <script src="/public/pages/student.min.js"></script>
+                    <script src="/public/pages/instructor.min.js"></script>
                 </body>
             </html>
         );
@@ -21,4 +21,4 @@ class StudentPage extends React.Component {
 }
 
 
-module.exports = StudentPage;
+module.exports = InstructorPage;

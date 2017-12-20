@@ -79,7 +79,8 @@ const manifest = {
                         Student: './server/models/student',
                         Course: './server/models/course',
                         Assignment: './server/models/assignment',
-                        Homework: './server/models/homework'
+                        Homework: './server/models/homework',
+                        instructor: './server/models/instructor'
                     },
                     autoIndex: Config.get('/hapiMongoModels/autoIndex')
                 }
@@ -189,6 +190,9 @@ const manifest = {
         },
         {
             plugin: './server/web/student'
+        },
+        {
+            plugin: './server/web/instructor'
         },
         {
             plugin: './server/web/admin'

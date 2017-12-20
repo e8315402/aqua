@@ -38,7 +38,8 @@ Gulp.task('webpack', (callback) => {
     watch: global.isWatching,
     entry: {
       student: './client/pages/student/index',
-      admin: './client/pages/admin/index',
+      instructor: './client/pages/instructor/index',
+      admin: './client/pages/admin/index',      
       main: './client/pages/main/index'
     },
     output: {
