@@ -49,18 +49,21 @@ internals.applyRoutes = function (server, next) {
       auth: {
         strategy: 'session',
         scope: ['student']
+      },
+      validate: {
+        payload: {
+          courseName: Joi.string().required(),
+          assignmentName: Joi.string().required(),
+          data: Joi.any().required(),
+          fileName: Joi.string()
+        }
       }
-      // validate: {
-      //   payload: {
-      //     output: 'stream',
-      //     parse: true,
-      //     allow: ['multipart/form-data']
-      //   }
-      // }
     },
     handler: function (request, reply) {
-      console.log(`FileName: ${Object.keys(request.payload)[0]}`);
-      const name = Object.keys(request.payload)[0];
+      // const extension = request.payload.fileName.split('.').pop();
+      // const name = request.auth.credentials.user.roles.student.studentId + '.' + extension;
+      const studentId = request.auth.credentials.user.roles.student.studentId;
+      const name = request.payload.fileName;
       const path = process.cwd() + '/' + name;
       const file = FS.createWriteStream(path);
 
@@ -69,17 +72,20 @@ internals.applyRoutes = function (server, next) {
       });
 
       file.on('finish', (err) => {
+
         if (err) {
-          console.log(err);
+          return reply(err);
         };
-        const ret = {
-          filename: name,
-          headers: request.headers
-        };
-        reply(JSON.stringify(ret));
+
+        Homework.create(request.payload.courseName, request.payload.assignmentName, studentId, path, (err, result) => {
+          if (err) {
+            return reply(err);
+          }
+          reply(result);
+        });
       });
 
-      file.write(new Buffer(request.payload[name]));
+      file.write(new Buffer(request.payload.data));
       file.end();
     }
   });
