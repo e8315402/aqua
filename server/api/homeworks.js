@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer';
+
+const FS = require('fs');
 const Joi = require('joi');
 
 const internals = {};
@@ -35,6 +38,48 @@ internals.applyRoutes = function (server, next) {
         }
         reply(homeworks);
       });
+    }
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/homeworks',
+    config: {
+      auth: {
+        strategy: 'session',
+        scope: ['student']
+      }
+      // validate: {
+      //   payload: {
+      //     output: 'stream',
+      //     parse: true,
+      //     allow: ['multipart/form-data']
+      //   }
+      // }
+    },
+    handler: function (request, reply) {
+      console.log(`FileName: ${Object.keys(request.payload)[0]}`);
+      const name = Object.keys(request.payload)[0];
+      const path = process.cwd() + '/' + name;
+      const file = FS.createWriteStream(path);
+
+      file.on('error', (err) => {
+        console.error(err);
+      });
+
+      file.on('finish', (err) => {
+        if (err) {
+          console.log(err);
+        };
+        const ret = {
+          filename: name,
+          headers: request.headers
+        };
+        reply(JSON.stringify(ret));
+      });
+
+      file.write(new Buffer(request.payload[name]));
+      file.end();
     }
   });
 
