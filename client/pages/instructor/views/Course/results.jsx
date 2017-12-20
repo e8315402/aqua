@@ -33,15 +33,14 @@ class Results extends React.Component {
             return (
               <div key={key} className="col-sm-6 col-md-4 col-lg-3">
                 <CourseCard
-                  courseLink={`#/assignments?courseName=${eachCourse.courseName}`}                  
+                  courseLink={`#/assignments?courseName=${eachCourse.courseName}`}
                   bgImage={Image}
                   courseName={eachCourse.courseName}
                   description={
                     <span>
                       {eachCourse.courseTime}
                       <br/>
-                      {/* {eachCourse.instructor.name} */}
-                      aaa
+                      {eachCourse.instructor.name}
                     </span>
                   }
                   socials={

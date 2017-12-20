@@ -38,7 +38,7 @@ module.exports.instructors = [
     user: {
       name: 'WK Chen'
     }
-  },
+  }
 ];
 
 module.exports.courses = [
