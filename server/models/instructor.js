@@ -6,10 +6,9 @@ const StatusEntry = require('./status-entry');
 
 
 class Instructor extends MongoModels {
-  static create(id, callback) {
-
+  static create(instructorId, callback) {
     const document = {
-      id,
+      instructorId,
       timeCreated: new Date()
     };
 
@@ -24,18 +23,19 @@ class Instructor extends MongoModels {
 
   static findById(instructorId, callback) {
 
-    const query = { 'id': instructorId };
+    const query = { 'instructorId': instructorId };
 
     this.findOne(query, callback);
   }
 }
 
 
-Instructor.collection = 'students';
+Instructor.collection = 'instructors';
 
 
 Instructor.schema = Joi.object().keys({
   _id: Joi.object(),
+  instructorId: Joi.string().required(),
   user: Joi.object().keys({
     id: Joi.string().required(),
     name: Joi.string().lowercase().required()

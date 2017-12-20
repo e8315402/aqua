@@ -116,7 +116,7 @@ class LoginPage extends React.Component {
           <title>Sign in</title>
         </Helmet>
         <div className="container">
-          <h1 className="page-header">Sign in</h1>
+          <h1 className="page-header">Sign innnnn</h1>
           <div className="row">
             <div className="col-sm-6">
               <form onSubmit={this.handleSubmit.bind(this)}>

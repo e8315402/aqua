@@ -6,7 +6,7 @@ class Course extends MongoModels {
     const document = {
       courseName,
       instructor: {
-        _id: instructor._id,
+        instructorId: instructor.instructorId,
         name: instructor.name
       },
       student: students.map((student) => ({ studentId: student.studentId })),
@@ -39,7 +39,7 @@ Course.schema = Joi.object().keys({
   _id: Joi.object(),
   courseName: Joi.string().required(),
   instructor: Joi.object().keys({
-    _id: Joi.string().required(),
+    instructorId: Joi.string().required(),
     name: Joi.string().required()
   }),
   student: Joi.array().items(

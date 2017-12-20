@@ -6,6 +6,8 @@ const Courses = require('./variables').courses;
 const Assignments = require('./variables').assignments;
 const Students = require('./variables').students;
 const Homeworks = require('./variables').homeworks;
+const Instructors = require('./variables').instructors;
+
 
 
 Async.auto({
@@ -53,6 +55,8 @@ Async.auto({
     const Course = require('../server/models/course');
     const Homework = require('../server/models/homework');
     const Assignment = require('../server/models/assignment');
+    const Instructor = require('../server/models/instructor');
+    
 
     Async.auto({
       connect: function (done) {
@@ -72,7 +76,9 @@ Async.auto({
           Student.deleteMany.bind(Student, {}),
           Course.deleteMany.bind(Course, {}),
           Homework.deleteMany.bind(Homework, {}),
-          Assignment.deleteMany.bind(Assignment, {})
+          Assignment.deleteMany.bind(Assignment, {}),
+          Instructor.deleteMany.bind(Instructor, {})
+          
         ], done);
       }],
       adminGroup: ['clean', function (dbResults, done) {
@@ -303,7 +309,61 @@ Async.auto({
 
       done(null, true);
     });
+  }],
+  setupInstructor:['setupRootUser',(results,done)=>{
+    const User = require('../server/models/user');
+    const Instructor = require('../server/models/instructor');
+
+    Async.auto({
+      connect: function (done) {
+        MongoModels.connect(results.mongodbUri, {}, done);
+      },
+      instructors: ['connect',function (dbResults, done) {
+        Async.map(Instructors, (instructor, _cb) => {
+          Instructor.create(instructor.instructorId, _cb);
+        }, done);
+      }],
+      users: ['connect', function (dbResults, done) {
+        Async.map(Instructors, (instructor, _cb) => {
+          User.create(instructor.user.name, instructor.instructorId, 'default@gmail.com', _cb);
+        }, done);
+      }],
+      linkUser: ['instructors', 'users', function (dbResults, done) {
+        Async.eachOf(dbResults.instructors, (instructor, index, _cb) => {
+          const update = {
+            $set: {
+              'roles.instructor': {
+                instructorId: instructor.instructorId
+              }
+            }
+          };
+          User.findByIdAndUpdate(dbResults.users[index]._id, update, _cb);
+        }, done);
+      }],
+      linkInstructor: ['instructors', 'users', function (dbResults, done) {
+        Async.eachOf(dbResults.users, (user, index, _cb) => {
+          const update = {
+            $set: {
+              'roles.user': {
+                id: user._id.toString(),
+                name: user.username
+              }
+            }
+          };
+          const filter = { instructorId: dbResults.instructors[index].instructorId };
+          Instructor.findOneAndUpdate(filter, update, _cb);
+        }, done);
+      }]
+    }, (err, dbResults) => {
+      if (err) {
+        console.error('Failed to setup instructors.');
+        return done(err);
+      }
+
+      done(null, true);
+    });
   }]
+  
 }, (err, results) => {
 
   if (err) {

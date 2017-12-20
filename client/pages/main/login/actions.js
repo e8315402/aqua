@@ -74,6 +74,10 @@ class Actions {
             if (response.user.roles.admin) {
               window.location.href = '/admin';
             }
+            else if (response.user.roles.instructor){
+              console.log('[Instructor Login]')
+              window.location.href='/instructor';
+            }
             else {
               window.location.href = '/student';
             }

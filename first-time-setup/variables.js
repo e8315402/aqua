@@ -1,35 +1,3 @@
-// const _studentsA = [
-//     {
-//         _id: '105598047',
-//         user: {
-//             id: '95EP150D35',
-//             name: 'james'
-//         }
-//     },
-//     {
-//         _id: '105598055',
-//         user: {
-//             id: '95EP13523D',
-//             name: 'joe'
-//         }
-//     }
-// ];
-// const _studentsB = [
-//     {
-//         _id: '105598001',
-//         user: {
-//             id: '65EP150AH5',
-//             name: 'andy'
-//         }
-//     },
-//     {
-//         _id: '105598002',
-//         user: {
-//             id: '32EP135DSD',
-//             name: 'claire'
-//         }
-//     }
-// ];
 
 module.exports.students = [
   {
@@ -52,10 +20,31 @@ module.exports.students = [
   }
 ];
 
+module.exports.instructors = [
+  {
+    instructorId: '205598047',
+    user: {
+      name: 'YC Chang'
+    }
+  },
+  {
+    instructorId: '205598055',
+    user: {
+      name: 'CH Liu'
+    }
+  },
+  {
+    instructorId: '205598054',
+    user: {
+      name: 'WK Chen'
+    }
+  },
+];
+
 module.exports.courses = [
   {
     courseName: 'Pattern-Oriented Software Design',
-    instructor: { _id: '205598120', name : 'YC Chang' },
+    instructor: { instructorId: '205598047', name : 'YC Chang' },
     students: [
       {
         studentId: '105598047'
@@ -69,6 +58,7 @@ module.exports.courses = [
   },
   {
     courseName: 'Software Engineering',
+    instructor: { instructorId: '205598055', name : 'CH Liu' },
     students: [
       {
         studentId: '105598047'
@@ -78,14 +68,13 @@ module.exports.courses = [
         studentId: '106598054'
       }
     ],
-    instructor: { _id: '505598121', name : 'CH Liu' },
     classRoom: '宏裕科技大樓 1322',
     courseTime: 'Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00',
     courseWebsite: 'http://www.cc.ntut.edu.tw/~cliu/courses/se/se.htm'
   },
   {
     courseName: 'Object-Oriented Analysis and Design',
-    instructor: { _id: '805598122', name : 'WK Chen' },
+    instructor: { instructorId: '205598054', name : 'WK Chen' },
     students: [
       {
         studentId: '105598047'
