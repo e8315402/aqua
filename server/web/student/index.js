@@ -6,34 +6,34 @@ const internals = {};
 
 internals.applyRoutes = function (server, next) {
 
-    server.route({
-        method: 'GET',
-        path: '/student/{glob*}',
-        config: {
-            auth: {
-                strategy: 'session',
-                scope: 'student'
-            }
-        },
-        handler: function (request, reply) {
+  server.route({
+    method: 'GET',
+    path: '/student/{glob*}',
+    config: {
+      auth: {
+        strategy: 'session',
+        scope: 'student'
+      }
+    },
+    handler: function (request, reply) {
 
-            reply.view('student/index');
-        }
-    });
+      reply.view('student/index');
+    }
+  });
 
 
-    next();
+  next();
 };
 
 
 exports.register = function (server, options, next) {
 
-    server.dependency(['auth', 'hapi-mongo-models'], internals.applyRoutes);
+  server.dependency(['auth', 'hapi-mongo-models'], internals.applyRoutes);
 
-    next();
+  next();
 };
 
 
 exports.register.attributes = {
-    name: 'web/student'
+  name: 'web/student'
 };

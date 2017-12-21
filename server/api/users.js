@@ -101,7 +101,7 @@ internals.applyRoutes = function (server, next) {
     config: {
       auth: {
         strategy: 'session',
-        scope: ['admin', 'account','student']
+        scope: ['admin', 'student', 'instructor']
       }
     },
     handler: function (request, reply) {

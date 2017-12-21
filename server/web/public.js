@@ -1,24 +1,24 @@
-'use strict';
+
 
 
 exports.register = function (server, options, next) {
 
-    server.route({
-        method: 'GET',
-        path: '/public/{param*}',
-        handler: {
-            directory: {
-                path: 'public',
-                listing: true
-            }
-        }
-    });
+  server.route({
+    method: 'GET',
+    path: '/public/{param*}',
+    handler: {
+      directory: {
+        path: 'public',
+        listing: true
+      }
+    }
+  });
 
 
-    next();
+  next();
 };
 
 
 exports.register.attributes = {
-    name: 'public'
+  name: 'public'
 };

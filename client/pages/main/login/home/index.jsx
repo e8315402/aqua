@@ -21,7 +21,7 @@ class LoginPage extends React.Component {
 
     super(props);
 
-    // Actions.getUserCreds();
+    Actions.getUserCreds();
 
     this.input = {};
     this.state = Store.getState();

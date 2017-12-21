@@ -45,8 +45,11 @@ class Actions {
             if (response.roles.admin) {
               window.location.href = '/admin';
             }
+            else if (response.roles.instructor){
+              window.location.href = '/instructor';
+            }
             else {
-              window.location.href = '/account';
+              window.location.href = '/student';
             }
           }
         }
@@ -75,8 +78,7 @@ class Actions {
               window.location.href = '/admin';
             }
             else if (response.user.roles.instructor){
-              console.log('[Instructor Login]')
-              window.location.href='/instructor';
+              window.location.href = '/instructor';
             }
             else {
               window.location.href = '/student';

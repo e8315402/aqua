@@ -56,7 +56,6 @@ Async.auto({
     const Homework = require('../server/models/homework');
     const Assignment = require('../server/models/assignment');
     const Instructor = require('../server/models/instructor');
-    
 
     Async.auto({
       connect: function (done) {
@@ -78,7 +77,7 @@ Async.auto({
           Homework.deleteMany.bind(Homework, {}),
           Assignment.deleteMany.bind(Assignment, {}),
           Instructor.deleteMany.bind(Instructor, {})
-          
+
         ], done);
       }],
       adminGroup: ['clean', function (dbResults, done) {
@@ -310,7 +309,7 @@ Async.auto({
       done(null, true);
     });
   }],
-  setupInstructor:['setupRootUser',(results,done)=>{
+  setupInstructor:['setupRootUser',(results,done) => {
     const User = require('../server/models/user');
     const Instructor = require('../server/models/instructor');
 
@@ -363,7 +362,7 @@ Async.auto({
       done(null, true);
     });
   }]
-  
+
 }, (err, results) => {
 
   if (err) {

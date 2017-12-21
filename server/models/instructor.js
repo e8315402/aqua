@@ -23,7 +23,7 @@ class Instructor extends MongoModels {
 
   static findById(instructorId, callback) {
 
-    const query = { 'instructorId': instructorId };
+    const query = { instructorId };
 
     this.findOne(query, callback);
   }
