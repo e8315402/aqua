@@ -1,4 +1,4 @@
-import { Modal, Button, Table } from 'react-bootstrap';
+import { Modal, Button, Table, Col } from 'react-bootstrap';
 const React = require('react');
 const Card = require('components/Card/Card.jsx');
 const Qs = require('qs');
@@ -32,9 +32,7 @@ class Homework extends React.Component {
   }
   componentWillMount() {
     const query = Qs.parse(this.props.location.search.substring(1));
-    // Store.dispatch(Actions.saveQuery(query));
     Actions.saveQuery(query);
-    // Store.dispatch(Actions.updateHomeworksTable(query));
     Actions.updateHomeworksTable(query);
   }
 
@@ -57,8 +55,7 @@ class Homework extends React.Component {
   }
 
   chooseFile(files) {
-    console.log('you choose',typeof files === 'string' ? files : files[0].name);
-    this.setState({ chooseFile: files[0].name });
+    this.setState({ chooseFile: (files.length) ? files[0].name : '' });
   }
 
   doUpload(files) {
@@ -68,7 +65,7 @@ class Homework extends React.Component {
 
   uploadSuccess(resp) {
     console.log('upload success..!');
-    Store.dispatch(Actions.updateHomeworksTable(this.state.local.query));
+    Actions.updateHomeworksTable(this.state.local.query);
   }
 
   render() {

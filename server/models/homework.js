@@ -4,7 +4,7 @@ const MongoModels = require('mongo-models');
 
 
 class Homework extends MongoModels {
-  static create(courseName, assignmentName, studentId,studentName, filePath, callback) {
+  static create(courseName, assignmentName, studentId, studentName, filePath, callback) {
     const document = {
       courseName,
       assignmentName,
@@ -49,7 +49,7 @@ Homework.schema = Joi.object().keys({
   timeCreated: Joi.date(),
   filePath: Joi.string().required(),
   studentId: Joi.string().length(9).required(),
-  studentName: Joi.string().required(),  
+  studentName: Joi.string().required(),
   score: Joi.number().min(0).max(100)
 });
 

@@ -66,6 +66,7 @@ internals.applyRoutes = function (server, next) {
       // const extension = request.payload.fileName.split('.').pop();
       // const name = request.auth.credentials.user.roles.student.studentId + '.' + extension;
       const studentId = request.auth.credentials.user.roles.student.studentId;
+      const studentName = request.auth.credentials.user.username;
       const name = request.payload.fileName;
       const path = process.cwd() + '/' + name;
       const file = FS.createWriteStream(path);
@@ -80,7 +81,7 @@ internals.applyRoutes = function (server, next) {
           return reply(err);
         };
 
-        Homework.create(request.payload.courseName, request.payload.assignmentName, studentId, path, (err, result) => {
+        Homework.create(request.payload.courseName, request.payload.assignmentName, studentId, studentName, path, (err, result) => {
           if (err) {
             return reply(err);
           }
