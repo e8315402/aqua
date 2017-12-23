@@ -27,7 +27,6 @@ internals.applyRoutes = function (server, next) {
           'instructor.instructorId': request.auth.credentials.user.roles.instructor.instructorId
         }
       }
-      console.log(`[ filter ] = ${JSON.stringify(filter,null,2)}`)
       Course.find(filter, (err, courses) => {
         if (err) {
           return reply(err);

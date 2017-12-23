@@ -180,6 +180,7 @@ module.exports.homeworks = [
   { // 105598047 - Software Engineering - Assignment 1 - 86
     filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 1',
     score: 86
@@ -187,6 +188,7 @@ module.exports.homeworks = [
   { // 105598047 - Software Engineering - Assignment 2 - 65
     filePath : 'C:/PASS/SoftwareEngineering/assignment2/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',    
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 2',
     score: 65
@@ -194,6 +196,7 @@ module.exports.homeworks = [
   { // 105598047 - Software Engineering - Assignment 3 - undefined
     filePath : 'C:/PASS/SoftwareEngineering/assignment3/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',    
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 3',
     score: undefined
@@ -202,6 +205,7 @@ module.exports.homeworks = [
   { // 105598047 - Object-Oriented Analysis and Design - Assignment 1 - 80
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment1/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',    
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 1',
     score: 80
@@ -209,6 +213,7 @@ module.exports.homeworks = [
   { // 105598047 - Object-Oriented Analysis and Design - Assignment 2 - 92
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment2/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',    
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 2',
     score: 92
@@ -216,6 +221,7 @@ module.exports.homeworks = [
   { // 105598047 - Object-Oriented Analysis and Design - Assignment 3 - 83
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment3/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 3',
     score: 83
@@ -223,6 +229,7 @@ module.exports.homeworks = [
   { // 105598047 - Object-Oriented Analysis and Design - Assignment 4 - 88
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment4/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 4',
     score: 88
@@ -231,6 +238,7 @@ module.exports.homeworks = [
   { // 105598047 - Pattern-Oriented Software Design - Assignment 1 - 50
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment1/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 1',
     score: 50
@@ -238,6 +246,7 @@ module.exports.homeworks = [
   { // 105598047 - Pattern-Oriented Software Design - Assignment 2 - 90
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment2/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',    
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 2',
     score: 90
@@ -245,6 +254,7 @@ module.exports.homeworks = [
   { // 105598047 - Pattern-Oriented Software Design - Assignment 3 - 95
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment3/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 3',
     score: 95
@@ -252,6 +262,7 @@ module.exports.homeworks = [
   { // 105598047 - Pattern-Oriented Software Design - Assignment 4 - 94
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment4/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 4',
     score: 94
@@ -259,6 +270,7 @@ module.exports.homeworks = [
   { // 105598047 - Pattern-Oriented Software Design - Assignment 5 - 89
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment5/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 5',
     score: 89
@@ -266,6 +278,7 @@ module.exports.homeworks = [
   { // 105598047 - Pattern-Oriented Software Design - Assignment 6 - 99
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment6/105598047.txt',
     studentId : '105598047',
+    studentName : 'james',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 6',
     score: 99
@@ -274,6 +287,7 @@ module.exports.homeworks = [
   { // 105598055 - Software Engineering - Assignment 1 - 99
     filePath : 'C:/PASS/SoftwareEngineering/assignment1/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 1',
     score: 99
@@ -281,6 +295,7 @@ module.exports.homeworks = [
   { // 105598055 - Software Engineering - Assignment 2 - 75
     filePath : 'C:/PASS/SoftwareEngineering/assignment2/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 2',
     score: 75
@@ -288,6 +303,7 @@ module.exports.homeworks = [
   { // 105598055 - Software Engineering - Assignment 3 - undefined
     filePath : 'C:/PASS/SoftwareEngineering/assignment3/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 3',
     score: undefined
@@ -295,6 +311,7 @@ module.exports.homeworks = [
   { // 105598055 - Software Engineering - Assignment 4 - undefined
     filePath : 'C:/PASS/SoftwareEngineering/assignment4/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Software Engineering',
     assignmentName : 'Assignment 4',
     score: undefined
@@ -303,6 +320,7 @@ module.exports.homeworks = [
   { // 105598055 - Object-Oriented Analysis and Design - Assignment 1 - 79
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment1/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 1',
     score: 79
@@ -310,6 +328,7 @@ module.exports.homeworks = [
   { // 105598055 - Object-Oriented Analysis and Design - Assignment 2 - 75
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment2/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 2',
     score: 75
@@ -317,6 +336,7 @@ module.exports.homeworks = [
   { // 105598055 - Object-Oriented Analysis and Design - Assignment 3 - 80
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment3/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 3',
     score: 80
@@ -324,6 +344,7 @@ module.exports.homeworks = [
   { // 105598055 - Object-Oriented Analysis and Design - Assignment 4 - 82
     filePath : 'C:/PASS/Object-OrientedAnalysisandDesign/assignment4/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Object-Oriented Analysis and Design',
     assignmentName : 'Assignment 4',
     score: 82
@@ -339,6 +360,7 @@ module.exports.homeworks = [
   { // 105598055 - Pattern-Oriented Software Design - Assignment 2 - 90
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment2/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 2',
     score: 90
@@ -346,6 +368,7 @@ module.exports.homeworks = [
   { // 105598055 - Pattern-Oriented Software Design - Assignment 3 - 93
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment3/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 3',
     score: 93
@@ -353,6 +376,7 @@ module.exports.homeworks = [
   { // 105598055 - Pattern-Oriented Software Design - Assignment 4 - 94
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment4/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 4',
     score: 94
@@ -360,6 +384,7 @@ module.exports.homeworks = [
   { // 105598055 - Pattern-Oriented Software Design - Assignment 5 - 85
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment5/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 5',
     score: 85
@@ -367,6 +392,7 @@ module.exports.homeworks = [
   { // 105598055 - Pattern-Oriented Software Design - Assignment 6 - 96
     filePath : 'C:/PASS/Pattern-OrientedSoftwareDesign/assignment6/105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 6',
     score: 96

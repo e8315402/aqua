@@ -2,7 +2,7 @@ import { Buffer } from 'buffer';
 
 const FS = require('fs');
 const Joi = require('joi');
-
+const Async = require('async')
 const internals = {};
 
 
@@ -20,7 +20,8 @@ internals.applyRoutes = function (server, next) {
       },
       validate: {
         query: {
-          courseName: Joi.string().required()
+          courseName: Joi.string().required(),
+          assignmentName: Joi.string()
         }
       }
     },
@@ -31,8 +32,11 @@ internals.applyRoutes = function (server, next) {
       if(request.auth.credentials.user.roles.student){
         query.studentId = request.auth.credentials.user.roles.student.studentId
       }
-      
+      if(request.auth.credentials.user.roles.instructor){
+        query.assignmentName = request.query.assignmentName
+      }
       Homework.find(query, (err, homeworks) => {
+        
         if (err) {
           return reply(err);
         }
@@ -88,6 +92,30 @@ internals.applyRoutes = function (server, next) {
       file.end();
     }
   });
+
+  server.route({
+    method: 'POST',
+    path: '/homeworks/mark',
+    config: {
+      auth: {
+        strategy: 'session',
+        scope: ['instructor']
+      }
+    },
+    handler: function(request, reply) {
+      const courseName = request.payload.assignmentInfo.courseName
+      const assignmentName = request.payload.assignmentInfo.assignmentName
+
+      Async.map(request.payload.scoreTable, (scorePair, _cb) => {
+        Homework.marks(courseName, assignmentName, scorePair.studentId, scorePair.score, _cb)
+      }, function(err, result){
+        if( err ) {
+          return reply(err)          
+        }  
+        reply(result)
+      });
+    }
+  })
 
   next();
 };

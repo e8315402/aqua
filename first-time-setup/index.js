@@ -285,7 +285,7 @@ Async.auto({
       },
       homeworks: ['connect', function (dbResults, done) {
         Async.map(Homeworks, (homework, _cb) => {
-          Homework.create(homework.courseName, homework.assignmentName, homework.studentId, homework.filePath, _cb);
+          Homework.create(homework.courseName, homework.assignmentName, homework.studentId,homework.studentName, homework.filePath, _cb);
         }, done);
       }],
       addScoreToHomeworks: ['homeworks', (dbResults, done) => {

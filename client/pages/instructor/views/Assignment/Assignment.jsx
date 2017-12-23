@@ -40,7 +40,7 @@ class Assignments extends Component {
         <div className="container-fluid">
           <Row>
             <Card
-              title = {table.courseName}
+              title = {table.CourseName}
               category=""
               contentClass="table-responsive table-full-width"
               content={
@@ -63,7 +63,7 @@ class Assignments extends Component {
                           <tr key={rowKey}>{
                             table.Headers.map((eachHeader, cellIndex) => {
                               if (eachHeader === 'Assignment'){
-                                return (<td key={cellIndex}><a href="#/grading">{eachRow.Assignment}</a></td>);
+                                return (<td key={cellIndex}><a href={`#/grading?courseName=${table.CourseName}&assignmentName=${eachRow.Assignment}`}>{eachRow.Assignment}</a></td>);
                               }
                               if (eachHeader === 'Score') {
                                 switch (eachRow.Score) {
