@@ -17,7 +17,7 @@ class Actions {
     const content = {
       assignmentInfo,
       scoreTable
-    }
+    };
     ApiActions.post(
       '/api/homeworks/mark',
       content,

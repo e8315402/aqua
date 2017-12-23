@@ -5,7 +5,7 @@ const Async = require('async');
 const initialState = {
   loading: false,
   error: undefined,
-  data: [],
+  data: []
 };
 const reducer = function (state = initialState, action) {
 
@@ -21,10 +21,10 @@ const reducer = function (state = initialState, action) {
       data: action.response
     });
   }
-  if(action.type === Constants.MARK_RESPONSE){
+  if (action.type === Constants.MARK_RESPONSE){
     window.location.href = '/instructor#/assignments?courseName=' + action.response[0].courseName;
   }
-  
+
   return state;
 };
 
