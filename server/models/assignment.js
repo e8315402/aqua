@@ -35,6 +35,7 @@ Assignment.schema = Joi.object().keys({
   assignmentName: Joi.string().required(),
   description: Joi.string().required(),
   deadline: Joi.date().required(),
+  allMarked: Joi.boolean().default(false),
   isExpired: Joi.boolean().default(false)
 });
 

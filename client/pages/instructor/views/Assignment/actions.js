@@ -17,25 +17,31 @@ const JsonFetchP = (_request) => {
 };
 
 class Actions {
-  // static getResults(query) {
 
-  //   ApiActions.get(
-  //     '/api/assignments',
-  //     query,
-  //     Store,
-  //     Constants.GET_RESULTS,
-  //     Constants.GET_RESULTS_RESPONSE
-  //   );
-  // }
+  static createAssignment(query) {
+    ApiActions.post(
+      '/api/assignments',
+      query,
+      Store,
+      Constants.CREATE_NEW,
+      Constants.CREATE_NEW_RESPONSE,
+      (err, response) => {
+        if (!err) {
+          Store.dispatch(this.updateAssignmentsTable(Store.getState().local.query));
+        }
+      }
+    );
+  }
+
   static getHomeworks(query) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
 
+      const request = { method: 'GET', url: '/api/homeworks', query };
       dispatch({
         type: Constants.GET_RESULTS,
         request
       });
 
-      const request = { method: 'GET', url: '/api/homeworks', query };
       return JsonFetchP(request).then((response) =>
         dispatch({
           type: Constants.GET_HOMEWORKS_RESULTS_RESPONSE,
@@ -50,15 +56,16 @@ class Actions {
       );
     };
   }
+
   static getAssignments(query) {
     return (dispatch) => {
 
+      const request = { method: 'GET', url: '/api/assignments', query };
       dispatch({
         type: Constants.GET_RESULTS,
         request
       });
 
-      const request = { method: 'GET', url: '/api/assignments', query };
       return JsonFetchP(request).then((response) =>
         dispatch({
           type: Constants.GET_ASSIGNMENTS_RESULTS_RESPONSE,
@@ -73,15 +80,21 @@ class Actions {
       );
     };
   }
+
   static mergeResults() {
     return (dispatch) => dispatch({ type: Constants.MERGE_RESULTS });
   }
+
   static updateAssignmentsTable(query) {
     return (dispatch, getState) => {
       return dispatch(Actions.getHomeworks(query))
         .then(() => dispatch(Actions.getAssignments(query)))
         .then(() => dispatch(Actions.mergeResults()));
     };
+  }
+
+  static saveQuery(query) {
+    return (dispatch) => dispatch({ type: Constants.STORE_LOCAL_QUERY, query });
   }
 }
 
