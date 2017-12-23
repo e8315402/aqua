@@ -168,7 +168,7 @@ class Assignments extends Component {
                             <tr key={rowKey}>{
                               table.Headers.map((eachHeader, cellIndex) => {
                                 switch (eachHeader) {
-                                  case 'Assignment': return (<td key={cellIndex}><a href="#/grading">{eachRow.Assignment}</a></td>);
+                                  case 'Assignment': return (<td key={cellIndex}><a href={`#/grading?courseName=${table.CourseName}&assignmentName=${eachRow.Assignment}`}>{eachRow.Assignment}</a></td>);
                                   case 'All Marked':
                                     if (eachRow[eachHeader]) {
                                       return (<td key={cellIndex}><span style={{ color:'#33CC00' }} className="glyphicon glyphicon-ok"/></td>);

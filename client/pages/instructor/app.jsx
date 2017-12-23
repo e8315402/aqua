@@ -12,6 +12,8 @@ import Sidebar from 'components/Sidebar/Sidebar';
 
 import Course from './views/Course/Course';
 import Assignment from './views/Assignment/Assignment';
+import Grading from './views/Grading/Grading';
+
 
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
           <Switch>
             <Route path="/courses" component={Course}/>
             <Route path="/assignments" component={Assignment}/>
+            <Route path="/grading" component={Grading}/>            
             <Redirect from="/" to="/courses"/>
           </Switch>
 
