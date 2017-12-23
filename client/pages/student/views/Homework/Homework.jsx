@@ -32,8 +32,10 @@ class Homework extends React.Component {
   }
   componentWillMount() {
     const query = Qs.parse(this.props.location.search.substring(1));
-    Store.dispatch(Actions.saveQuery(query));
-    Store.dispatch(Actions.updateHomeworksTable(query));
+    // Store.dispatch(Actions.saveQuery(query));
+    Actions.saveQuery(query);
+    // Store.dispatch(Actions.updateHomeworksTable(query));
+    Actions.updateHomeworksTable(query);
   }
 
   componentWillUnmount() {
