@@ -35,8 +35,8 @@ class Assignments extends Component {
   }
   componentWillMount() {
     const query = Qs.parse(this.props.location.search.substring(1));
-    Store.dispatch(Actions.saveQuery(query));
-    Store.dispatch(Actions.updateAssignmentsTable(query));
+    Actions.saveQuery(query);
+    Actions.updateAssignmentsTable(query);
   }
   componentWillUnmount() {
     this.unsubscribeStore();

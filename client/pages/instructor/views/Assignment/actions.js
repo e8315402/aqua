@@ -1,20 +1,7 @@
 import ApiActions from 'actions/api';
 import Constants from './constants';
 import Store from './store';
-import JsonFetch from '../../../../helpers/json-fetch';
-
-const JsonFetchP = (_request) => {
-  return new Promise((resolve, reject) => {
-    JsonFetch(_request, (err, response) => {
-      if (err) {
-        reject(err);
-      }
-      else {
-        resolve(response);
-      }
-    });
-  });
-};
+import Async from 'async';
 
 class Actions {
 
@@ -27,75 +14,46 @@ class Actions {
       Constants.CREATE_NEW_RESPONSE,
       (err, response) => {
         if (!err) {
-          Store.dispatch(this.updateAssignmentsTable(Store.getState().local.query));
+          Actions.updateAssignmentsTable(Store.getState().local.query);
         }
       }
     );
   }
 
-  static getHomeworks(query) {
-    return (dispatch, getState) => {
-
-      const request = { method: 'GET', url: '/api/homeworks', query };
-      dispatch({
-        type: Constants.GET_RESULTS,
-        request
-      });
-
-      return JsonFetchP(request).then((response) =>
-        dispatch({
-          type: Constants.GET_HOMEWORKS_RESULTS_RESPONSE,
-          err: null,
-          response
-        })
-      ).catch((err) =>
-        dispatch({
-          type: Constants.GET_HOMEWORKS_RESULTS_RESPONSE,
-          err
-        })
-      );
-    };
+  static updateAssignmentsTable(query) {
+    Async.applyEachSeries([Actions.getHomeworks, Actions.getAssignments, Actions.mergeResults], query, () => {});
   }
 
-  static getAssignments(query) {
-    return (dispatch) => {
+  static getHomeworks(query, callback) {
+    ApiActions.get(
+      '/api/homeworks',
+      query,
+      Store,
+      Constants.GET_RESULTS,
+      Constants.GET_HOMEWORKS_RESULTS_RESPONSE,
+      callback
+    );
+  }
 
-      const request = { method: 'GET', url: '/api/assignments', query };
-      dispatch({
-        type: Constants.GET_RESULTS,
-        request
-      });
-
-      return JsonFetchP(request).then((response) =>
-        dispatch({
-          type: Constants.GET_ASSIGNMENTS_RESULTS_RESPONSE,
-          err: null,
-          response
-        })
-      ).catch((err) =>
-        dispatch({
-          type: Constants.GET_ASSIGNMENTS_RESULTS_RESPONSE,
-          err
-        })
-      );
-    };
+  static getAssignments(query, callback) {
+    ApiActions.get(
+      '/api/assignments',
+      query,
+      Store,
+      Constants.GET_RESULTS,
+      Constants.GET_ASSIGNMENTS_RESULTS_RESPONSE,
+      callback
+    );
   }
 
   static mergeResults() {
-    return (dispatch) => dispatch({ type: Constants.MERGE_RESULTS });
-  }
-
-  static updateAssignmentsTable(query) {
-    return (dispatch, getState) => {
-      return dispatch(Actions.getHomeworks(query))
-        .then(() => dispatch(Actions.getAssignments(query)))
-        .then(() => dispatch(Actions.mergeResults()));
-    };
+    Store.dispatch({ type: Constants.MERGE_RESULTS });
   }
 
   static saveQuery(query) {
-    return (dispatch) => dispatch({ type: Constants.STORE_LOCAL_QUERY, query });
+    Store.dispatch({ type: Constants.STORE_LOCAL_QUERY, query });
   }
+
 }
 
 
