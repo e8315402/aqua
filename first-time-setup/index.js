@@ -7,7 +7,7 @@ const Assignments = require('./variables').assignments;
 const Students = require('./variables').students;
 const Homeworks = require('./variables').homeworks;
 const Instructors = require('./variables').instructors;
-
+const Fs = require('fs');
 
 
 Async.auto({
@@ -279,6 +279,32 @@ Async.auto({
   setupHomework: ['setupRootUser', (results, done) => {
     const Homework = require('../server/models/homework');
     Async.auto({
+      cleanFiles: function (done) {
+        require('rimraf')('./PASS', done);
+      },
+      createFiles:['cleanFiles', function (dbResults, done) {
+        Async.each(Homeworks, (homework, _cb) => {
+          const eachFolders = homework.filePath.split('\\');
+          eachFolders.shift();
+          const file = eachFolders.pop();
+          Async.reduce(eachFolders, '.', (parent, each, __cb) => {
+            const folderPath = parent + '\\' + each;
+            if (!Fs.existsSync(folderPath)) {
+              Fs.mkdir(folderPath, (err) => __cb(err, folderPath));
+            }
+            else {
+              __cb(null, folderPath);
+            }
+          }, (err, folderPath) => {
+            if (err) {
+              _cb(err);
+            }
+            else {
+              Fs.writeFile(folderPath + '\\' +  file, 'Hey there!', _cb);
+            }
+          });
+        }, done);
+      }],
       connect: function (done) {
         MongoModels.connect(results.mongodbUri, {}, done);
       },

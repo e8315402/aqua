@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-
+const Path = require('path');
 const FS = require('fs');
 const Joi = require('joi');
 const Async = require('async');
@@ -68,7 +68,7 @@ internals.applyRoutes = function (server, next) {
       const studentId = request.auth.credentials.user.roles.student.studentId;
       const studentName = request.auth.credentials.user.username;
       const name = request.payload.fileName;
-      const path = process.cwd() + '/' + name;
+      const path = Path.join('PASS', request.payload.courseName, request.payload.assignmentName, name);
       const file = FS.createWriteStream(path);
 
       file.on('error', (err) => {

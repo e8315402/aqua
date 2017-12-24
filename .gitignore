@@ -3,3 +3,5 @@ public/*
 test/artifacts/*
 .env
 .vscode/
+PASS/
+client/assets/sass/light-bootstrap-dashboard.css

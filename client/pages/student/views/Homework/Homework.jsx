@@ -26,6 +26,7 @@ class Homework extends React.Component {
     this.open = this.open.bind(this);
     this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
     this.state = Object.assign(this.state, Store.getState());
+    this.downloadPage = this.downloadPage.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
     this.uploadSuccess = this.uploadSuccess.bind(this);
     this.doUpload = this.doUpload.bind(this);
@@ -42,6 +43,10 @@ class Homework extends React.Component {
 
   onStoreChange() {
     this.setState(Store.getState());
+  }
+
+  downloadPage(filePath) {
+    Actions.downloadFile(filePath);
   }
 
   close() {
@@ -151,10 +156,13 @@ class Homework extends React.Component {
                                   switch (eachRow[eachHeader]) {
                                     case 'v' : return (<td key={cellIndex}><span style={{ color:'#33CC00' }} className="glyphicon glyphicon-ok"/></td>);
                                     case 'x' : return (<td key={cellIndex}><span style={{ color:'red' }} className="glyphicon glyphicon-remove"/></td>);
-                                    case 'v-sub' : return (<td key={cellIndex}><Button onClick={this.open.bind(this, rowKey)}><span style={{ marginRight:'5px' }} className="glyphicon glyphicon-ok"/>Submit</Button></td>);
+                                    case 'v-sub' : return (<td key={cellIndex}><Button onClick={this.open.bind(this, rowKey)}><span style={{ marginRight:'5px', color:'#33CC00' }} className="glyphicon glyphicon-ok"/>Submit</Button></td>);
                                     case 'x-sub' : return (<td key={cellIndex}><Button onClick={this.open.bind(this, rowKey)} style={{ width:'102px' }}>Submit</Button></td>);
                                     default: break;
                                   }
+                                }
+                                if (eachHeader === 'File') {
+                                  return (<td key={cellIndex}><Button bsStyle="link" onClick={this.downloadPage.bind(this, eachRow[eachHeader])}>{eachRow[eachHeader].split('\\').pop()}</Button></td>);
                                 }
                                 return (<td key={cellIndex}>{eachRow[eachHeader]}</td>);
                               })

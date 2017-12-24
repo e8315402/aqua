@@ -31,7 +31,7 @@ const reducer = function (state = initialState, action) {
 
   if (action.type === Constants.MERGE_RESULTS) {
     const table = {
-      Headers: ['#','Assignment','Due Date','Status','Score']
+      Headers: ['#','Assignment','Due Date','Status','Score','File']
     };
 
     table.Rows = state.assignments.map((each) => (
@@ -56,9 +56,11 @@ const reducer = function (state = initialState, action) {
         else {
           table.Rows[index].Score = '-';
         }
+        table.Rows[index].File = homeworkMapping[each.Assignment].filePath;
       }
       else {
         table.Rows[index].Score = '-';
+        table.Rows[index].File = '-';
       }
     });
 
