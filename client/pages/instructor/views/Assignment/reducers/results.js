@@ -26,7 +26,6 @@ const reducer = function (state = initialState, action) {
   }
 
   if (action.type === Constants.GET_HOMEWORKS_RESULTS_RESPONSE) {
-
     return ObjectAssign({}, state, {
       homeworks: action.response
     });
@@ -44,27 +43,26 @@ const reducer = function (state = initialState, action) {
       Headers: ['#','Assignment','Due Date','Status','All Marked']
     };
     table.CourseName = state.assignments[0].courseName;
-    table.Rows = state.assignments.map((each,index) => (
-      {
+    table.Rows = state.assignments.map(function(each,index){
+      return {
         'Assignment': each.assignmentName,
         'Due Date':  dueDateFormatter(each.deadline),
         'Status': new Date(each.deadline) < new Date() ? 'Close' : 'Open',
-        'All Marked': each.allMarked
+        'All Marked': true
       }
-    )).sort((a, b) => (new Date(a['Due Date']) - new Date(b['Due Date'])));
+    }).sort((a, b) => (new Date(a['Due Date']) - new Date(b['Due Date'])));
     const unScoreAss = [];
     state.homeworks.forEach((each) => {
-      if (each.score === null){
+      if (each.score === null || each.score ==="" && unScoreAss.indexOf(each.assignmentName)=== -1){
         unScoreAss.push(each.assignmentName);
       }
     });
     table.Rows.forEach((eachAss,index) => {
       eachAss['#'] = (index + 1);
       if (unScoreAss.indexOf(eachAss.Assignment) !== -1){
-        eachAss.Score = false;
+        table.Rows[index]['All Marked'] = false
       }
     });
-
     return ObjectAssign({}, state, {
       loading: false,
       assignmentTable: table

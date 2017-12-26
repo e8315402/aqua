@@ -23,6 +23,7 @@ class Grading extends Component {
     Actions.getResults(query);
 
     this.mark = this.mark.bind(this);
+    this.downloadPage = this.downloadPage.bind(this);
     this.state = Object.assign(this.state, Store.getState());
   }
   componentDidMount() {
@@ -46,6 +47,9 @@ class Grading extends Component {
     this.setState({
       scoreTable: this.state.scoreTable.concat([]).filter((each) => each.studentId !== studentId).concat([scorePair])
     });
+  }
+  downloadPage(filePath) {
+    Actions.downloadFile(filePath);
   }
   mark(){
     const assignmentInfo = Qs.parse(this.props.location.search.substring(1));
@@ -88,8 +92,14 @@ class Grading extends Component {
                               [
                                 <td key='0'>{eachRow.studentId}</td>,
                                 <td key='1'>{eachRow.studentName}</td>,
-                                <td key='2'>{eachRow.filePath.split('/')[4]}</td>,
-                                (eachRow.score) ? <td key='4'>{eachRow.score}</td> : <td key='4'><input onBlur={this.setScore.bind(this,eachRow.studentId)} type="number" min={0} max={100} name="score" size="3" /></td>
+                                <td key='2'><Button bsStyle="link" onClick={this.downloadPage.bind(this, eachRow['filePath'])}>{eachRow['filePath'].split('\\').pop()}</Button></td>,
+                                (eachRow.score) ? 
+                                <td key='4'>
+                                  {eachRow.score}
+                                </td>
+                                :<td key='4'>
+                                  <input onBlur={this.setScore.bind(this,eachRow.studentId)} type="number" min={0} max={100} name="score" size="3" />
+                                </td>
                               ]
                             }
                             </tr>

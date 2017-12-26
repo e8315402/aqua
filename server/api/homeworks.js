@@ -32,11 +32,10 @@ internals.applyRoutes = function (server, next) {
       if (request.auth.credentials.user.roles.student){
         query.studentId = request.auth.credentials.user.roles.student.studentId;
       }
-      if (request.auth.credentials.user.roles.instructor){
+      if (request.auth.credentials.user.roles.instructor && request.query.assignmentName){ 
         query.assignmentName = request.query.assignmentName;
       }
       Homework.find(query, (err, homeworks) => {
-
         if (err) {
           return reply(err);
         }

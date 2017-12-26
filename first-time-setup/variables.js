@@ -117,7 +117,7 @@ module.exports.assignments = [
     courseName: 'Object-Oriented Analysis and Design',
     assignmentName: 'Assignment 1',
     description: 'This is assignment, this time you need to ...',
-    deadline: '2017-02-29'
+    deadline: '2017-02-20'
   },
   {
     courseName: 'Object-Oriented Analysis and Design',
@@ -353,6 +353,8 @@ module.exports.homeworks = [
   { // 105598055 - Pattern-Oriented Software Design - Assignment 1 - 50
     filePath : '.\\PASS\\Pattern-Oriented Software Design\\assignment 1\\105598055.txt',
     studentId : '105598055',
+    studentName : 'joe',
+    
     courseName : 'Pattern-Oriented Software Design',
     assignmentName : 'Assignment 1',
     score: 50
