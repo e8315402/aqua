@@ -6,7 +6,8 @@ class CourseCard extends React.Component{
       <div className="card card-course box-shadow-effects">
         <a href={this.props.courseLink}>
           <div className="image">
-            <img src={this.props.bgImage} alt="..."/>
+            {/* <img src={this.props.bgImage} alt="..."/> */}
+            <img src={'http://127.0.0.1:8000/public/media/bg-book.jpg'} alt="..."/>
           </div>
           <div className="content">
             <div className="author">

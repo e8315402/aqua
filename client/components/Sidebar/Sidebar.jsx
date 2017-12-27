@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
-import sidebarBg from 'assets/img/sidebar.jpg';
-import logo from 'assets/img/homework256.png';
+// import sidebarBg from 'assets/img/sidebar.jpg';
+// import logo from 'assets/img/homework256.png';
+
+const logo = 'http://127.0.0.1:8000/public/media/homework.png'
+const sidebarBg = 'http://127.0.0.1:8000/public/media/sidebar-2.jpg'
 
 class Sidebar extends Component{
   constructor(props){
@@ -29,8 +32,7 @@ class Sidebar extends Component{
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions.bind(this));
-  }
-  render(){
+  }  render(){
     const sidebarBackground = {
       backgroundImage: `url(${sidebarBg})`
     };

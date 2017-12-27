@@ -10,7 +10,6 @@ import { CourseCard } from 'components/CourseCard/CourseCard.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 import Checkbox from 'elements/CustomCheckbox/CustomCheckbox.jsx';
 
-import color from 'assets/img/bg-book.jpg';
 import { course } from 'variables/Variables.jsx';
 import logo from 'assets/img/homework256.png';
 
@@ -231,7 +230,6 @@ class Dashboard extends Component {
                   <div key={key} className="col-sm-6 col-md-4 col-lg-3">
                     <CourseCard
                       courseLink={key === 0 ? '#/assignments' : '#/table'}
-                      bgImage={color}
                       courseName={eachCourse.courseName}
                       description={
                         <span>

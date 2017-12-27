@@ -128,7 +128,7 @@ class Assignments extends Component {
                     </FormGroup>
                   </Col>
                   <Col xs={12} sm={6} md={1}>
-                    <Button type="submit">Create</Button>
+                    <Button id="createAssignment" type="submit">Create</Button>
                   </Col>
                 </Row>
               </Form>

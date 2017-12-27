@@ -125,7 +125,7 @@ class LoginPage extends React.Component {
               </form>
             </div>
             <div className="col-sm-6" style={{ 'textAlign':'center' }}>
-              <img src="/public/pages/homework256.png" alt="logo_image" height="160px"/>
+              <img src="http://127.0.0.1:8000/public/media/homework256.png" alt="logo_image" height="160px"/>
             </div>
           </div>
         </div>
