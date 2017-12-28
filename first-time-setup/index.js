@@ -8,7 +8,7 @@ const Students = require('./variables').students;
 const Homeworks = require('./variables').homeworks;
 const Instructors = require('./variables').instructors;
 const Fs = require('fs');
-
+const Path = require('path');
 
 Async.auto({
   mongodbUri: (done) => {
@@ -288,9 +288,10 @@ Async.auto({
           eachFolders.shift();
           const file = eachFolders.pop();
           Async.reduce(eachFolders, '.', (parent, each, __cb) => {
-            const folderPath = parent + '\\' + each;
+            const folderPath = Path.join(parent, each);
+            console.log(folderPath);
             if (!Fs.existsSync(folderPath)) {
-              Fs.mkdir(folderPath, (err) => __cb(err, folderPath));
+              Fs.mkdir(folderPath, (err) => setTimeout(__cb.bind(this, err, folderPath), 800));
             }
             else {
               __cb(null, folderPath);
