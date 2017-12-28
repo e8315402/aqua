@@ -52,11 +52,28 @@ const reducer = function (state = initialState, action) {
       }
     }).sort((a, b) => (new Date(a['Due Date']) - new Date(b['Due Date'])));
     const unScoreAss = [];
-    state.homeworks.forEach((each) => {
-      if (each.score === null || each.score ==="" && unScoreAss.indexOf(each.assignmentName)=== -1){
-        unScoreAss.push(each.assignmentName);
+
+    // state.homeworks.forEach((each) => {
+    //   if (each.score === undefined || each.score ==="" && unScoreAss.indexOf(each.assignmentName)=== -1){
+    //     unScoreAss.push(each.assignmentName);
+    //   }
+    // });
+// //
+    table.Rows.forEach((each)=>{
+      let isNotfound = true
+      state.homeworks.forEach((eachH,index)=>{
+        if (eachH.score === undefined || eachH.score ==="" && unScoreAss.indexOf(eachH.assignmentName)=== -1){
+          unScoreAss.push(eachH.assignmentName);
+        }
+        if(each.Assignment === eachH.assignmentName){
+          isNotfound = false
+        }
+      })
+      if(isNotfound){
+        unScoreAss.push(each.Assignment);
       }
-    });
+    })
+//
     table.Rows.forEach((eachAss,index) => {
       eachAss['#'] = (index + 1);
       if (unScoreAss.indexOf(eachAss.Assignment) !== -1){
@@ -71,6 +88,5 @@ const reducer = function (state = initialState, action) {
 
   return state;
 };
-
 
 module.exports = reducer;
