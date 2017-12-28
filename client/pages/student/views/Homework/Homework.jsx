@@ -122,8 +122,8 @@ class Homework extends React.Component {
               </Modal.Body>
               <Modal.Footer>
                 <FileUpload options={options}>
-                  <Button ref="chooseBtn" {...this.state.chooseFile ? { bsStyle: 'success' } : {}} >{this.state.chooseFile ? `You choose ${this.state.chooseFile}` : 'Choose File'}</Button>&nbsp;
-                  <Button ref="uploadBtn">Upload</Button>&nbsp;
+                  <Button id="chooseBtn" ref="chooseBtn" {...this.state.chooseFile ? { bsStyle: 'success' } : {}} >{this.state.chooseFile ? `You choose ${this.state.chooseFile}` : 'Choose File'}</Button>&nbsp;
+                  <Button id="uploadBtn" ref="uploadBtn">Upload</Button>&nbsp;
                   <Button onClick={this.close}>Close</Button>
                 </FileUpload>
               </Modal.Footer>

@@ -1,4 +1,3 @@
-
 const Constants = require('../constants');
 const ObjectAssign = require('object-assign');
 const Moment = require('moment');
@@ -8,7 +7,8 @@ const initialState = {
   error: undefined,
   homeworks: undefined,
   assignments: undefined,
-  assignmentTable: undefined
+  assignmentTable: undefined,
+  chartData: undefined
 };
 const reducer = function (state = initialState, action) {
 
@@ -53,16 +53,10 @@ const reducer = function (state = initialState, action) {
     }).sort((a, b) => (new Date(a['Due Date']) - new Date(b['Due Date'])));
     const unScoreAss = [];
 
-    // state.homeworks.forEach((each) => {
-    //   if (each.score === undefined || each.score ==="" && unScoreAss.indexOf(each.assignmentName)=== -1){
-    //     unScoreAss.push(each.assignmentName);
-    //   }
-    // });
-// //
     table.Rows.forEach((each)=>{
       let isNotfound = true
       state.homeworks.forEach((eachH,index)=>{
-        if (eachH.score === undefined || eachH.score ==="" && unScoreAss.indexOf(eachH.assignmentName)=== -1){
+        if (eachH.score === undefined || eachH.score === null || eachH.score ==="" && unScoreAss.indexOf(eachH.assignmentName)=== -1){
           unScoreAss.push(eachH.assignmentName);
         }
         if(each.Assignment === eachH.assignmentName){
@@ -73,16 +67,70 @@ const reducer = function (state = initialState, action) {
         unScoreAss.push(each.Assignment);
       }
     })
-//
+
     table.Rows.forEach((eachAss,index) => {
       eachAss['#'] = (index + 1);
       if (unScoreAss.indexOf(eachAss.Assignment) !== -1){
         table.Rows[index]['All Marked'] = false
       }
     });
+    //intit chartData//
+    
+    let chart = {}
+    let data = []
+    let labels = []
+    table.Rows.forEach((each)=>{
+      labels.push(each.Assignment)
+      chart[each.Assignment] = []
+    })
+    state.homeworks.forEach((each)=>{
+      chart[each.assignmentName].push(each.score)
+    })
+    Object.keys(chart).forEach((eachkey)=>{
+      let total = 0 
+      console.log(eachkey)
+      console.log(chart[eachkey].length)
+      
+      chart[eachkey].forEach((score,index)=>{
+        console.log(chart[eachkey][index])
+        total += chart[eachkey][index]
+      })
+      if(chart[eachkey].length===0){
+        data.push(0)
+      }else{
+        let avg = total /chart[eachkey].length
+        data.push(avg)
+      }
+      
+    })
+    //intit chartData END//
     return ObjectAssign({}, state, {
       loading: false,
-      assignmentTable: table
+      assignmentTable: table,
+      chartData:{
+        labels: labels,
+        datasets: [{
+            label: '# of Votes',
+            data: data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+      }
     });
   }
 

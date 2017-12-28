@@ -29,6 +29,9 @@ class Homework extends MongoModels {
       assignmentName,
       studentId
     };
+    if(typeof score ==='string'){
+      score = Number(score)
+    }
     const update = {
       $set: {
         score
