@@ -87,13 +87,12 @@ const reducer = function (state = initialState, action) {
       chart[each.assignmentName].push(each.score)
     })
     Object.keys(chart).forEach((eachkey)=>{
-      let total = 0 
-      console.log(eachkey)
-      console.log(chart[eachkey].length)
-      
+
+      let total = 0       
       chart[eachkey].forEach((score,index)=>{
-        console.log(chart[eachkey][index])
-        total += chart[eachkey][index]
+        if(score){
+          total += score
+        }
       })
       if(chart[eachkey].length===0){
         data.push(0)
@@ -101,7 +100,6 @@ const reducer = function (state = initialState, action) {
         let avg = total /chart[eachkey].length
         data.push(avg)
       }
-      
     })
     //intit chartData END//
     return ObjectAssign({}, state, {

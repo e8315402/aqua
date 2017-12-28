@@ -14,7 +14,7 @@ const chartOptions = {
   scales: {
       yAxes: [{
           ticks: {
-              beginAtZero:false
+              beginAtZero:true
           }
       }]
   }
