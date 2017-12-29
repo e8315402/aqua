@@ -216,7 +216,7 @@ Homework Should be download
     ${path1}    ${path2}    Split Path    ${TEMPDIR}
     ${path3}    ${path4}    Split Path    ${path1}
     ${path5}    ${path6}    Split Path    ${path3}
-    sleep    1s
+    sleep    2s
     File Should Exist    ${path5}${/}Downloads${/}${fileName}
     Remove File    ${path5}${/}Downloads${/}${fileName}
 
