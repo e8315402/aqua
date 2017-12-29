@@ -173,17 +173,42 @@ Resubmit homework (Student)
     Click Element    //*[@id="uploadBtn"]
     Wait Until Page Contains Element    //button[text()='106598054.txt']
     Element Should Be Visible    //span[@class="glyphicon glyphicon-ok"]
-    sleep    1s
+    Logout
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Wait Until Page Contains Element    //button[text()='Sign in']
+    Login    CH Liu    205598055
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //td/a[text()='Assignment 4']
+    Click Element    //td/a[text()='Assignment 4']
+    Wait Until Page Contains Element    //button[text()='Grading']
+    Click Button   //button[text()="106598054.txt"]
+    Homework Should be download    106598054.txt
+    Logout
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Wait Until Page Contains Element    //button[text()='Sign in']
+    Login    andy    106598054
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //button[@class='btn btn-default']
     Click Element    //button[@class='btn btn-default']
     Wait Until Page Contains Element    //button[text()='Choose File']
-    Choose file    xpath=.//div/input    ${CURDIR}${/}106598054.txt
+    Choose file    xpath=.//div/input    ${CURDIR}${/}106598054_2.txt
     Wait Until Page Contains Element    //*[@id="uploadBtn"]
     Click Element    //*[@id="uploadBtn"]
-    Wait Until Page Contains Element    //button[text()='106598054.txt']
+    Wait Until Page Contains Element    //button[text()='106598054_2.txt']
     Element Should Be Visible    //span[@class="glyphicon glyphicon-ok"]
-    sleep    1s
-    Click Element    //button[text()='106598054.txt']
-    Homework Should be download    106598054.txt
+    Logout
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Wait Until Page Contains Element    //button[text()='Sign in']
+    Login    CH Liu    205598055
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //td/a[text()='Assignment 4']
+    Click Element    //td/a[text()='Assignment 4']
+    Wait Until Page Contains Element    //button[text()='Grading']
+    Click Button   //button[text()="106598054_2.txt"]
+    Homework Should be download    106598054_2.txt
     Logout
     First Time Setup
 
@@ -194,7 +219,7 @@ Go to Course Home
     Select window    Software Engineering
     Title Should Be    Software Engineering
     Select window    Programming Assignment Submission System
-    logout
+    Log out
 
 My Assignment Page (Andy)
     Login    Andy    106598054
@@ -208,13 +233,7 @@ My Assignment Page (Andy)
     Element Text Should Be    //*[@id="main-panel"]//*/tr[2]/td[6]    -
     Element Text Should Be    //*[@id="main-panel"]//*/tr[3]/td[6]    -
     Element Text Should Be    //*[@id="main-panel"]//*/tr[4]/td[6]    -
-    logout
-
-My Assignment Page (James)
-    log    i am not andy
-
-My Assignment Page (Joe)
-    log    i am not andy
+    Log out
 
 *** Keywords ***
 Setup
@@ -248,8 +267,6 @@ Homework Should be download
     sleep    2s
     File Should Exist    ${path5}${/}Downloads${/}${fileName}
     Remove File    ${path5}${/}Downloads${/}${fileName}
-
-submit homework
 
 First Time Setup
     ${path}    ${path2}    Split Path    ${CURDIR}
