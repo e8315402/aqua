@@ -1,0 +1,228 @@
+*** Settings ***
+Suite Setup       First Time Setup
+Test Setup        Setup
+Test Teardown     Close Browser
+Library           Selenium2Library
+Library           OperatingSystem
+
+*** Test Cases ***
+Login without Username
+    Login    \    205598054
+    Element Text Should Be    //*[@id="app-mount"]/div/section/div/div/div[1]/form/fieldset/div[1]/span    "username" is not allowed to be empty
+    sleep    3s
+
+Login without Password
+    Input Text    name=username    YC Chang
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div[1]/form/fieldset/div[3]/button
+    Element Should Contain    //*[@id="app-mount"]/div/section/div/div/div[1]/form/fieldset/div[2]/span    "password" is not allowed to be empty
+
+Login with invalid user
+    Login    Tom    123456789
+    Element Text Should Be    //*[@id="app-mount"]/div/section/div/div/div[1]/form/div    Username and password combination not found or account is inactive.
+
+Login with wrong password
+    Login    andy    106598055
+    sleep    1s
+    Element Text Should Be    //*[@id="app-mount"]/div/section/div/div/div[1]/form/div    Username and password combination not found or account is inactive.
+
+Login after Logout
+    Login    YC Chang    205598047
+    Wait Until Page Contains Element    id=logoutBtn
+    Log out
+    Wait Until Page Contains Element    //*[@id="app-mount"]/div/section/div/div/div/div
+    Element Text Should Be    //*[@id="app-mount"]/div/section/div/div/div/div    Logout successful.
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Login    YC Chang    205598047
+    Wait Until Page Contains Element    //*[@id="sidebar"]/div[2]/a[2]
+    Element Text Should Be    //*[@id="sidebar"]/div[2]/a[2]    ASSIGNMENT SUBMISSION
+    Log out
+
+My Course Page (YC)
+    Login    YC Chang    205598047
+    CoureInfo Should Be    Pattern-Oriented Software Design    YC Chang    Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00
+    sleep    1s
+    Log out
+
+My Course Page (CH)
+    Login    CH Liu    205598055
+    CoureInfo Should Be    Software Engineering    CH Liu    Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00
+    sleep    1s
+    Logout
+
+My Course Page (WK)
+    Login    WK Chen    205598054
+    CoureInfo Should Be    Object-Oriented Analysis and Design    WK Chen    Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00
+    sleep    1s
+    Log out
+
+Download student homework (Instructor)
+    Login    CH Liu    205598055
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[1]/td[2]/a
+    sleep    1s
+    Click Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[2]/a
+    sleep    1s
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[2]/td[3]/button
+    Homework Should be download    105598055.txt
+    Log out
+
+Cannot submit after due date (Student)
+    Login    andy    106598054
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //button[@class='btn btn-default']
+    Element Should Be Visible    //span[@class="glyphicon glyphicon-remove"]
+    Logout
+
+Download own homework (Student)
+    Login    james    105598047
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div[2]
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div[2]
+    sleep    1s
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[1]/td[6]/button
+    Homework Should be download    105598047.txt
+    Log out
+
+Create Assignment (Instructor)
+    Login    YC Chang    205598047
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div[1]/div/div[2]/div[1]/button
+    Wait Until Element Is Visible    //*[@id="main-panel"]/div/div/div/div[1]/div/div[2]/div[1]/button
+    Click Button    //*[@id="main-panel"]/div/div/div/div[1]/div/div[2]/div[1]/button
+    sleep    1s
+    Input Text    //*[@id="formControlsText"]    test assignment
+    Input Text    //*[@id="formControlsTextarea"]    test assignment description
+    sleep    1s
+    Click Button    //*[@id="createAssignment"]
+    Wait Until Element Is Visible    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[7]/td[2]/a    timeout=5s
+    Element Should Contain    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[7]/td[2]/a    test assignment
+    Logout
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Login    joe    105598055
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div[1]
+    sleep    1s
+    Element Should Contain    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[7]/td[2]    test assignment
+    Logout
+    First Time Setup
+
+Submit Homework (Student)
+    Login    andy    106598054
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //button[@class='btn btn-default']
+    Click Element    //button[@class='btn btn-default']
+    sleep    1s
+    Choose file    xpath=.//div/input    ${CURDIR}${/}106598054.txt
+    sleep    1s
+    Click Element    //*[@id="uploadBtn"]
+    Wait Until Page Contains Element    //button[text()='106598054.txt']
+    Element Should Be Visible    //span[@class="glyphicon glyphicon-ok"]
+    Logout
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Wait Until Page Contains Element    //button[text()='Sign in']
+    Login    CH Liu    205598055
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //td/a[text()='Assignment 4']
+    Click Element    //td/a[text()='Assignment 4']
+    Wait Until Page Contains Element    //button[text()='Grading']
+    Element Should Be Visible    //button[@class='btn btn-link']
+    Logout
+    First Time Setup
+
+Grading Student homework (Instructor)
+    Login    CH Liu    205598055
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[1]/td[2]/a
+    Element Should Be Visible    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[5]/span[contains(@class,"glyphicon glyphicon-remove")]
+    Click Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[2]/a
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[1]/td[4]/input
+    Input Text    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[1]/td[4]/input    50
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[2]/button
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[2]/a
+    Click Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[2]/a
+    sleep    1s
+    Element Text Should Be    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[1]/td[4]    50
+    Input Text    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[2]/td[4]/input    90
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[2]/button
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[5]/span[contains(@class,"glyphicon glyphicon-ok")]
+    Element Should Be Visible    //*[@id="main-panel"]/div/div/div/div[2]/div/div[2]/div[1]/table/tbody/tr[3]/td[5]/span[contains(@class,"glyphicon glyphicon-ok")]
+    Log out
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
+    Login    joe    105598055
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div
+    Click Element    //*[@id="main-panel"]/div/div/div/div/div[2]/div/a/div[2]
+    Wait Until Page Contains Element    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[3]/td[5]
+    Element Text Should Be    //*[@id="main-panel"]/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[3]/td[5]    90
+    Log out
+    First Time Setup
+
+Resubmit homework (Student)
+    Login    andy    106598054
+    Wait Until Page Contains Element    //div[@class='card card-course box-shadow-effects']
+    Click Element    //div[@class='card card-course box-shadow-effects']
+    Wait Until Page Contains Element    //button[@class='btn btn-default']
+    Click Element    //button[@class='btn btn-default']
+    sleep    1s
+    Choose file    xpath=.//div/input    ${CURDIR}${/}106598054.txt
+    sleep    1s
+    Click Element    //*[@id="uploadBtn"]
+    Wait Until Page Contains Element    //button[text()='106598054.txt']
+    Element Should Be Visible    //span[@class="glyphicon glyphicon-ok"]
+    sleep    1s
+    Click Element    //button[@class='btn btn-default']
+    Wait Until Page Contains Element    //button[text()='Choose File']
+    Choose file    xpath=.//div/input    ${CURDIR}${/}106598054.txt
+    Wait Until Page Contains Element    //*[@id="uploadBtn"]
+    Click Element    //*[@id="uploadBtn"]
+    Wait Until Page Contains Element    //button[text()='106598054.txt']
+    Element Should Be Visible    //span[@class="glyphicon glyphicon-ok"]
+    sleep    1s
+    Click Element    //button[text()='106598054.txt']
+    Homework Should be download    106598054.txt
+    Logout
+    First Time Setup
+
+*** Keywords ***
+Setup
+    Open Browser    http://127.0.0.1:8000    chrome
+    Maximize Browser Window
+
+CoureInfo Should Be
+    [Arguments]    ${courseName}    ${instructorName}    ${courseTime}
+    sleep    1s
+    Element Text Should Be    //*[@id="main-panel"]/div/div/div/div/div/div/a/div[2]/div/h4/b    ${courseName}
+    Element Should Contain    //*[@id="main-panel"]/div/div/div/div/div/div/a/div[2]/p/span    ${instructorName}
+    Element Should Contain    //*[@id="main-panel"]/div/div/div/div/div/div/a/div[2]/p/span    ${courseTime}
+
+Login
+    [Arguments]    ${username}    ${password}
+    Wait Until Page Contains Element    //*[@id="app-mount"]/div/section/div/div/div[1]/form/fieldset/div[3]/button
+    Input Text    name=username    ${username}
+    Input Text    name=password    ${password}
+    Click Element    //*[@id="app-mount"]/div/section/div/div/div[1]/form/fieldset/div[3]/button
+
+Log out
+    sleep    1s
+    Click Element    id=logoutBtn
+    sleep    2s
+
+Homework Should be download
+    [Arguments]    ${fileName}
+    ${path1}    ${path2}    Split Path    ${TEMPDIR}
+    ${path3}    ${path4}    Split Path    ${path1}
+    ${path5}    ${path6}    Split Path    ${path3}
+    sleep    1s
+    File Should Exist    ${path5}${/}Downloads${/}${fileName}
+    Remove File    ${path5}${/}Downloads${/}${fileName}
+
+submit homework
+
+First Time Setup
+    ${path}    ${path2}    Split Path    ${CURDIR}
+    ${result}    Run    cd ${path}&npm run first-time-setup
+    log    ${result}
