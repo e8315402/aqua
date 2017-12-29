@@ -1,7 +1,7 @@
 *** Settings ***
 Suite Setup       First Time Setup
 Test Setup        Setup
-Test Teardown     Close Browser
+Test Teardown     Close All Browsers
 Library           Selenium2Library
 Library           OperatingSystem
 
@@ -187,6 +187,35 @@ Resubmit homework (Student)
     Logout
     First Time Setup
 
+Go to Course Home
+    Login    James    105598047
+    Wait Until Page Contains Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
+    Click Element    //*[@id="main-panel"]//*[contains(@href,"http://www.cc.ntut.edu.tw/~cliu/courses/se/se.htm")]
+    Select window    Software Engineering
+    Title Should Be    Software Engineering
+    Select window    Programming Assignment Submission System
+    logout
+
+My Assignment Page (Andy)
+    Login    Andy    106598054
+    Wait Until Page Contains Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
+    Click Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
+    Wait Until Page Contains Element    //*[@id="main-panel"]//*/h4[text()="Software Engineering"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[1]/td[4]/span[@class="glyphicon glyphicon-remove"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[2]/td[4]/span[@class="glyphicon glyphicon-remove"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[3]/td[4]/span[@class="glyphicon glyphicon-remove"]
+    Element Text Should Be    //*[@id="main-panel"]//*/tr[1]/td[6]    -
+    Element Text Should Be    //*[@id="main-panel"]//*/tr[2]/td[6]    -
+    Element Text Should Be    //*[@id="main-panel"]//*/tr[3]/td[6]    -
+    Element Text Should Be    //*[@id="main-panel"]//*/tr[4]/td[6]    -
+    logout
+
+My Assignment Page (James)
+    log    i am not andy
+
+My Assignment Page (Joe)
+    log    i am not andy
+
 *** Keywords ***
 Setup
     Open Browser    http://127.0.0.1:8000    chrome
@@ -207,7 +236,7 @@ Login
     Click Element    //*[@id="app-mount"]/div/section/div/div/div[1]/form/fieldset/div[3]/button
 
 Log out
-    sleep    1s
+    sleep    2s
     Click Element    id=logoutBtn
     sleep    2s
 
