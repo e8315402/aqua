@@ -1,5 +1,6 @@
 *** Settings ***
 Suite Setup       First Time Setup
+Suite Teardown
 Test Setup        Setup
 Test Teardown     Close All Browsers
 Library           Selenium2Library
@@ -53,6 +54,21 @@ My Course Page (WK)
     Login    WK Chen    205598054
     CoureInfo Should Be    Object-Oriented Analysis and Design    WK Chen    Wed 09:00 ~ 10:00, Fri 10:00 ~ 12:00
     sleep    1s
+    Log out
+
+My Assignment Page (Joe)
+    Login    Joe    105598055
+    Wait Until Page Contains Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
+    Click Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
+    Wait Until Page Contains Element    //*[@id="main-panel"]//*/h4[text()="Software Engineering"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[1]/td[4]/span[@class="glyphicon glyphicon-ok"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[2]/td[4]/span[@class="glyphicon glyphicon-ok"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[3]/td[4]/span[@class="glyphicon glyphicon-ok"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[4]/td[4]/button[text()="Submit"]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[1]/td[5][text()=99]
+    Element Should Be Visible    //*[@id="main-panel"]//*/tr[2]/td[5][text()=75]
+    Element Text Should Be    //*[@id="main-panel"]//*/tr[3]/td[6]    105598055.txt
+    Element Text Should Be    //*[@id="main-panel"]//*/tr[4]/td[6]    105598055.txt
     Log out
 
 Download student homework (Instructor)
@@ -182,7 +198,7 @@ Resubmit homework (Student)
     Wait Until Page Contains Element    //td/a[text()='Assignment 4']
     Click Element    //td/a[text()='Assignment 4']
     Wait Until Page Contains Element    //button[text()='Grading']
-    Click Button   //button[text()="106598054.txt"]
+    Click Button    //button[text()="106598054.txt"]
     Homework Should be download    106598054.txt
     Logout
     Click Element    //*[@id="app-mount"]/div/section/div/div/div/a
@@ -207,7 +223,7 @@ Resubmit homework (Student)
     Wait Until Page Contains Element    //td/a[text()='Assignment 4']
     Click Element    //td/a[text()='Assignment 4']
     Wait Until Page Contains Element    //button[text()='Grading']
-    Click Button   //button[text()="106598054_2.txt"]
+    Click Button    //button[text()="106598054_2.txt"]
     Homework Should be download    106598054_2.txt
     Logout
     First Time Setup
@@ -219,20 +235,6 @@ Go to Course Home
     Select window    Software Engineering
     Title Should Be    Software Engineering
     Select window    Programming Assignment Submission System
-    Log out
-
-My Assignment Page (Andy)
-    Login    Andy    106598054
-    Wait Until Page Contains Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
-    Click Element    //*[@id="main-panel"]//*[text()="Software Engineering"]
-    Wait Until Page Contains Element    //*[@id="main-panel"]//*/h4[text()="Software Engineering"]
-    Element Should Be Visible    //*[@id="main-panel"]//*/tr[1]/td[4]/span[@class="glyphicon glyphicon-remove"]
-    Element Should Be Visible    //*[@id="main-panel"]//*/tr[2]/td[4]/span[@class="glyphicon glyphicon-remove"]
-    Element Should Be Visible    //*[@id="main-panel"]//*/tr[3]/td[4]/span[@class="glyphicon glyphicon-remove"]
-    Element Text Should Be    //*[@id="main-panel"]//*/tr[1]/td[6]    -
-    Element Text Should Be    //*[@id="main-panel"]//*/tr[2]/td[6]    -
-    Element Text Should Be    //*[@id="main-panel"]//*/tr[3]/td[6]    -
-    Element Text Should Be    //*[@id="main-panel"]//*/tr[4]/td[6]    -
     Log out
 
 *** Keywords ***
