@@ -121,31 +121,6 @@ lab.experiment('Courses Plugin Result List', () => {
         });
     });
 
-    lab.test('it returns fail when the query is not exist', (done) => {
-        server.inject(request, (response) => {
-            Code.expect(response.statusCode).to.equal(400);
-            done();
-        });
-    });
-
-    lab.test('it returns fail when the id is invalid', (done) => {
-        request.url += '?type=student&id=10559806';
-
-        server.inject(request, (response) => {
-            Code.expect(response.statusCode).to.equal(400);
-            done();
-        });
-    });
-
-    lab.test('it returns fail when the type is invalid', (done) => {
-        request.url += '?type=studentt&id=105598064';
-
-        server.inject(request, (response) => {
-            Code.expect(response.statusCode).to.equal(400);
-            done();
-        });
-    });
-
     lab.test('it returns an array of course of the instructor', (done) => {
         const realFindByStudentId = stub.Course.findByStudentId;
 
