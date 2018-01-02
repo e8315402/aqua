@@ -18,6 +18,7 @@ Gulp.task('nodemon', () => {
       'client/**/*',
       'gulp/**/*',
       'public/**/*',
+      'PASS_AT/**/*',
       'node_modules/**/*'
     ],
     nodeArgs
