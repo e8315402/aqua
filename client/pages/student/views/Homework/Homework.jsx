@@ -162,8 +162,8 @@ class Homework extends React.Component {
                                   }
                                 }
                                 if (eachHeader === 'File') {
-                                  if(eachRow['File'] === '-'){
-                                    return <td key={cellIndex}> - </td>
+                                  if (eachRow.File === '-'){
+                                    return <td key={cellIndex}> - </td>;
                                   }
                                   return (<td key={cellIndex}><Button bsStyle="link" onClick={this.downloadPage.bind(this, eachRow[eachHeader])}>{eachRow[eachHeader].split('\\').pop()}</Button></td>);
                                 }

@@ -8,17 +8,17 @@ import Actions from './actions';
 import Store from './store';
 import Qs from 'qs';
 import PropTypes from 'prop-types';
-const LineChart = require("react-chartjs").Line;
+import { Line } from 'react-chartjs-2';
 
 const chartOptions = {
   scales: {
-      yAxes: [{
-          ticks: {
-              beginAtZero:true
-          }
-      }]
+    yAxes: [{
+      ticks: {
+        beginAtZero:true
+      }
+    }]
   }
-}
+};
 const propTypes = {
   location: PropTypes.object
 };
@@ -99,7 +99,7 @@ class Assignments extends Component {
     }
 
     const table = this.state.results.assignmentTable;
-    const chartData = this.state.results.chartData
+    const chartData = this.state.results.chartData;
     return (
       <div className="content">
         <div className="container-fluid">
@@ -153,7 +153,7 @@ class Assignments extends Component {
                   <Button bsStyle="primary" onClick={this.openModal}>Create an New Assignment</Button>
                 }
               />
-              <LineChart data={chartData} options={chartOptions} width="1500%" height="250"/>
+              <Line data={chartData} options={chartOptions} width="1500%" height="250"/>
             </Col>
             <Col sm={12}>
               <Card

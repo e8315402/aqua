@@ -301,7 +301,7 @@ Async.auto({
               _cb(err);
             }
             else {
-              Fs.writeFile(folderPath + '\\' +  file, 'Hey there!', _cb);
+              Fs.writeFile(Path.join(folderPath, file), 'Hey there!', _cb);
             }
           });
         }, done);

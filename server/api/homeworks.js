@@ -32,7 +32,7 @@ internals.applyRoutes = function (server, next) {
       if (request.auth.credentials.user.roles.student){
         query.studentId = request.auth.credentials.user.roles.student.studentId;
       }
-      if (request.auth.credentials.user.roles.instructor && request.query.assignmentName){ 
+      if (request.auth.credentials.user.roles.instructor && request.query.assignmentName){
         query.assignmentName = request.query.assignmentName;
       }
       Homework.find(query, (err, homeworks) => {
@@ -80,7 +80,7 @@ internals.applyRoutes = function (server, next) {
           return reply(err);
         };
 
-        Homework.create(request.payload.courseName, request.payload.assignmentName, studentId, studentName, path, (err, result) => {
+        Homework.create(request.payload.courseName, request.payload.assignmentName, studentId, studentName, path.replace(new RegExp('/', 'g'), '\\\\'), (err, result) => {
           if (err) {
             return reply(err);
           }

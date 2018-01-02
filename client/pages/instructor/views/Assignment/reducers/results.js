@@ -43,77 +43,81 @@ const reducer = function (state = initialState, action) {
       Headers: ['#','Assignment','Due Date','Status','All Marked']
     };
     table.CourseName = state.assignments[0].courseName;
-    table.Rows = state.assignments.map(function(each,index){
+    table.Rows = state.assignments.map((each,index) => {
       return {
         'Assignment': each.assignmentName,
         'Due Date':  dueDateFormatter(each.deadline),
         'Status': new Date(each.deadline) < new Date() ? 'Close' : 'Open',
         'All Marked': true
-      }
+      };
     }).sort((a, b) => (new Date(a['Due Date']) - new Date(b['Due Date'])));
     const unScoreAss = [];
 
-    table.Rows.forEach((each)=>{
-      let isNotfound = true
-      state.homeworks.forEach((eachH,index)=>{
-        if (eachH.score === undefined || eachH.score === null || eachH.score ==="" && unScoreAss.indexOf(eachH.assignmentName)=== -1){
+    table.Rows.forEach((each) => {
+      let isNotfound = true;
+      state.homeworks.forEach((eachH,index) => {
+        if (eachH.score === undefined || eachH.score === null || eachH.score === '' && unScoreAss.indexOf(eachH.assignmentName) === -1){
           unScoreAss.push(eachH.assignmentName);
         }
-        if(each.Assignment === eachH.assignmentName){
-          isNotfound = false
+        if (each.Assignment === eachH.assignmentName){
+          isNotfound = false;
         }
-      })
-      if(isNotfound){
+      });
+      if (isNotfound){
         unScoreAss.push(each.Assignment);
       }
-    })
+    });
 
     table.Rows.forEach((eachAss,index) => {
       eachAss['#'] = (index + 1);
       if (unScoreAss.indexOf(eachAss.Assignment) !== -1){
-        table.Rows[index]['All Marked'] = false
+        table.Rows[index]['All Marked'] = false;
       }
     });
     //intit chartData//
-    
-    let chart = {}
-    let data = []
-    let labels = []
-    table.Rows.forEach((each)=>{
-      labels.push(each.Assignment)
-      chart[each.Assignment] = []
-    })
-    state.homeworks.forEach((each)=>{
-      chart[each.assignmentName].push(each.score)
-    })
-    Object.keys(chart).forEach((eachkey)=>{
 
-      let total = 0       
-      chart[eachkey].forEach((score,index)=>{
-        if(score){
-          total += score
+    const chart = {};
+    const data = [];
+    const labels = [];
+    table.Rows.forEach((each) => {
+      labels.push(each.Assignment);
+      chart[each.Assignment] = [];
+    });
+    state.homeworks.forEach((each) => {
+      chart[each.assignmentName].push(each.score);
+    });
+    Object.keys(chart).forEach((eachkey) => {
+
+      let total = 0;
+      chart[eachkey].forEach((score,index) => {
+        if (score){
+          total += score;
         }
-      })
-      if(chart[eachkey].length===0){
-        data.push(0)
-      }else{
-        let avg = total /chart[eachkey].length
-        data.push(avg)
+      });
+      if (chart[eachkey].length === 0){
+        data.push(0);
       }
-    })
-    console.log(`[data] ${JSON.stringify(data,null,2)}`)
-    console.log(`[labels] ${JSON.stringify(data,null,2)}`)
-    
+      else {
+        const avg = total / chart[eachkey].length;
+        data.push(avg);
+      }
+    });
+    console.log(`[data] ${JSON.stringify(data,null,2)}`);
+    console.log(`[labels] ${JSON.stringify(data,null,2)}`);
+
     //intit chartData END//
     return ObjectAssign({}, state, {
       loading: false,
       assignmentTable: table,
       chartData:{
-        labels: labels,
+        labels,
         datasets: [{
-            label: '# of Votes',
-            data: data,
-            borderWidth: 1
+          label: 'Average',
+          data,
+          borderWidth: 1,
+          borderColor: [
+            'rgba(54, 162, 235, 1)'
+          ]
         }]
       }
     });

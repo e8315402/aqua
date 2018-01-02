@@ -16,18 +16,15 @@ internals.applyRoutes = function (server, next) {
       },
       validate: {
         query: {
-          // courseName: Joi.string().required(),
-          // assignmentName: Joi.string().required(),
           filePath: Joi.string().required()
         }
       }
     },
     handler: function (request, response) {
-      // const filePath = Path.join('PASS', request.query.courseName, request.query.assignmentName, )
-      response.file(request.query.filePath, { filename: request.query.filePath.split('/').pop(), mode: 'attachment' });
+      const filePathSilce = request.query.filePath.split('\\');
+      const filePath = Path.join(...filePathSilce);
+      response.file(filePath, { filename: request.query.filePath.split('/').pop(), mode: 'attachment' });
     }
-    // handler(request, h) {
-    // }
   });
 
   next();
