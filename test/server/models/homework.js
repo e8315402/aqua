@@ -32,7 +32,7 @@ lab.experiment('Homework Class Methods', () => {
     });
 
     lab.test('it returns a new instance when create succeeds', (done) => {
-        Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].filePath, (err, result) => {
+        Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].studentName, homeworks[0].filePath, (err, result) => {
             Code.expect(err).to.not.exist();
             Code.expect(result).to.be.an.instanceOf(Homework);
             compareHomework(result, homeworks[0]);
@@ -48,7 +48,7 @@ lab.experiment('Homework Class Methods', () => {
             callback(Error('insert failed'));
         };
 
-        Homework.create(homeworks[0].filePath, homeworks[0].studentId, homeworks[0].courseName, homeworks[0].assignmentName, (err, result) => {
+        Homework.create(homeworks[0].filePath, homeworks[0].studentId, homeworks[0].studentName, homeworks[0].courseName, homeworks[0].assignmentName, (err, result) => {
             Code.expect(err).to.be.an.object();
             Code.expect(result).to.not.exist();
             Homework.insertOne = realInsertOne;
@@ -59,7 +59,7 @@ lab.experiment('Homework Class Methods', () => {
     lab.test('it returns a result when finding by studentId, courseName and assignmentName', (done) => {
         Async.auto({
             homework: function (cb) {
-                Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].filePath, cb);
+                Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].studentName, homeworks[0].filePath, cb);
             }
         }, (err, results) => {
             if (err) {
@@ -83,7 +83,7 @@ lab.experiment('Homework Class Methods', () => {
         Async.auto({
             homeworks: function (cb) {
                 Async.concat(homeworks, (homework, _cb) => {
-                    Homework.create(homework.courseName, homework.assignmentName, homework.studentId, homework.filePath, _cb);
+                    Homework.create(homework.courseName, homework.assignmentName, homework.studentId, homeworks[0].studentName, homework.filePath, _cb);
                 }, cb);
             }
         }, (err, results) => {
@@ -106,7 +106,7 @@ lab.experiment('Homework Class Methods', () => {
     lab.test('it should have score after marking it', (done) => {
         Async.auto({
             homework: function (cb) {
-                Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].filePath, cb);
+                Homework.create(homeworks[0].courseName, homeworks[0].assignmentName, homeworks[0].studentId, homeworks[0].studentName, homeworks[0].filePath, cb);
             },
             marks: ['homework', function (results, cb) {
                 Homework.marks(results.homework.courseName, results.homework.assignmentName, results.homework.studentId, homeworks[0].score, cb);
